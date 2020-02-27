@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>concur.widgets API documentation</title>
+<meta name="description" content="A collection of widgets based off of ImGui …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>concur.widgets</code></h1>
+</header>
+<section id="section-intro">
+<p>A collection of widgets based off of ImGui.</p>
+<p>By convention, all widgets take a string identifier as the first parameter, and return the <code>(identifier, value)</code> pair.
+This is done for convenience, as Python syntax for mapping values is a bit busy.</p>
+<p>Most widgets are just thin wrappers over <a href="https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html">widgets in PyImGui</a>.
+If any widget from ImGui is not listed here, it is mostly trivial to add it. New widgets can be created by writing
+generators by hand, or by using helper functions <a title="concur.core.interactive_elem" href="core.html#concur.core.interactive_elem"><code>interactive_elem()</code></a> or <a title="concur.core.lift" href="core.html#concur.core.lift"><code>lift()</code></a>.</p>
+<p>Some widgets (<a title="concur.widgets.transform" href="#concur.widgets.transform"><code>transform()</code></a>, <a title="concur.widgets.key_pressed" href="#concur.widgets.key_pressed"><code>key_pressed()</code></a>, etc.) don't do any drawing and serve purely for control flow, or user interaction.</p>
+<p>All of the functions in this module are re-exported in the root module for convenience.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; A collection of widgets based off of ImGui.
+
+By convention, all widgets take a string identifier as the first parameter, and return the `(identifier, value)` pair.
+This is done for convenience, as Python syntax for mapping values is a bit busy.
+
+Most widgets are just thin wrappers over [widgets in PyImGui](https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html).
+If any widget from ImGui is not listed here, it is mostly trivial to add it. New widgets can be created by writing
+generators by hand, or by using helper functions `concur.core.interactive_elem` or `concur.core.lift`.
+
+Some widgets (`transform`, `key_pressed`, etc.) don&#39;t do any drawing and serve purely for control flow, or user interaction.
+
+All of the functions in this module are re-exported in the root module for convenience.
+&#34;&#34;&#34;
+
+__pdoc__ = dict(same_line=False)
+
+
+import numpy as np # for `transform`
+from typing import Iterable, Any, Tuple
+import imgui
+
+from concur.core import orr, lift, Widget, interactive_elem
+
+
+def orr_same_line(widgets):
+    &#34;&#34;&#34; Use instead of `concur.core.orr` to layout child widgets horizontally instead of vertically. &#34;&#34;&#34;
+    def intersperse(delimiter, seq):
+        &#34;&#34;&#34; https://stackoverflow.com/questions/5655708/python-most-elegant-way-to-intersperse-a-list-with-an-element &#34;&#34;&#34;
+        from itertools import chain, repeat
+        return list(chain.from_iterable(zip(repeat(delimiter), seq)))[1:]
+
+    def group(widget):
+        return orr([lift(imgui.begin_group), widget, lift(imgui.end_group)])
+
+    return orr(intersperse(same_line(), [group(w) for w in widgets]))
+
+
+def window(title: str,
+           widget: Widget,
+           position: Tuple[int, int] = None,
+           size: Tuple[int, int] = None,
+           flags: int = 0) -&gt; Widget:
+    &#34;&#34;&#34; Create a window with a given `widget` inside.
+
+    Window title must be unique. Contents are drawn only if the window is opened.
+    &#34;&#34;&#34;
+    while True:
+        if position is not None:
+            imgui.set_next_window_position(*position)
+        if size is not None:
+            imgui.set_next_window_size(*size)
+        expanded, opened = imgui.begin(title, flags=flags)
+        try:
+            if expanded and opened:
+                next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end()
+        yield
+
+
+def child(name, widget, width, height, border=False, flags=0):
+    &#34;&#34;&#34; Create a sized box with a `widget` inside a window. &#34;&#34;&#34;
+    while True:
+        imgui.begin_child(name, width, height, border, flags)
+        try:
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_child()
+        yield
+
+
+def collapsing_header(text, widget, open=True):
+    &#34;&#34;&#34;Display a collapsible section header. It can be open or closed by default (parameter `open`).
+    &#34;&#34;&#34;
+    while True:
+        expanded, visible = imgui.collapsing_header(text, flags=open and imgui.TREE_NODE_DEFAULT_OPEN)
+        try:
+            if expanded:
+                next(widget)
+        except StopIteration as e:
+            return e.value
+        yield
+
+
+def button(label, tag=None):
+    &#34;&#34;&#34; Button. Returns `(label, None)` on click, or `(tag, None)` if tag is specified. &#34;&#34;&#34;
+    while not imgui.button(label):
+        yield
+    return tag if tag is not None else label, None
+
+
+def color_button(label, color, tag=None):
+    &#34;&#34;&#34; Colored button. Color is specified as a tuple (R,G,B,A), each in range 0..1.
+
+    Returns `(label, None)` on click, or `(tag, None)` if tag is specified.
+    &#34;&#34;&#34;
+    r, g, b, a = color
+    while not imgui.color_button(label, r, g, b, a):
+        yield
+    return tag if tag is not None else label, None
+
+
+def radio_button(label, active, tag=None):
+    &#34;&#34;&#34; Radio button. Returns `(label, None)` on click, or `(tag, None)` if tag is specified. &#34;&#34;&#34;
+    while not imgui.radio_button(label, active):
+        yield
+    return (tag if tag is not None else label), None
+
+
+def input_text(name, value, buffer_length=255, tag=None):
+    &#34;&#34;&#34; Text input. &#34;&#34;&#34;
+    while True:
+        changed, new_value = imgui.input_text(name, value, buffer_length)
+        if changed:
+            return (name if tag is None else tag), new_value
+        else:
+            yield
+
+
+def key_pressed(name, key_index, repeat=True):
+    &#34;&#34;&#34; Invisible widget that waits for a given key to be pressed.
+
+    No widget must be active at the time to prevent triggering hotkeys by editing text fields.
+    Key codes are specified by the integration layer, e.g. `glfw.KEY_A`, or `glfw.KEY_SPACE`.
+    &#34;&#34;&#34;
+    while True:
+        if not imgui.is_any_item_active() and imgui.is_key_pressed(key_index, repeat):
+            return name, None
+        yield
+
+
+def mouse_click(name, button=0):
+    &#34;&#34;&#34; Invisible widget that waits for a given mouse button to be clicked (default: LMB).
+
+    No interactive widget must be active to trigger this function.
+    Event is returned in the format `(name, (x, y))`, where `(x, y)` are the coordinates
+    of the clicked position.
+    &#34;&#34;&#34;
+    io = imgui.get_io()
+    while True:
+        if not imgui.is_any_item_active() and imgui.is_mouse_clicked(button):
+            return name, io.mouse_pos
+        yield
+
+
+def text_tooltip(text, widget):
+    &#34;&#34;&#34;Display a text tooltip on hover&#34;&#34;&#34;
+    while True:
+        try:
+            imgui.begin_group()
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_group()
+        if imgui.is_item_hovered():
+            imgui.set_tooltip(text)
+        yield
+
+
+def tooltip(tooltip_widget, widget):
+    &#34;&#34;&#34; Display a widget tooltip on hover. May contain arbitrary elements, such as images. &#34;&#34;&#34;
+    while True:
+        try:
+            imgui.begin_group()
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_group()
+
+        if imgui.is_item_hovered():
+            try:
+                imgui.begin_tooltip()
+                next(tooltip_widget)
+            except StopIteration as e:
+                return e.value
+            finally:
+                imgui.end_tooltip()
+        yield
+
+
+def separator():
+    &#34;&#34;&#34; Horizontal separator. &#34;&#34;&#34;
+    return lift(imgui.separator)
+
+def spacing():
+    &#34;&#34;&#34; Extra vertical space. &#34;&#34;&#34;
+    return lift(imgui.spacing)
+
+def same_line():
+    &#34;&#34;&#34; Call between widgets to layout them horizontally.
+
+    This is Consider using `concur.widgets.orr_same_line` instead as it is more robust.
+    &#34;&#34;&#34;
+    return lift(imgui.same_line)
+
+
+def text(s):
+    &#34;&#34;&#34; Passive text display widget. &#34;&#34;&#34;
+    return lift(imgui.text, s)
+
+def text_colored(s, r, g, b, a=1.):
+    &#34;&#34;&#34; Passive colored text display widget. &#34;&#34;&#34;
+    return lift(imgui.text_colored, s, r, g, b, a)
+
+def checkbox(label, checked, *args, **kwargs):
+    &#34;&#34;&#34; Two-state checkbox. &#34;&#34;&#34;
+    return interactive_elem(imgui.checkbox, label, checked, *args, **kwargs)
+
+def drag_float(label, value, *args, **kwargs):
+    &#34;&#34;&#34; Float selection widget without a slider. &#34;&#34;&#34;
+    return interactive_elem(imgui.drag_float, label, value, *args, **kwargs)
+
+def drag_float2(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Float selection widget for selecting two `values`. &#34;&#34;&#34;
+    value0, value1 = values
+    return interactive_elem(imgui.drag_float2, label, value0, value1, *args, **kwargs)
+
+def drag_float3(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Float selection widget for selecting three `values`. &#34;&#34;&#34;
+    value0, value1, value2 = values
+    return interactive_elem(imgui.drag_float3, label, value0, value1, value2, *args, **kwargs)
+
+def drag_float4(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Float selection widget without a slider for selecting four `values`. &#34;&#34;&#34;
+    value0, value1, value2, value3 = values
+    return interactive_elem(imgui.drag_float4, label, value0, value1, value2, value3, *args, **kwargs)
+
+def input_float(label, value, *args, **kwargs):
+    &#34;&#34;&#34; Float input widget. &#34;&#34;&#34;
+    return interactive_elem(imgui.input_float, label, value, *args, **kwargs)
+
+def slider_int(label, value, min_value, max_value, *args, **kwargs):
+    &#34;&#34;&#34; Int selection slider. &#34;&#34;&#34;
+    return interactive_elem(imgui.slider_int, label, value, min_value, max_value, *args, **kwargs)
+
+def slider_float(label, value, min_value, max_value, *args, **kwargs):
+    &#34;&#34;&#34; Float selection slider. &#34;&#34;&#34;
+    return interactive_elem(imgui.slider_float, label, value, min_value, max_value, *args, **kwargs)
+
+
+def test_window():
+    &#34;&#34;&#34; ImGui test window with a multitude of widgets. &#34;&#34;&#34;
+    return lift(imgui.show_test_window)
+
+
+def columns(elems, identifier=None, border=True, widths=[]):
+    &#34;&#34;&#34; Table, using the imgui columns API.
+
+    `elems` is a 2D array of widgets
+    `widths` is a optional vector of column widths in pixels. May contain
+    None values.
+    &#34;&#34;&#34;
+    n_columns = len(elems[0])
+    for e in elems:
+        assert len(e) == n_columns
+    accum = []
+    accum.append(lift(imgui.columns, n_columns, identifier, border))
+    for i, w in enumerate(widths):
+        if w is not None:
+            accum.append(lift(imgui.set_column_width, i, w))
+    for row in elems:
+        for widget in row:
+            accum.append(widget)
+            accum.append(lift(imgui.next_column))
+    accum.append(lift(imgui.columns, 1))
+    return orr(accum)
+
+
+def transform(x, y, widget, tf=None):
+    # TODO: move somewhere else
+    &#34;&#34;&#34; Use `concur.extra_widgets.pan_zoom.TF` and a specified position `x, y` to transform a widget.
+
+    Only widget position will be affected (not scaling), and it will be positioned so that its upper left corner
+    is at `[x, y]`.
+    &#34;&#34;&#34;
+    old_pos = imgui.get_cursor_screen_pos()
+    if tf is not None:
+        x, y = np.matmul(tf.c2s, [x, y, 1])
+    while True:
+        try:
+            imgui.set_cursor_screen_pos((x, y))
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.set_cursor_screen_pos(old_pos)
+        yield</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="concur.widgets.button"><code class="name flex">
+<span>def <span class="ident">button</span></span>(<span>label, tag=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Button. Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def button(label, tag=None):
+    &#34;&#34;&#34; Button. Returns `(label, None)` on click, or `(tag, None)` if tag is specified. &#34;&#34;&#34;
+    while not imgui.button(label):
+        yield
+    return tag if tag is not None else label, None</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.checkbox"><code class="name flex">
+<span>def <span class="ident">checkbox</span></span>(<span>label, checked, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Two-state checkbox.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def checkbox(label, checked, *args, **kwargs):
+    &#34;&#34;&#34; Two-state checkbox. &#34;&#34;&#34;
+    return interactive_elem(imgui.checkbox, label, checked, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.child"><code class="name flex">
+<span>def <span class="ident">child</span></span>(<span>name, widget, width, height, border=False, flags=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Create a sized box with a <code>widget</code> inside a window.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def child(name, widget, width, height, border=False, flags=0):
+    &#34;&#34;&#34; Create a sized box with a `widget` inside a window. &#34;&#34;&#34;
+    while True:
+        imgui.begin_child(name, width, height, border, flags)
+        try:
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_child()
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.collapsing_header"><code class="name flex">
+<span>def <span class="ident">collapsing_header</span></span>(<span>text, widget, open=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display a collapsible section header. It can be open or closed by default (parameter <code>open</code>).</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def collapsing_header(text, widget, open=True):
+    &#34;&#34;&#34;Display a collapsible section header. It can be open or closed by default (parameter `open`).
+    &#34;&#34;&#34;
+    while True:
+        expanded, visible = imgui.collapsing_header(text, flags=open and imgui.TREE_NODE_DEFAULT_OPEN)
+        try:
+            if expanded:
+                next(widget)
+        except StopIteration as e:
+            return e.value
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.color_button"><code class="name flex">
+<span>def <span class="ident">color_button</span></span>(<span>label, color, tag=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Colored button. Color is specified as a tuple (R,G,B,A), each in range 0..1.</p>
+<p>Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def color_button(label, color, tag=None):
+    &#34;&#34;&#34; Colored button. Color is specified as a tuple (R,G,B,A), each in range 0..1.
+
+    Returns `(label, None)` on click, or `(tag, None)` if tag is specified.
+    &#34;&#34;&#34;
+    r, g, b, a = color
+    while not imgui.color_button(label, r, g, b, a):
+        yield
+    return tag if tag is not None else label, None</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.columns"><code class="name flex">
+<span>def <span class="ident">columns</span></span>(<span>elems, identifier=None, border=True, widths=[])</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Table, using the imgui columns API.</p>
+<p><code>elems</code> is a 2D array of widgets
+<code>widths</code> is a optional vector of column widths in pixels. May contain
+None values.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def columns(elems, identifier=None, border=True, widths=[]):
+    &#34;&#34;&#34; Table, using the imgui columns API.
+
+    `elems` is a 2D array of widgets
+    `widths` is a optional vector of column widths in pixels. May contain
+    None values.
+    &#34;&#34;&#34;
+    n_columns = len(elems[0])
+    for e in elems:
+        assert len(e) == n_columns
+    accum = []
+    accum.append(lift(imgui.columns, n_columns, identifier, border))
+    for i, w in enumerate(widths):
+        if w is not None:
+            accum.append(lift(imgui.set_column_width, i, w))
+    for row in elems:
+        for widget in row:
+            accum.append(widget)
+            accum.append(lift(imgui.next_column))
+    accum.append(lift(imgui.columns, 1))
+    return orr(accum)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_float"><code class="name flex">
+<span>def <span class="ident">drag_float</span></span>(<span>label, value, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Float selection widget without a slider.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_float(label, value, *args, **kwargs):
+    &#34;&#34;&#34; Float selection widget without a slider. &#34;&#34;&#34;
+    return interactive_elem(imgui.drag_float, label, value, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_float2"><code class="name flex">
+<span>def <span class="ident">drag_float2</span></span>(<span>label, values, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Float selection widget for selecting two <code>values</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_float2(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Float selection widget for selecting two `values`. &#34;&#34;&#34;
+    value0, value1 = values
+    return interactive_elem(imgui.drag_float2, label, value0, value1, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_float3"><code class="name flex">
+<span>def <span class="ident">drag_float3</span></span>(<span>label, values, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Float selection widget for selecting three <code>values</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_float3(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Float selection widget for selecting three `values`. &#34;&#34;&#34;
+    value0, value1, value2 = values
+    return interactive_elem(imgui.drag_float3, label, value0, value1, value2, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_float4"><code class="name flex">
+<span>def <span class="ident">drag_float4</span></span>(<span>label, values, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Float selection widget without a slider for selecting four <code>values</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_float4(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Float selection widget without a slider for selecting four `values`. &#34;&#34;&#34;
+    value0, value1, value2, value3 = values
+    return interactive_elem(imgui.drag_float4, label, value0, value1, value2, value3, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.input_float"><code class="name flex">
+<span>def <span class="ident">input_float</span></span>(<span>label, value, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Float input widget.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def input_float(label, value, *args, **kwargs):
+    &#34;&#34;&#34; Float input widget. &#34;&#34;&#34;
+    return interactive_elem(imgui.input_float, label, value, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.input_text"><code class="name flex">
+<span>def <span class="ident">input_text</span></span>(<span>name, value, buffer_length=255, tag=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Text input.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def input_text(name, value, buffer_length=255, tag=None):
+    &#34;&#34;&#34; Text input. &#34;&#34;&#34;
+    while True:
+        changed, new_value = imgui.input_text(name, value, buffer_length)
+        if changed:
+            return (name if tag is None else tag), new_value
+        else:
+            yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.key_pressed"><code class="name flex">
+<span>def <span class="ident">key_pressed</span></span>(<span>name, key_index, repeat=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Invisible widget that waits for a given key to be pressed.</p>
+<p>No widget must be active at the time to prevent triggering hotkeys by editing text fields.
+Key codes are specified by the integration layer, e.g. <code>glfw.KEY_A</code>, or <code>glfw.KEY_SPACE</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def key_pressed(name, key_index, repeat=True):
+    &#34;&#34;&#34; Invisible widget that waits for a given key to be pressed.
+
+    No widget must be active at the time to prevent triggering hotkeys by editing text fields.
+    Key codes are specified by the integration layer, e.g. `glfw.KEY_A`, or `glfw.KEY_SPACE`.
+    &#34;&#34;&#34;
+    while True:
+        if not imgui.is_any_item_active() and imgui.is_key_pressed(key_index, repeat):
+            return name, None
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.mouse_click"><code class="name flex">
+<span>def <span class="ident">mouse_click</span></span>(<span>name, button=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Invisible widget that waits for a given mouse button to be clicked (default: LMB).</p>
+<p>No interactive widget must be active to trigger this function.
+Event is returned in the format <code>(name, (x, y))</code>, where <code>(x, y)</code> are the coordinates
+of the clicked position.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mouse_click(name, button=0):
+    &#34;&#34;&#34; Invisible widget that waits for a given mouse button to be clicked (default: LMB).
+
+    No interactive widget must be active to trigger this function.
+    Event is returned in the format `(name, (x, y))`, where `(x, y)` are the coordinates
+    of the clicked position.
+    &#34;&#34;&#34;
+    io = imgui.get_io()
+    while True:
+        if not imgui.is_any_item_active() and imgui.is_mouse_clicked(button):
+            return name, io.mouse_pos
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.orr_same_line"><code class="name flex">
+<span>def <span class="ident">orr_same_line</span></span>(<span>widgets)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Use instead of <a title="concur.core.orr" href="core.html#concur.core.orr"><code>orr()</code></a> to layout child widgets horizontally instead of vertically.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def orr_same_line(widgets):
+    &#34;&#34;&#34; Use instead of `concur.core.orr` to layout child widgets horizontally instead of vertically. &#34;&#34;&#34;
+    def intersperse(delimiter, seq):
+        &#34;&#34;&#34; https://stackoverflow.com/questions/5655708/python-most-elegant-way-to-intersperse-a-list-with-an-element &#34;&#34;&#34;
+        from itertools import chain, repeat
+        return list(chain.from_iterable(zip(repeat(delimiter), seq)))[1:]
+
+    def group(widget):
+        return orr([lift(imgui.begin_group), widget, lift(imgui.end_group)])
+
+    return orr(intersperse(same_line(), [group(w) for w in widgets]))</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.radio_button"><code class="name flex">
+<span>def <span class="ident">radio_button</span></span>(<span>label, active, tag=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Radio button. Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def radio_button(label, active, tag=None):
+    &#34;&#34;&#34; Radio button. Returns `(label, None)` on click, or `(tag, None)` if tag is specified. &#34;&#34;&#34;
+    while not imgui.radio_button(label, active):
+        yield
+    return (tag if tag is not None else label), None</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.separator"><code class="name flex">
+<span>def <span class="ident">separator</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Horizontal separator.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def separator():
+    &#34;&#34;&#34; Horizontal separator. &#34;&#34;&#34;
+    return lift(imgui.separator)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.slider_float"><code class="name flex">
+<span>def <span class="ident">slider_float</span></span>(<span>label, value, min_value, max_value, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Float selection slider.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def slider_float(label, value, min_value, max_value, *args, **kwargs):
+    &#34;&#34;&#34; Float selection slider. &#34;&#34;&#34;
+    return interactive_elem(imgui.slider_float, label, value, min_value, max_value, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.slider_int"><code class="name flex">
+<span>def <span class="ident">slider_int</span></span>(<span>label, value, min_value, max_value, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Int selection slider.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def slider_int(label, value, min_value, max_value, *args, **kwargs):
+    &#34;&#34;&#34; Int selection slider. &#34;&#34;&#34;
+    return interactive_elem(imgui.slider_int, label, value, min_value, max_value, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.spacing"><code class="name flex">
+<span>def <span class="ident">spacing</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Extra vertical space.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def spacing():
+    &#34;&#34;&#34; Extra vertical space. &#34;&#34;&#34;
+    return lift(imgui.spacing)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.test_window"><code class="name flex">
+<span>def <span class="ident">test_window</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>ImGui test window with a multitude of widgets.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_window():
+    &#34;&#34;&#34; ImGui test window with a multitude of widgets. &#34;&#34;&#34;
+    return lift(imgui.show_test_window)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.text"><code class="name flex">
+<span>def <span class="ident">text</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Passive text display widget.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text(s):
+    &#34;&#34;&#34; Passive text display widget. &#34;&#34;&#34;
+    return lift(imgui.text, s)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.text_colored"><code class="name flex">
+<span>def <span class="ident">text_colored</span></span>(<span>s, r, g, b, a=1.0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Passive colored text display widget.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text_colored(s, r, g, b, a=1.):
+    &#34;&#34;&#34; Passive colored text display widget. &#34;&#34;&#34;
+    return lift(imgui.text_colored, s, r, g, b, a)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.text_tooltip"><code class="name flex">
+<span>def <span class="ident">text_tooltip</span></span>(<span>text, widget)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display a text tooltip on hover</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text_tooltip(text, widget):
+    &#34;&#34;&#34;Display a text tooltip on hover&#34;&#34;&#34;
+    while True:
+        try:
+            imgui.begin_group()
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_group()
+        if imgui.is_item_hovered():
+            imgui.set_tooltip(text)
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.tooltip"><code class="name flex">
+<span>def <span class="ident">tooltip</span></span>(<span>tooltip_widget, widget)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display a widget tooltip on hover. May contain arbitrary elements, such as images.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tooltip(tooltip_widget, widget):
+    &#34;&#34;&#34; Display a widget tooltip on hover. May contain arbitrary elements, such as images. &#34;&#34;&#34;
+    while True:
+        try:
+            imgui.begin_group()
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_group()
+
+        if imgui.is_item_hovered():
+            try:
+                imgui.begin_tooltip()
+                next(tooltip_widget)
+            except StopIteration as e:
+                return e.value
+            finally:
+                imgui.end_tooltip()
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.transform"><code class="name flex">
+<span>def <span class="ident">transform</span></span>(<span>x, y, widget, tf=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Use <a title="concur.extra_widgets.pan_zoom.TF" href="extra_widgets/pan_zoom.html#concur.extra_widgets.pan_zoom.TF"><code>TF</code></a> and a specified position <code>x, y</code> to transform a widget.</p>
+<p>Only widget position will be affected (not scaling), and it will be positioned so that its upper left corner
+is at <code>[x, y]</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def transform(x, y, widget, tf=None):
+    # TODO: move somewhere else
+    &#34;&#34;&#34; Use `concur.extra_widgets.pan_zoom.TF` and a specified position `x, y` to transform a widget.
+
+    Only widget position will be affected (not scaling), and it will be positioned so that its upper left corner
+    is at `[x, y]`.
+    &#34;&#34;&#34;
+    old_pos = imgui.get_cursor_screen_pos()
+    if tf is not None:
+        x, y = np.matmul(tf.c2s, [x, y, 1])
+    while True:
+        try:
+            imgui.set_cursor_screen_pos((x, y))
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.set_cursor_screen_pos(old_pos)
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.window"><code class="name flex">
+<span>def <span class="ident">window</span></span>(<span>title, widget, position=None, size=None, flags=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Create a window with a given <code>widget</code> inside.</p>
+<p>Window title must be unique. Contents are drawn only if the window is opened.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def window(title: str,
+           widget: Widget,
+           position: Tuple[int, int] = None,
+           size: Tuple[int, int] = None,
+           flags: int = 0) -&gt; Widget:
+    &#34;&#34;&#34; Create a window with a given `widget` inside.
+
+    Window title must be unique. Contents are drawn only if the window is opened.
+    &#34;&#34;&#34;
+    while True:
+        if position is not None:
+            imgui.set_next_window_position(*position)
+        if size is not None:
+            imgui.set_next_window_size(*size)
+        expanded, opened = imgui.begin(title, flags=flags)
+        try:
+            if expanded and opened:
+                next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end()
+        yield</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="concur" href="index.html">concur</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="concur.widgets.button" href="#concur.widgets.button">button</a></code></li>
+<li><code><a title="concur.widgets.checkbox" href="#concur.widgets.checkbox">checkbox</a></code></li>
+<li><code><a title="concur.widgets.child" href="#concur.widgets.child">child</a></code></li>
+<li><code><a title="concur.widgets.collapsing_header" href="#concur.widgets.collapsing_header">collapsing_header</a></code></li>
+<li><code><a title="concur.widgets.color_button" href="#concur.widgets.color_button">color_button</a></code></li>
+<li><code><a title="concur.widgets.columns" href="#concur.widgets.columns">columns</a></code></li>
+<li><code><a title="concur.widgets.drag_float" href="#concur.widgets.drag_float">drag_float</a></code></li>
+<li><code><a title="concur.widgets.drag_float2" href="#concur.widgets.drag_float2">drag_float2</a></code></li>
+<li><code><a title="concur.widgets.drag_float3" href="#concur.widgets.drag_float3">drag_float3</a></code></li>
+<li><code><a title="concur.widgets.drag_float4" href="#concur.widgets.drag_float4">drag_float4</a></code></li>
+<li><code><a title="concur.widgets.input_float" href="#concur.widgets.input_float">input_float</a></code></li>
+<li><code><a title="concur.widgets.input_text" href="#concur.widgets.input_text">input_text</a></code></li>
+<li><code><a title="concur.widgets.key_pressed" href="#concur.widgets.key_pressed">key_pressed</a></code></li>
+<li><code><a title="concur.widgets.mouse_click" href="#concur.widgets.mouse_click">mouse_click</a></code></li>
+<li><code><a title="concur.widgets.orr_same_line" href="#concur.widgets.orr_same_line">orr_same_line</a></code></li>
+<li><code><a title="concur.widgets.radio_button" href="#concur.widgets.radio_button">radio_button</a></code></li>
+<li><code><a title="concur.widgets.separator" href="#concur.widgets.separator">separator</a></code></li>
+<li><code><a title="concur.widgets.slider_float" href="#concur.widgets.slider_float">slider_float</a></code></li>
+<li><code><a title="concur.widgets.slider_int" href="#concur.widgets.slider_int">slider_int</a></code></li>
+<li><code><a title="concur.widgets.spacing" href="#concur.widgets.spacing">spacing</a></code></li>
+<li><code><a title="concur.widgets.test_window" href="#concur.widgets.test_window">test_window</a></code></li>
+<li><code><a title="concur.widgets.text" href="#concur.widgets.text">text</a></code></li>
+<li><code><a title="concur.widgets.text_colored" href="#concur.widgets.text_colored">text_colored</a></code></li>
+<li><code><a title="concur.widgets.text_tooltip" href="#concur.widgets.text_tooltip">text_tooltip</a></code></li>
+<li><code><a title="concur.widgets.tooltip" href="#concur.widgets.tooltip">tooltip</a></code></li>
+<li><code><a title="concur.widgets.transform" href="#concur.widgets.transform">transform</a></code></li>
+<li><code><a title="concur.widgets.window" href="#concur.widgets.window">window</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

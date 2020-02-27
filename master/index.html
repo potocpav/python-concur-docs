@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>concur API documentation</title>
+<meta name="description" content="Concur is a Python UI framework based on synchronous generators …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>concur</code></h1>
+</header>
+<section id="section-intro">
+<p>Concur is a Python UI framework based on synchronous generators.</p>
+<p>It is a port of <a href="https://github.com/ajnsit/purescript-concur">Concur for Purescript</a>, implemented on top of the <a href="https://github.com/ocornut/imgui">Dear ImGui</a> C++ UI library.</p>
+<p>For introduction to core concepts, see the <a href="file:///home/pavel/build/python-concur/docs/index.html#introduction">documentation</a>. A more comprehensive introduction can be found in the <a href="https://github.com/ajnsit/concur-documentation/blob/master/README.md">Documentation for the Haskell/Purescript versions</a>. This obviously uses Haskell/Purescript syntax and semantics, but many of the concepts will apply to the Python version.</p>
+<p>Being an abstraction over ImGui, Concur is best used for debugging, prototyping and data analysis, rather than user-facing applications. ImGui functions can be used directly for any functionality that is not wrapped by Concur. See the <a href="https://pyimgui.readthedocs.io/en/latest/">PyImGui docs</a> for additional widgets, or <a href="https://github.com/ocornut/imgui">ImGui itself</a>.</p>
+<h1 id="introduction">Introduction</h1>
+<p>UI components ("widgets") in Concur are Python generators. Internally, widgets do three things:</p>
+<ol>
+<li>Call ImGui commands to draw stuff to screen</li>
+<li>When the drawing is done, they <code>yield</code> and pass control flow upstream.</li>
+<li>On user interaction, they <code>return result</code>, where result is a value representing user action and/or new widget state.</li>
+</ol>
+<p>A simple button widget can be implemented as follows:</p>
+<pre><code class="python">def button(text):
+    while True:
+        is_pressed = imgui.button(text): # Draw the button (1.)
+        if is_pressed:
+            return 123                   # Return a value on click (3.)
+        yield                            # Drawing is done (2.)
+</code></pre>
+<p>The resulting widget can be displayed using <code>return</code> or <code>yield from</code>, optionally collecting its return value.</p>
+<pre><code class="python">value = yield from button(&quot;Click me&quot;)
+assert value == 123
+</code></pre>
+<p>This shows the most interesting property of Concur: <strong>widgets only exist until they are interacted with.</strong> To interact with a widget repeatedly, it must be re-created each time it's interacted with. This concept is <em>surprisingly</em> powerful – it enables composition in time by simply chaining statements:</p>
+<pre><code class="python">yield from button(&quot;one button&quot;)
+yield # clear the screen
+yield from button(&quot;another button&quot;)
+</code></pre>
+<p>This creates "one button", and after it is clicked, "another button" is created. If the code above isn't in a loop or inside another widget (see below), there is nothing more to do after clicking the second button and the application is closed.</p>
+<p>Composition in space (that is, rendering multiple widgets at once) is done using the <a title="concur.core.orr" href="core.html#concur.core.orr"><code>orr()</code></a> function<sup>1</sup>. The result of the composition is yet another widget:</p>
+<pre><code class="python">import concur as c # concur is usually imported as c
+
+pair = c.orr([button(&quot;First&quot;), button(&quot;Second&quot;)])
+# display `pair` as a normal widget
+yield from pair
+</code></pre>
+<p>The result is a widget <code>pair</code>, which returns as soon as any child widget returns, passing the return value along. How do we tell which button was pressed? We don't, they must simply return different values. By convention, all primitive widgets return a tuple <code>(identifier, value)</code> to be easily identifiable when inside <code>orr</code>.</p>
+<p>For example, built-in buttons return the pair <code>(&lt;name&gt;, None)</code>, so they can be composed like this:</p>
+<pre><code class="python">tag, value = yield from c.orr([c.button(&quot;First&quot;), c.button(&quot;Second&quot;)])
+if tag == &quot;First&quot;:
+    print(&quot;first!&quot;)
+if tag == &quot;Second&quot;:
+    print(&quot;second!&quot;)
+</code></pre>
+<p>Many other widgets return a more useful value as the second tuple element: checkbox returns <code>bool</code>, input_text returns <code>str</code>, etc.</p>
+<p>Many widgets take another widget as an argument (image, window, etc.), which is typically displayed inside (window contents, image overlay, etc.). Note that any composition of widgets is itself a widget with the same semantics, and return values are typically passed through.</p>
+<p>Once the whole user interface is represented as as single widget using various composition primitives, it can be displayed using the <a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main"><code>main()</code></a> function.</p>
+<p>That's it for now. Play around with it. You will discover that these handful of concepts go a <em>long</em> way, and can be used to create even large UIs in a straightforward and clear manner. As a starting point, you can use the <a href="https://github.com/potocpav/python-concur/tree/master/examples">examples</a>.</p>
+<hr>
+<p><sup>1</sup> The name <code>orr</code> is derived from the fact that the resulting widget returns if any child returns (child1 <strong>or</strong> child2). To signify that a list of children is expected (not a pair), <strong>orr</strong> is used instead of <strong>or</strong>. In Concur for Purescript, there is also the <a href="https://pursuit.purescript.org/packages/purescript-concur-core/0.4.1/docs/Concur.Core.Types#v:andd"><code>andd</code> operator</a> which returns when all children return.</p>
+<h1 id="troubleshooting">Troubleshooting</h1>
+<p>Here's a list of common issues and their solutions:</p>
+<p><strong>Widget flicker</strong></p>
+<p>Between any two <code>yield from _</code> statements that can return, there must be exactly one <code>yield</code> statement. If there is none, elements may get duplicated in a frame after triggering an action. If there is more than one <code>yield</code> statemet, elements may momentarily disappear.</p>
+<p>Most of the time, it is enough to slap a <code>yield</code> at the end of each loop (<a href="https://github.com/potocpav/python-concur/blob/master/examples/counters.py#L19">example</a>). I don't think this bit of syntactic inconvenience can be solved without introducing other quirks.</p>
+<p><strong>Event congestion</strong></p>
+<p>On each frame, at most one action can get triggered from an <code>concur.core.orr</code> block. Actions from first sub-widgets are prioritized, and any actions from further sub-widgets will get thrown out. This is a problem when there are rapidly-firing widgets, such as video playback.</p>
+<p>Push the widgets with lower priority down the widget lists, or swap the congesting <code>orr</code> function for <code>multi_orr</code>. <code>concur.core.multi_orr</code> returns a list of all fired events, which trades correctness for some boilerplate. Typically, the top-level widget list is <code>multi_orr</code>, while the lower levels can be <code>orr</code>.</p>
+<p><strong>Asynchronous computations</strong></p>
+<p>In <a href="https://github.com/ajnsit/concur-js">other </a><a href="https://github.com/purescript-concur/purescript-concur-react">versions </a><a href="https://github.com/ajnsit/concur">of Concur</a>, all widgets are triggered asynchronously. This may not be practical in Python, due to a limitation of async generators: they can't <code>return</code>, they only <code>yield</code>. Synchronous generators are used instead, which means that all widget code is run in the main thread. Asynchronous code must be explicitly run in a background thread, which is easily achieved by passing a future into the <code>concur.core.Block</code> function. See the <a href="https://github.com/potocpav/python-concur/blob/master/examples/timers.py">timers example</a> for details.</p>
+<h1 id="api">API</h1>
+<p>Most of the functions and classes from submodules are re-exported in the
+<code>concur</code> root module. The most convenient way to access them is by importing <code>concur</code> qualified:</p>
+<pre><code class="python">import concur as c
+
+# nearly anything can be accessed using `c.anything` now.
+</code></pre>
+<p>A notable exception is the <a title="concur.draw" href="draw.html"><code>concur.draw</code></a> functions: they have a bit different semantics (no layout,
+no user interaction), so they are separate and can be accessed using <code>c.draw.something</code>.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+.. include:: ../README.md
+   :start-after: &lt;!-- Start docs --&gt;
+   :end-before: &lt;!-- End docs --&gt;
+
+.. include:: introduction.md
+
+.. include:: troubleshooting.md
+
+# API
+
+Most of the functions and classes from submodules are re-exported in the
+`concur` root module. The most convenient way to access them is by importing `concur` qualified:
+
+```python
+import concur as c
+
+# nearly anything can be accessed using `c.anything` now.
+```
+
+A notable exception is the `concur.draw` functions: they have a bit different semantics (no layout,
+no user interaction), so they are separate and can be accessed using `c.draw.something`.
+&#34;&#34;&#34;
+
+import concur.extra_widgets
+import concur.integrations
+import concur.draw
+import concur.testing
+
+from .core import *
+from .widgets import *
+from .extra_widgets import *
+from .integrations import main, quick_plot, quick_window, quick_image
+
+import functools
+
+
+def partial(*args, **argv):
+    &#34;&#34;&#34;Re-export of [`functools.partial`](https://docs.python.org/3.9/library/functools.html#functools.partial)
+    for convenience
+    &#34;&#34;&#34;
+    return functools.partial(*args, **argv)</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="concur.colors" href="colors.html">concur.colors</a></code></dt>
+<dd>
+<section class="desc"><p>Color dictionary. <a href="https://xkcd.com/color/rgb/">XKCD colors</a> are used.</p></section>
+</dd>
+<dt><code class="name"><a title="concur.core" href="core.html">concur.core</a></code></dt>
+<dd>
+<section class="desc"><p>Functions providing core functionality, widget creation, manipulation, and composition …</p></section>
+</dd>
+<dt><code class="name"><a title="concur.draw" href="draw.html">concur.draw</a></code></dt>
+<dd>
+<section class="desc"><p>Passive geometric shape widgets to be drawn as <a title="concur.extra_widgets.image.image" href="extra_widgets/image.html#concur.extra_widgets.image.image"><code>image()</code></a> or <a title="concur.extra_widgets.frame.frame" href="extra_widgets/frame.html#concur.extra_widgets.frame.frame"><code>frame()</code></a> overlay, or on their own …</p></section>
+</dd>
+<dt><code class="name"><a title="concur.extra_widgets" href="extra_widgets/index.html">concur.extra_widgets</a></code></dt>
+<dd>
+<section class="desc"><p>Extra widgets that do not directly correspond to ImGui calls.</p></section>
+</dd>
+<dt><code class="name"><a title="concur.integrations" href="integrations/index.html">concur.integrations</a></code></dt>
+<dd>
+<section class="desc"><p>Integration with the host system: windowing, user input, etc …</p></section>
+</dd>
+<dt><code class="name"><a title="concur.testing" href="testing.html">concur.testing</a></code></dt>
+<dd>
+<section class="desc"><p>Routines for automated testing …</p></section>
+</dd>
+<dt><code class="name"><a title="concur.widgets" href="widgets.html">concur.widgets</a></code></dt>
+<dd>
+<section class="desc"><p>A collection of widgets based off of ImGui …</p></section>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="concur.partial"><code class="name flex">
+<span>def <span class="ident">partial</span></span>(<span>*args, **argv)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Re-export of <a href="https://docs.python.org/3.9/library/functools.html#functools.partial"><code>functools.partial</code></a>
+for convenience</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def partial(*args, **argv):
+    &#34;&#34;&#34;Re-export of [`functools.partial`](https://docs.python.org/3.9/library/functools.html#functools.partial)
+    for convenience
+    &#34;&#34;&#34;
+    return functools.partial(*args, **argv)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#api">API</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="concur.colors" href="colors.html">concur.colors</a></code></li>
+<li><code><a title="concur.core" href="core.html">concur.core</a></code></li>
+<li><code><a title="concur.draw" href="draw.html">concur.draw</a></code></li>
+<li><code><a title="concur.extra_widgets" href="extra_widgets/index.html">concur.extra_widgets</a></code></li>
+<li><code><a title="concur.integrations" href="integrations/index.html">concur.integrations</a></code></li>
+<li><code><a title="concur.testing" href="testing.html">concur.testing</a></code></li>
+<li><code><a title="concur.widgets" href="widgets.html">concur.widgets</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="concur.partial" href="#concur.partial">partial</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

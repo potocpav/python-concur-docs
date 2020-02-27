@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>concur.integrations.puppet API documentation</title>
+<meta name="description" content="Automation back-end with screen capture and programmatical user input …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>concur.integrations.puppet</code></h1>
+</header>
+<section id="section-intro">
+<p>Automation back-end with screen capture and programmatical user input.</p>
+<p>Normally, this is used with functions in <a title="concur.testing" href="../testing.html"><code>concur.testing</code></a>.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Automation back-end with screen capture and programmatical user input.
+
+Normally, this is used with functions in `concur.testing`.
+&#34;&#34;&#34;
+
+from __future__ import absolute_import
+
+import glfw
+import imgui
+import time
+import OpenGL.GL as gl
+
+# Save as video
+from PIL import Image
+import imageio
+import numpy as np
+
+from concur.integrations.glfw import create_window, create_window_dock, begin_maximized_window
+from concur.integrations.opengl import create_offscreen_fb, get_fb_data
+from imgui.integrations import compute_fb_scale
+from imgui.integrations.opengl import ProgrammablePipelineRenderer
+
+
+class PuppetRenderer(ProgrammablePipelineRenderer):
+    &#34;&#34;&#34;Renderer for automated testing. User inputs are set programmatically, rather than interactively.&#34;&#34;&#34;
+    def __init__(self, window):
+        super(PuppetRenderer, self).__init__()
+        self.window = window
+
+        self.io.display_size = glfw.get_framebuffer_size(self.window)
+
+        self._map_keys()
+        self._gui_time = None
+
+        self._click = [False] * 3
+        self._mouse_buttons = [False] * 3
+        self._mouse_pos = 100, 100
+        self._mouse_wheel = 0.0
+
+    def _map_keys(self):
+        key_map = self.io.key_map
+
+        key_map[imgui.KEY_TAB] = glfw.KEY_TAB
+        key_map[imgui.KEY_LEFT_ARROW] = glfw.KEY_LEFT
+        key_map[imgui.KEY_RIGHT_ARROW] = glfw.KEY_RIGHT
+        key_map[imgui.KEY_UP_ARROW] = glfw.KEY_UP
+        key_map[imgui.KEY_DOWN_ARROW] = glfw.KEY_DOWN
+        key_map[imgui.KEY_PAGE_UP] = glfw.KEY_PAGE_UP
+        key_map[imgui.KEY_PAGE_DOWN] = glfw.KEY_PAGE_DOWN
+        key_map[imgui.KEY_HOME] = glfw.KEY_HOME
+        key_map[imgui.KEY_END] = glfw.KEY_END
+        key_map[imgui.KEY_DELETE] = glfw.KEY_DELETE
+        key_map[imgui.KEY_BACKSPACE] = glfw.KEY_BACKSPACE
+        key_map[imgui.KEY_ENTER] = glfw.KEY_ENTER
+        key_map[imgui.KEY_ESCAPE] = glfw.KEY_ESCAPE
+        key_map[imgui.KEY_A] = glfw.KEY_A
+        key_map[imgui.KEY_C] = glfw.KEY_C
+        key_map[imgui.KEY_V] = glfw.KEY_V
+        key_map[imgui.KEY_X] = glfw.KEY_X
+        key_map[imgui.KEY_Y] = glfw.KEY_Y
+        key_map[imgui.KEY_Z] = glfw.KEY_Z
+
+    def process_inputs(self):
+        &#34;&#34;&#34;Process the virtual user inputs. Called by `main` at the beginning of each frame.&#34;&#34;&#34;
+        io = imgui.get_io()
+
+        window_size = glfw.get_window_size(self.window)
+        fb_size = glfw.get_framebuffer_size(self.window)
+
+        io.display_size = window_size
+        io.display_fb_scale = compute_fb_scale(window_size, fb_size)
+        io.delta_time = 1.0/60
+
+        current_time = glfw.get_time()
+
+        if self._gui_time:
+            self.io.delta_time = current_time - self._gui_time
+        else:
+            self.io.delta_time = 1. / 60.
+
+        self._gui_time = current_time
+
+        for i, b in enumerate(self._click):
+            if b:
+                io.mouse_down[i] = True
+                self._click[i] = False
+            else:
+                io.mouse_down[i] = False
+        for i, b in enumerate(self._mouse_buttons):
+            if b:
+                io.mouse_down[i] = True
+
+        io.mouse_pos = self._mouse_pos
+        io.mouse_wheel = self._mouse_wheel
+        self._mouse_wheel = 0.0
+
+    def click(self, button=0):
+        &#34;&#34;&#34;Simulate a mouse button click.
+
+        * 0 .. left button
+        * 1 .. right button
+        * 2 .. middle button
+        &#34;&#34;&#34;
+        self._click[button] = True
+
+    def set_mouse_pos(self, x, y):
+        &#39;Set the mouse cursor position to a specified value.&#39;
+        self._mouse_pos = x, y
+
+    def scroll_up(self):
+        &#39;Scroll the mouse wheel up one click.&#39;
+        self._mouse_wheel = 1
+
+    def scroll_dn(self):
+        &#39;Scroll the mouse wheel down one click.&#39;
+        self._mouse_wheel = -1
+
+    def mouse_dn(self, button=0):
+        &#34;&#34;&#34;Push a specified mouse button.&#34;&#34;&#34;
+        self._mouse_buttons[button] = True
+
+    def mouse_up(self, button=0):
+        &#34;&#34;&#34;Release a specified mouse button.&#34;&#34;&#34;
+        self._mouse_buttons[button] = False
+
+    def key_dn(self, key):
+        imgui.get_io().keys_down[key] = True
+        exit(0)
+
+    def key_up(self, key):
+        imgui.get_io().keys_down[key] = False
+
+    def write_char(self, c):
+        assert 0 &lt; c &lt; 0x10000
+        imgui.get_io().add_input_character(c)
+
+
+
+
+def main(name, widget_gen, width, height, save_screencast=None, return_sshot=False, headless=False, fps=60):
+    &#34;&#34;&#34; Create a GLFW window, spin up the main loop, and display a given widget inside.
+
+    The resulting window is not hooked up to the user input. Instead, input is handled
+    by a PuppetRenderer instance.
+
+    `widget_gen` takes as an argument a `PuppetRenderer` instance, and returns a widget.
+    `fps` optionally limits FPS (if None, FPS is unlimited)
+    &#34;&#34;&#34;
+    imgui.create_context()
+
+    # Set config flags
+    imgui.get_io().config_flags |= imgui.CONFIG_DOCKING_ENABLE | imgui.CONFIG_VIEWPORTS_ENABLE
+
+    window = create_window(name, width, height, visible=not headless)
+    impl = PuppetRenderer(window)
+    widget = widget_gen(impl)
+    offscreen_fb = create_offscreen_fb(width, height)
+
+    if save_screencast:
+        writer = imageio.get_writer(save_screencast, mode=&#39;I&#39;, fps=60)
+
+    while not glfw.window_should_close(window):
+        t0 = time.perf_counter()
+        glfw.poll_events()
+        impl.process_inputs()
+
+        imgui.new_frame()
+
+        create_window_dock(window)
+        begin_maximized_window(&#34;Default##Concur&#34;, window)
+
+        try:
+            next(widget)
+        except StopIteration:
+            imgui.end()
+            imgui.render()
+            break
+        except:
+            # Cleanup on exception for iPython
+            imgui.end()
+            imgui.render()
+            impl.shutdown()
+            glfw.terminate()
+            raise
+
+        imgui.end()
+        imgui.render()
+
+        if save_screencast:
+            gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, offscreen_fb)
+            impl.render(imgui.get_draw_data())
+            image = get_fb_data(offscreen_fb, width, height)
+            writer.append_data(image)
+
+        gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, 0)
+        impl.render(imgui.get_draw_data())
+        glfw.swap_buffers(window)
+
+        t1 = time.perf_counter()
+        if fps is not None and t1 - t0 &lt; 1/fps:
+            time.sleep(1/fps - (t1 - t0))
+
+    if save_screencast:
+        writer.close()
+
+    if return_sshot:
+        gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, offscreen_fb)
+        impl.render(imgui.get_draw_data())
+        image = get_fb_data(offscreen_fb, width, height)
+        ret = image
+    else:
+        ret = None
+
+    # # retrieve pixels from framebuffer and write to file
+    # file_path = &#34;test.png&#34;
+    # image = get_fb_data(offscreen_fb, width, height)
+    # image.save(file_path)
+
+    impl.shutdown()
+    glfw.terminate()
+    return ret</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="concur.integrations.puppet.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>name, widget_gen, width, height, save_screencast=None, return_sshot=False, headless=False, fps=60)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Create a GLFW window, spin up the main loop, and display a given widget inside.</p>
+<p>The resulting window is not hooked up to the user input. Instead, input is handled
+by a PuppetRenderer instance.</p>
+<p><code>widget_gen</code> takes as an argument a <a title="concur.integrations.puppet.PuppetRenderer" href="#concur.integrations.puppet.PuppetRenderer"><code>PuppetRenderer</code></a> instance, and returns a widget.
+<code>fps</code> optionally limits FPS (if None, FPS is unlimited)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main(name, widget_gen, width, height, save_screencast=None, return_sshot=False, headless=False, fps=60):
+    &#34;&#34;&#34; Create a GLFW window, spin up the main loop, and display a given widget inside.
+
+    The resulting window is not hooked up to the user input. Instead, input is handled
+    by a PuppetRenderer instance.
+
+    `widget_gen` takes as an argument a `PuppetRenderer` instance, and returns a widget.
+    `fps` optionally limits FPS (if None, FPS is unlimited)
+    &#34;&#34;&#34;
+    imgui.create_context()
+
+    # Set config flags
+    imgui.get_io().config_flags |= imgui.CONFIG_DOCKING_ENABLE | imgui.CONFIG_VIEWPORTS_ENABLE
+
+    window = create_window(name, width, height, visible=not headless)
+    impl = PuppetRenderer(window)
+    widget = widget_gen(impl)
+    offscreen_fb = create_offscreen_fb(width, height)
+
+    if save_screencast:
+        writer = imageio.get_writer(save_screencast, mode=&#39;I&#39;, fps=60)
+
+    while not glfw.window_should_close(window):
+        t0 = time.perf_counter()
+        glfw.poll_events()
+        impl.process_inputs()
+
+        imgui.new_frame()
+
+        create_window_dock(window)
+        begin_maximized_window(&#34;Default##Concur&#34;, window)
+
+        try:
+            next(widget)
+        except StopIteration:
+            imgui.end()
+            imgui.render()
+            break
+        except:
+            # Cleanup on exception for iPython
+            imgui.end()
+            imgui.render()
+            impl.shutdown()
+            glfw.terminate()
+            raise
+
+        imgui.end()
+        imgui.render()
+
+        if save_screencast:
+            gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, offscreen_fb)
+            impl.render(imgui.get_draw_data())
+            image = get_fb_data(offscreen_fb, width, height)
+            writer.append_data(image)
+
+        gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, 0)
+        impl.render(imgui.get_draw_data())
+        glfw.swap_buffers(window)
+
+        t1 = time.perf_counter()
+        if fps is not None and t1 - t0 &lt; 1/fps:
+            time.sleep(1/fps - (t1 - t0))
+
+    if save_screencast:
+        writer.close()
+
+    if return_sshot:
+        gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, offscreen_fb)
+        impl.render(imgui.get_draw_data())
+        image = get_fb_data(offscreen_fb, width, height)
+        ret = image
+    else:
+        ret = None
+
+    # # retrieve pixels from framebuffer and write to file
+    # file_path = &#34;test.png&#34;
+    # image = get_fb_data(offscreen_fb, width, height)
+    # image.save(file_path)
+
+    impl.shutdown()
+    glfw.terminate()
+    return ret</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="concur.integrations.puppet.PuppetRenderer"><code class="flex name class">
+<span>class <span class="ident">PuppetRenderer</span></span>
+<span>(</span><span>window)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Renderer for automated testing. User inputs are set programmatically, rather than interactively.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PuppetRenderer(ProgrammablePipelineRenderer):
+    &#34;&#34;&#34;Renderer for automated testing. User inputs are set programmatically, rather than interactively.&#34;&#34;&#34;
+    def __init__(self, window):
+        super(PuppetRenderer, self).__init__()
+        self.window = window
+
+        self.io.display_size = glfw.get_framebuffer_size(self.window)
+
+        self._map_keys()
+        self._gui_time = None
+
+        self._click = [False] * 3
+        self._mouse_buttons = [False] * 3
+        self._mouse_pos = 100, 100
+        self._mouse_wheel = 0.0
+
+    def _map_keys(self):
+        key_map = self.io.key_map
+
+        key_map[imgui.KEY_TAB] = glfw.KEY_TAB
+        key_map[imgui.KEY_LEFT_ARROW] = glfw.KEY_LEFT
+        key_map[imgui.KEY_RIGHT_ARROW] = glfw.KEY_RIGHT
+        key_map[imgui.KEY_UP_ARROW] = glfw.KEY_UP
+        key_map[imgui.KEY_DOWN_ARROW] = glfw.KEY_DOWN
+        key_map[imgui.KEY_PAGE_UP] = glfw.KEY_PAGE_UP
+        key_map[imgui.KEY_PAGE_DOWN] = glfw.KEY_PAGE_DOWN
+        key_map[imgui.KEY_HOME] = glfw.KEY_HOME
+        key_map[imgui.KEY_END] = glfw.KEY_END
+        key_map[imgui.KEY_DELETE] = glfw.KEY_DELETE
+        key_map[imgui.KEY_BACKSPACE] = glfw.KEY_BACKSPACE
+        key_map[imgui.KEY_ENTER] = glfw.KEY_ENTER
+        key_map[imgui.KEY_ESCAPE] = glfw.KEY_ESCAPE
+        key_map[imgui.KEY_A] = glfw.KEY_A
+        key_map[imgui.KEY_C] = glfw.KEY_C
+        key_map[imgui.KEY_V] = glfw.KEY_V
+        key_map[imgui.KEY_X] = glfw.KEY_X
+        key_map[imgui.KEY_Y] = glfw.KEY_Y
+        key_map[imgui.KEY_Z] = glfw.KEY_Z
+
+    def process_inputs(self):
+        &#34;&#34;&#34;Process the virtual user inputs. Called by `main` at the beginning of each frame.&#34;&#34;&#34;
+        io = imgui.get_io()
+
+        window_size = glfw.get_window_size(self.window)
+        fb_size = glfw.get_framebuffer_size(self.window)
+
+        io.display_size = window_size
+        io.display_fb_scale = compute_fb_scale(window_size, fb_size)
+        io.delta_time = 1.0/60
+
+        current_time = glfw.get_time()
+
+        if self._gui_time:
+            self.io.delta_time = current_time - self._gui_time
+        else:
+            self.io.delta_time = 1. / 60.
+
+        self._gui_time = current_time
+
+        for i, b in enumerate(self._click):
+            if b:
+                io.mouse_down[i] = True
+                self._click[i] = False
+            else:
+                io.mouse_down[i] = False
+        for i, b in enumerate(self._mouse_buttons):
+            if b:
+                io.mouse_down[i] = True
+
+        io.mouse_pos = self._mouse_pos
+        io.mouse_wheel = self._mouse_wheel
+        self._mouse_wheel = 0.0
+
+    def click(self, button=0):
+        &#34;&#34;&#34;Simulate a mouse button click.
+
+        * 0 .. left button
+        * 1 .. right button
+        * 2 .. middle button
+        &#34;&#34;&#34;
+        self._click[button] = True
+
+    def set_mouse_pos(self, x, y):
+        &#39;Set the mouse cursor position to a specified value.&#39;
+        self._mouse_pos = x, y
+
+    def scroll_up(self):
+        &#39;Scroll the mouse wheel up one click.&#39;
+        self._mouse_wheel = 1
+
+    def scroll_dn(self):
+        &#39;Scroll the mouse wheel down one click.&#39;
+        self._mouse_wheel = -1
+
+    def mouse_dn(self, button=0):
+        &#34;&#34;&#34;Push a specified mouse button.&#34;&#34;&#34;
+        self._mouse_buttons[button] = True
+
+    def mouse_up(self, button=0):
+        &#34;&#34;&#34;Release a specified mouse button.&#34;&#34;&#34;
+        self._mouse_buttons[button] = False
+
+    def key_dn(self, key):
+        imgui.get_io().keys_down[key] = True
+        exit(0)
+
+    def key_up(self, key):
+        imgui.get_io().keys_down[key] = False
+
+    def write_char(self, c):
+        assert 0 &lt; c &lt; 0x10000
+        imgui.get_io().add_input_character(c)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>imgui.integrations.opengl.ProgrammablePipelineRenderer</li>
+<li>imgui.integrations.opengl.BaseOpenGLRenderer</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="concur.integrations.puppet.PuppetRenderer.click"><code class="name flex">
+<span>def <span class="ident">click</span></span>(<span>self, button=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Simulate a mouse button click.</p>
+<ul>
+<li>0 .. left button</li>
+<li>1 .. right button</li>
+<li>2 .. middle button</li>
+</ul></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def click(self, button=0):
+    &#34;&#34;&#34;Simulate a mouse button click.
+
+    * 0 .. left button
+    * 1 .. right button
+    * 2 .. middle button
+    &#34;&#34;&#34;
+    self._click[button] = True</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.key_dn"><code class="name flex">
+<span>def <span class="ident">key_dn</span></span>(<span>self, key)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def key_dn(self, key):
+    imgui.get_io().keys_down[key] = True
+    exit(0)</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.key_up"><code class="name flex">
+<span>def <span class="ident">key_up</span></span>(<span>self, key)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def key_up(self, key):
+    imgui.get_io().keys_down[key] = False</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.mouse_dn"><code class="name flex">
+<span>def <span class="ident">mouse_dn</span></span>(<span>self, button=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Push a specified mouse button.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mouse_dn(self, button=0):
+    &#34;&#34;&#34;Push a specified mouse button.&#34;&#34;&#34;
+    self._mouse_buttons[button] = True</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.mouse_up"><code class="name flex">
+<span>def <span class="ident">mouse_up</span></span>(<span>self, button=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Release a specified mouse button.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mouse_up(self, button=0):
+    &#34;&#34;&#34;Release a specified mouse button.&#34;&#34;&#34;
+    self._mouse_buttons[button] = False</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.process_inputs"><code class="name flex">
+<span>def <span class="ident">process_inputs</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Process the virtual user inputs. Called by <a title="concur.integrations.puppet.main" href="#concur.integrations.puppet.main"><code>main()</code></a> at the beginning of each frame.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_inputs(self):
+    &#34;&#34;&#34;Process the virtual user inputs. Called by `main` at the beginning of each frame.&#34;&#34;&#34;
+    io = imgui.get_io()
+
+    window_size = glfw.get_window_size(self.window)
+    fb_size = glfw.get_framebuffer_size(self.window)
+
+    io.display_size = window_size
+    io.display_fb_scale = compute_fb_scale(window_size, fb_size)
+    io.delta_time = 1.0/60
+
+    current_time = glfw.get_time()
+
+    if self._gui_time:
+        self.io.delta_time = current_time - self._gui_time
+    else:
+        self.io.delta_time = 1. / 60.
+
+    self._gui_time = current_time
+
+    for i, b in enumerate(self._click):
+        if b:
+            io.mouse_down[i] = True
+            self._click[i] = False
+        else:
+            io.mouse_down[i] = False
+    for i, b in enumerate(self._mouse_buttons):
+        if b:
+            io.mouse_down[i] = True
+
+    io.mouse_pos = self._mouse_pos
+    io.mouse_wheel = self._mouse_wheel
+    self._mouse_wheel = 0.0</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.scroll_dn"><code class="name flex">
+<span>def <span class="ident">scroll_dn</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Scroll the mouse wheel down one click.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def scroll_dn(self):
+    &#39;Scroll the mouse wheel down one click.&#39;
+    self._mouse_wheel = -1</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.scroll_up"><code class="name flex">
+<span>def <span class="ident">scroll_up</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Scroll the mouse wheel up one click.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def scroll_up(self):
+    &#39;Scroll the mouse wheel up one click.&#39;
+    self._mouse_wheel = 1</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.set_mouse_pos"><code class="name flex">
+<span>def <span class="ident">set_mouse_pos</span></span>(<span>self, x, y)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Set the mouse cursor position to a specified value.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_mouse_pos(self, x, y):
+    &#39;Set the mouse cursor position to a specified value.&#39;
+    self._mouse_pos = x, y</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.puppet.PuppetRenderer.write_char"><code class="name flex">
+<span>def <span class="ident">write_char</span></span>(<span>self, c)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_char(self, c):
+    assert 0 &lt; c &lt; 0x10000
+    imgui.get_io().add_input_character(c)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="concur.integrations" href="index.html">concur.integrations</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="concur.integrations.puppet.main" href="#concur.integrations.puppet.main">main</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="concur.integrations.puppet.PuppetRenderer" href="#concur.integrations.puppet.PuppetRenderer">PuppetRenderer</a></code></h4>
+<ul class="two-column">
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.click" href="#concur.integrations.puppet.PuppetRenderer.click">click</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.key_dn" href="#concur.integrations.puppet.PuppetRenderer.key_dn">key_dn</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.key_up" href="#concur.integrations.puppet.PuppetRenderer.key_up">key_up</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.mouse_dn" href="#concur.integrations.puppet.PuppetRenderer.mouse_dn">mouse_dn</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.mouse_up" href="#concur.integrations.puppet.PuppetRenderer.mouse_up">mouse_up</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.process_inputs" href="#concur.integrations.puppet.PuppetRenderer.process_inputs">process_inputs</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.scroll_dn" href="#concur.integrations.puppet.PuppetRenderer.scroll_dn">scroll_dn</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.scroll_up" href="#concur.integrations.puppet.PuppetRenderer.scroll_up">scroll_up</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.set_mouse_pos" href="#concur.integrations.puppet.PuppetRenderer.set_mouse_pos">set_mouse_pos</a></code></li>
+<li><code><a title="concur.integrations.puppet.PuppetRenderer.write_char" href="#concur.integrations.puppet.PuppetRenderer.write_char">write_char</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

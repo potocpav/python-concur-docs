@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>concur.testing API documentation</title>
+<meta name="description" content="Routines for automated testing …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>concur.testing</code></h1>
+</header>
+<section id="section-intro">
+<p>Routines for automated testing.</p>
+<p>The current automation/testing setup is work-in-progress, and the interface may change radically
+in future versions. There are some usability issues that I am not entirely happy with.</p>
+<p>See the <a href="https://github.com/potocpav/python-concur/tree/master/tests">tests directory</a> for usage examples.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; Routines for automated testing.
+
+The current automation/testing setup is work-in-progress, and the interface may change radically
+in future versions. There are some usability issues that I am not entirely happy with.
+
+See the [tests directory](https://github.com/potocpav/python-concur/tree/master/tests) for usage examples.
+&#34;&#34;&#34;
+
+
+import os
+import imgui
+import numpy as np # for floating point ranges
+from functools import partial
+from concur.integrations.puppet import PuppetRenderer, main
+from concur.draw import polyline
+from concur.core import orr, optional
+
+
+__pdoc__ = dict(test=False)
+
+def test(widget_gen, slow=None, draw_cursor=True, width=512, height=512, *args, **argv):
+    return main(&#34;Automatic Tester&#34;,
+        lambda puppet_renderer: widget_gen(draw_cursor, Testing(puppet_renderer, slow)),
+        width, height,
+        *args, **argv)
+
+
+def test_widget(f):
+    &#34;&#34;&#34; Function decorator for testing functions.
+
+    Dead simple usage example, which just displays a button for a moment is:
+
+    ```python
+    @c.testing.test_widget
+    def test_example(tester):
+        yield from c.orr([c.button(&#34;Test Button&#34;), tester.pause()])
+
+    if __name__ == &#39;__main__&#39;:
+        test_example()
+    ```
+
+    This can be invoked either directly (`python test_example.py`), or using PyTest (`pytest -k test_example`).
+    To slow the test down, set the environmental variable `SLOW_TEST=1`:
+    ```bash
+    SLOW_TEST=1 python test_example.py
+    # or
+    SLOW_TEST=1 pytest -k test_example
+    ```
+
+    The decorated testing function takes a single argument `tester`, which contains a `Testing` class instance.
+    This class provides convenient functions for user input automation, wrapping the raw user interaction
+    primitives from `concur.integrations.puppet.PuppetRenderer`.
+    &#34;&#34;&#34;
+    def widget_gen(draw_cursor, tester):
+        io = imgui.get_io()
+        io.mouse_draw_cursor = draw_cursor
+        yield from f(tester)
+    def g(*args, **argv):
+        draw_cursor = &#39;draw_cursor&#39; in argv and argv[&#39;draw_cursor&#39;]
+        return test(widget_gen, *args, **argv)
+    return g
+
+
+def benchmark_widget(f_gen):
+    &#34;&#34;&#34; Benchmark a widget (experimental).
+
+    See tests/test_draw.py for example usage.
+
+    TODO: improve, document
+    &#34;&#34;&#34;
+    f = f_gen()
+    def widget(_):
+        for _ in range(240):
+            next(f)
+            yield
+    def g(benchmark):
+        benchmark.pedantic(main, (&#34;Perf Tester&#34;, widget, 512, 512), dict(fps=None), rounds=1)
+    return g
+
+
+class Testing(object):
+    &#34;&#34;&#34; Must be used in conjunction with the `concur.integrations.puppet` backend.
+
+    To setup all the plumbing effortlessly, use the `test_widget` decorator.
+
+    All the methods in this class are widgets, and they can be composed as usual using
+    `concur.core.orr`, `yield from`, and friends.
+    &#34;&#34;&#34;
+    def __init__(self, puppet_renderer, slow=None):
+        assert isinstance(puppet_renderer, PuppetRenderer)
+        self.puppet = puppet_renderer
+        if slow is None:
+            self.slow = &#39;SLOW_TEST&#39; in os.environ and os.environ[&#39;SLOW_TEST&#39;] == &#39;1&#39;
+        else:
+            self.slow = slow
+        self.marked = {}
+
+    def click(self, button=0):
+        &#34;Click a given mouse button.&#34;
+        self.puppet.mouse_dn(button)
+        if self.slow:
+            for i in range(10):
+                yield
+        yield
+        self.puppet.mouse_up(button)
+
+    def click_next(self):
+        &#34;Click the next widget.&#34;
+        x, y = imgui.get_cursor_screen_pos()
+        yield from self.move_cursor(x+5, y+5)
+        yield from self.pause()
+        yield from self.click()
+        # Give the widget time to react
+        yield
+        yield
+
+    def mark(self, name, widget):
+        &#34;&#34;&#34; Display a widget, but mark it with a name so it can be interacted with at a later point
+        using methods such as `click_marked`. &#34;&#34;&#34;
+        while True:
+            self.marked[name] = imgui.get_cursor_screen_pos()
+            try:
+                next(widget)
+            except StopIteration as e:
+                return e.value
+            yield
+
+    def click_marked(self, name, x=5, y=5):
+        &#34;Click the given `marked` widget. Optionally, specify the click offset `x, y` coords.&#34;
+        if name not in self.marked:
+            raise ValueError(f&#34;Name &#39;{name}&#39; was not previously marked.&#34;)
+        x0, y0 = self.marked[name]
+        yield from self.move_cursor(x0 + x, y0 + y)
+        yield from self.pause()
+        yield from self.click()
+        yield
+
+    def move_cursor(self, x, y):
+        &#34;Move cursor to a given position.&#34;
+        io = imgui.get_io()
+        ox, oy = io.mouse_pos
+        yield
+        if self.slow:
+            for f in np.linspace(0, 1, 30):
+                self.puppet.set_mouse_pos(x * f + ox * (1-f), y * f + oy * (1-f))
+                yield
+        else:
+            self.puppet.set_mouse_pos(x, y)
+            yield
+
+    def scroll_up(self):
+        &#34;Scroll up.&#34;
+        self.puppet.scroll_up()
+        yield
+
+    def scroll_dn(self):
+        &#34;Scroll down.&#34;
+        self.puppet.scroll_dn()
+        yield
+
+    def mouse_up(self, button=0):
+        &#34;Release the given mouse button.&#34;
+        self.puppet.mouse_up(button)
+        yield
+
+    def mouse_dn(self, button=0):
+        &#34;Push the given mouse button.&#34;
+        self.puppet.mouse_dn(button)
+        yield
+
+    def write_char(self, ch):
+        &#34;Write a given character.&#34;
+        self.puppet.write_char(ch)
+        yield
+
+    def pause(self, nframes=0):
+        &#34;&#34;&#34;Pause for a specified number of frames.
+
+        If `nframes` &lt;= 0, the pause length depends on the
+        environment variable `TEST_SLOW`.
+        &#34;&#34;&#34;
+        if nframes &lt;= 0:
+            if self.slow:
+                for _ in range(30):
+                    yield
+            yield
+        else:
+            for _ in range(nframes):
+                yield</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="concur.testing.benchmark_widget"><code class="name flex">
+<span>def <span class="ident">benchmark_widget</span></span>(<span>f_gen)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Benchmark a widget (experimental).</p>
+<p>See tests/test_draw.py for example usage.</p>
+<p>TODO: improve, document</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def benchmark_widget(f_gen):
+    &#34;&#34;&#34; Benchmark a widget (experimental).
+
+    See tests/test_draw.py for example usage.
+
+    TODO: improve, document
+    &#34;&#34;&#34;
+    f = f_gen()
+    def widget(_):
+        for _ in range(240):
+            next(f)
+            yield
+    def g(benchmark):
+        benchmark.pedantic(main, (&#34;Perf Tester&#34;, widget, 512, 512), dict(fps=None), rounds=1)
+    return g</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.test_widget"><code class="name flex">
+<span>def <span class="ident">test_widget</span></span>(<span>f)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Function decorator for testing functions.</p>
+<p>Dead simple usage example, which just displays a button for a moment is:</p>
+<pre><code class="python">@c.testing.test_widget
+def test_example(tester):
+    yield from c.orr([c.button(&quot;Test Button&quot;), tester.pause()])
+
+if __name__ == '__main__':
+    test_example()
+</code></pre>
+<p>This can be invoked either directly (<code>python test_example.py</code>), or using PyTest (<code>pytest -k test_example</code>).
+To slow the test down, set the environmental variable <code>SLOW_TEST=1</code>:</p>
+<pre><code class="bash">SLOW_TEST=1 python test_example.py
+# or
+SLOW_TEST=1 pytest -k test_example
+</code></pre>
+<p>The decorated testing function takes a single argument <code>tester</code>, which contains a <a title="concur.testing.Testing" href="#concur.testing.Testing"><code>Testing</code></a> class instance.
+This class provides convenient functions for user input automation, wrapping the raw user interaction
+primitives from <a title="concur.integrations.puppet.PuppetRenderer" href="integrations/puppet.html#concur.integrations.puppet.PuppetRenderer"><code>PuppetRenderer</code></a>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_widget(f):
+    &#34;&#34;&#34; Function decorator for testing functions.
+
+    Dead simple usage example, which just displays a button for a moment is:
+
+    ```python
+    @c.testing.test_widget
+    def test_example(tester):
+        yield from c.orr([c.button(&#34;Test Button&#34;), tester.pause()])
+
+    if __name__ == &#39;__main__&#39;:
+        test_example()
+    ```
+
+    This can be invoked either directly (`python test_example.py`), or using PyTest (`pytest -k test_example`).
+    To slow the test down, set the environmental variable `SLOW_TEST=1`:
+    ```bash
+    SLOW_TEST=1 python test_example.py
+    # or
+    SLOW_TEST=1 pytest -k test_example
+    ```
+
+    The decorated testing function takes a single argument `tester`, which contains a `Testing` class instance.
+    This class provides convenient functions for user input automation, wrapping the raw user interaction
+    primitives from `concur.integrations.puppet.PuppetRenderer`.
+    &#34;&#34;&#34;
+    def widget_gen(draw_cursor, tester):
+        io = imgui.get_io()
+        io.mouse_draw_cursor = draw_cursor
+        yield from f(tester)
+    def g(*args, **argv):
+        draw_cursor = &#39;draw_cursor&#39; in argv and argv[&#39;draw_cursor&#39;]
+        return test(widget_gen, *args, **argv)
+    return g</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="concur.testing.Testing"><code class="flex name class">
+<span>class <span class="ident">Testing</span></span>
+<span>(</span><span>puppet_renderer, slow=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Must be used in conjunction with the <a title="concur.integrations.puppet" href="integrations/puppet.html"><code>concur.integrations.puppet</code></a> backend.</p>
+<p>To setup all the plumbing effortlessly, use the <a title="concur.testing.test_widget" href="#concur.testing.test_widget"><code>test_widget()</code></a> decorator.</p>
+<p>All the methods in this class are widgets, and they can be composed as usual using
+<a title="concur.core.orr" href="core.html#concur.core.orr"><code>orr()</code></a>, <code>yield from</code>, and friends.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Testing(object):
+    &#34;&#34;&#34; Must be used in conjunction with the `concur.integrations.puppet` backend.
+
+    To setup all the plumbing effortlessly, use the `test_widget` decorator.
+
+    All the methods in this class are widgets, and they can be composed as usual using
+    `concur.core.orr`, `yield from`, and friends.
+    &#34;&#34;&#34;
+    def __init__(self, puppet_renderer, slow=None):
+        assert isinstance(puppet_renderer, PuppetRenderer)
+        self.puppet = puppet_renderer
+        if slow is None:
+            self.slow = &#39;SLOW_TEST&#39; in os.environ and os.environ[&#39;SLOW_TEST&#39;] == &#39;1&#39;
+        else:
+            self.slow = slow
+        self.marked = {}
+
+    def click(self, button=0):
+        &#34;Click a given mouse button.&#34;
+        self.puppet.mouse_dn(button)
+        if self.slow:
+            for i in range(10):
+                yield
+        yield
+        self.puppet.mouse_up(button)
+
+    def click_next(self):
+        &#34;Click the next widget.&#34;
+        x, y = imgui.get_cursor_screen_pos()
+        yield from self.move_cursor(x+5, y+5)
+        yield from self.pause()
+        yield from self.click()
+        # Give the widget time to react
+        yield
+        yield
+
+    def mark(self, name, widget):
+        &#34;&#34;&#34; Display a widget, but mark it with a name so it can be interacted with at a later point
+        using methods such as `click_marked`. &#34;&#34;&#34;
+        while True:
+            self.marked[name] = imgui.get_cursor_screen_pos()
+            try:
+                next(widget)
+            except StopIteration as e:
+                return e.value
+            yield
+
+    def click_marked(self, name, x=5, y=5):
+        &#34;Click the given `marked` widget. Optionally, specify the click offset `x, y` coords.&#34;
+        if name not in self.marked:
+            raise ValueError(f&#34;Name &#39;{name}&#39; was not previously marked.&#34;)
+        x0, y0 = self.marked[name]
+        yield from self.move_cursor(x0 + x, y0 + y)
+        yield from self.pause()
+        yield from self.click()
+        yield
+
+    def move_cursor(self, x, y):
+        &#34;Move cursor to a given position.&#34;
+        io = imgui.get_io()
+        ox, oy = io.mouse_pos
+        yield
+        if self.slow:
+            for f in np.linspace(0, 1, 30):
+                self.puppet.set_mouse_pos(x * f + ox * (1-f), y * f + oy * (1-f))
+                yield
+        else:
+            self.puppet.set_mouse_pos(x, y)
+            yield
+
+    def scroll_up(self):
+        &#34;Scroll up.&#34;
+        self.puppet.scroll_up()
+        yield
+
+    def scroll_dn(self):
+        &#34;Scroll down.&#34;
+        self.puppet.scroll_dn()
+        yield
+
+    def mouse_up(self, button=0):
+        &#34;Release the given mouse button.&#34;
+        self.puppet.mouse_up(button)
+        yield
+
+    def mouse_dn(self, button=0):
+        &#34;Push the given mouse button.&#34;
+        self.puppet.mouse_dn(button)
+        yield
+
+    def write_char(self, ch):
+        &#34;Write a given character.&#34;
+        self.puppet.write_char(ch)
+        yield
+
+    def pause(self, nframes=0):
+        &#34;&#34;&#34;Pause for a specified number of frames.
+
+        If `nframes` &lt;= 0, the pause length depends on the
+        environment variable `TEST_SLOW`.
+        &#34;&#34;&#34;
+        if nframes &lt;= 0:
+            if self.slow:
+                for _ in range(30):
+                    yield
+            yield
+        else:
+            for _ in range(nframes):
+                yield</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="concur.testing.Testing.click"><code class="name flex">
+<span>def <span class="ident">click</span></span>(<span>self, button=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Click a given mouse button.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def click(self, button=0):
+    &#34;Click a given mouse button.&#34;
+    self.puppet.mouse_dn(button)
+    if self.slow:
+        for i in range(10):
+            yield
+    yield
+    self.puppet.mouse_up(button)</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.click_marked"><code class="name flex">
+<span>def <span class="ident">click_marked</span></span>(<span>self, name, x=5, y=5)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Click the given <code>marked</code> widget. Optionally, specify the click offset <code>x, y</code> coords.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def click_marked(self, name, x=5, y=5):
+    &#34;Click the given `marked` widget. Optionally, specify the click offset `x, y` coords.&#34;
+    if name not in self.marked:
+        raise ValueError(f&#34;Name &#39;{name}&#39; was not previously marked.&#34;)
+    x0, y0 = self.marked[name]
+    yield from self.move_cursor(x0 + x, y0 + y)
+    yield from self.pause()
+    yield from self.click()
+    yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.click_next"><code class="name flex">
+<span>def <span class="ident">click_next</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Click the next widget.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def click_next(self):
+    &#34;Click the next widget.&#34;
+    x, y = imgui.get_cursor_screen_pos()
+    yield from self.move_cursor(x+5, y+5)
+    yield from self.pause()
+    yield from self.click()
+    # Give the widget time to react
+    yield
+    yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.mark"><code class="name flex">
+<span>def <span class="ident">mark</span></span>(<span>self, name, widget)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display a widget, but mark it with a name so it can be interacted with at a later point
+using methods such as <code>click_marked</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mark(self, name, widget):
+    &#34;&#34;&#34; Display a widget, but mark it with a name so it can be interacted with at a later point
+    using methods such as `click_marked`. &#34;&#34;&#34;
+    while True:
+        self.marked[name] = imgui.get_cursor_screen_pos()
+        try:
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.mouse_dn"><code class="name flex">
+<span>def <span class="ident">mouse_dn</span></span>(<span>self, button=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Push the given mouse button.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mouse_dn(self, button=0):
+    &#34;Push the given mouse button.&#34;
+    self.puppet.mouse_dn(button)
+    yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.mouse_up"><code class="name flex">
+<span>def <span class="ident">mouse_up</span></span>(<span>self, button=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Release the given mouse button.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mouse_up(self, button=0):
+    &#34;Release the given mouse button.&#34;
+    self.puppet.mouse_up(button)
+    yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.move_cursor"><code class="name flex">
+<span>def <span class="ident">move_cursor</span></span>(<span>self, x, y)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Move cursor to a given position.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def move_cursor(self, x, y):
+    &#34;Move cursor to a given position.&#34;
+    io = imgui.get_io()
+    ox, oy = io.mouse_pos
+    yield
+    if self.slow:
+        for f in np.linspace(0, 1, 30):
+            self.puppet.set_mouse_pos(x * f + ox * (1-f), y * f + oy * (1-f))
+            yield
+    else:
+        self.puppet.set_mouse_pos(x, y)
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.pause"><code class="name flex">
+<span>def <span class="ident">pause</span></span>(<span>self, nframes=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Pause for a specified number of frames.</p>
+<p>If <code>nframes</code> &lt;= 0, the pause length depends on the
+environment variable <code>TEST_SLOW</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pause(self, nframes=0):
+    &#34;&#34;&#34;Pause for a specified number of frames.
+
+    If `nframes` &lt;= 0, the pause length depends on the
+    environment variable `TEST_SLOW`.
+    &#34;&#34;&#34;
+    if nframes &lt;= 0:
+        if self.slow:
+            for _ in range(30):
+                yield
+        yield
+    else:
+        for _ in range(nframes):
+            yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.scroll_dn"><code class="name flex">
+<span>def <span class="ident">scroll_dn</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Scroll down.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def scroll_dn(self):
+    &#34;Scroll down.&#34;
+    self.puppet.scroll_dn()
+    yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.scroll_up"><code class="name flex">
+<span>def <span class="ident">scroll_up</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Scroll up.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def scroll_up(self):
+    &#34;Scroll up.&#34;
+    self.puppet.scroll_up()
+    yield</code></pre>
+</details>
+</dd>
+<dt id="concur.testing.Testing.write_char"><code class="name flex">
+<span>def <span class="ident">write_char</span></span>(<span>self, ch)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Write a given character.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_char(self, ch):
+    &#34;Write a given character.&#34;
+    self.puppet.write_char(ch)
+    yield</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="concur" href="index.html">concur</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="concur.testing.benchmark_widget" href="#concur.testing.benchmark_widget">benchmark_widget</a></code></li>
+<li><code><a title="concur.testing.test_widget" href="#concur.testing.test_widget">test_widget</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="concur.testing.Testing" href="#concur.testing.Testing">Testing</a></code></h4>
+<ul class="two-column">
+<li><code><a title="concur.testing.Testing.click" href="#concur.testing.Testing.click">click</a></code></li>
+<li><code><a title="concur.testing.Testing.click_marked" href="#concur.testing.Testing.click_marked">click_marked</a></code></li>
+<li><code><a title="concur.testing.Testing.click_next" href="#concur.testing.Testing.click_next">click_next</a></code></li>
+<li><code><a title="concur.testing.Testing.mark" href="#concur.testing.Testing.mark">mark</a></code></li>
+<li><code><a title="concur.testing.Testing.mouse_dn" href="#concur.testing.Testing.mouse_dn">mouse_dn</a></code></li>
+<li><code><a title="concur.testing.Testing.mouse_up" href="#concur.testing.Testing.mouse_up">mouse_up</a></code></li>
+<li><code><a title="concur.testing.Testing.move_cursor" href="#concur.testing.Testing.move_cursor">move_cursor</a></code></li>
+<li><code><a title="concur.testing.Testing.pause" href="#concur.testing.Testing.pause">pause</a></code></li>
+<li><code><a title="concur.testing.Testing.scroll_dn" href="#concur.testing.Testing.scroll_dn">scroll_dn</a></code></li>
+<li><code><a title="concur.testing.Testing.scroll_up" href="#concur.testing.Testing.scroll_up">scroll_up</a></code></li>
+<li><code><a title="concur.testing.Testing.write_char" href="#concur.testing.Testing.write_char">write_char</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
