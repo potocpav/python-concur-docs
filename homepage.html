@@ -167,22 +167,23 @@ import numpy as np
 from time import monotonic as t
 
 def graph(tf):
-    ts = np.linspace(t(), t() + 1/2, 100)
-    pts = np.stack([np.sin(ts * 4), np.cos(ts * 5)]).T
-    return c.draw.polyline(pts, 'blue', tf=tf)
+    while True:
+        ts = np.linspace(t(), t() + 1/2, 100)
+        pts = np.stack([np.sin(ts * 4), np.cos(ts * 5)]).T
+        yield from c.orr([
+            c.draw.polyline(pts, 'blue', tf=tf),
+            c.event(None), # refresh every frame
+            ])
+        yield
 
 def app():
     view = c.Frame((-1.5, 1.5), (1.5, -1.5))
     while True:
-        key, value = yield from c.orr([
-            c.frame("Frame", view, graph),
-            c.event(("Tick", None)), # refresh every frame
-            ])
-        if key == "Frame":
-            view = value
+        _, view = yield from c.frame("Frame", view, graph)
         yield
 
-c.main("Plot", app(), 400, 288)</code></pre>
+if __name__ == "__main__":
+    c.main("Plot", app(), 400, 288)</code></pre>
               </div>
             <div class="mx-auto col-md-5 order-md-2 my-4" style="text-align: center">
               <video width=400 height=288 autoplay loop>
@@ -199,12 +200,12 @@ c.main("Plot", app(), 400, 288)</code></pre>
     <section>
       <div class="container py-4 d-flex flex-wrap">
         <div class="mx-auto col-md-6 order-md-1 my-4">
-          <h2>Benefits</h2>
+          <h2>Features</h2>
           <ul>
-            <li>Useful for simple visualizations, as well as interactive applications.</li>
-            <li>Works well with Jupyter</li>
-            <li>Real-time performant plotting</li>
+            <li>Simple visualizations, as well as interactive applications.</li>
+            <li>Real-time plotting</li>
             <li>Vector-based image overlays</li>
+            <li>Works well with Jupyter</li>
             <li>Automation and UI testing. Examples on this web page were created programmatically.</li>
             <li>Scales to complicated applications without code becoming spaghetti</li>
             <li><a href="https://dennisreimann.de/articles/elm-architecture-overview.html">The Elm Architecture</a>
@@ -226,6 +227,7 @@ c.main("Plot", app(), 400, 288)</code></pre>
           <p>
             <pre><code class="language-sh p-3 rounded border shadow-sm">pip install concur</code></pre>
           </p>
+          <p>For more detailed instructions, see the <a href="https://github.com/potocpav/python-concur">GitHub repository</a>.
         </div>
       </div>
       <div class="container mb-4" style="text-align: center">
