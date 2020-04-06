@@ -49,6 +49,13 @@ def color_to_rgba(c):
     else:
         raise ValueError(&#34;Color must be RGBA tuple, RGB tuple, string, int, or (str, float) name &amp; alpha tuple&#34;)
 
+def color_to_rgba_tuple(c):
+    n = color_to_rgba(c)
+    return ((n // 0x1) % 0x100) / 255, \
+           ((n // 0x100) % 0x100) / 255, \
+           ((n // 0x10000) % 0x100) / 255, \
+           ((n // 0x1000000) % 0x100) / 255
+
 
 # License: http://creativecommons.org/publicdomain/zero/1.0/
 xkcd_colors = {
@@ -1035,6 +1042,23 @@ xkcd_colors = {
         raise ValueError(&#34;Color must be RGBA tuple, RGB tuple, string, int, or (str, float) name &amp; alpha tuple&#34;)</code></pre>
 </details>
 </dd>
+<dt id="concur.colors.color_to_rgba_tuple"><code class="name flex">
+<span>def <span class="ident">color_to_rgba_tuple</span></span>(<span>c)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def color_to_rgba_tuple(c):
+    n = color_to_rgba(c)
+    return ((n // 0x1) % 0x100) / 255, \
+           ((n // 0x100) % 0x100) / 255, \
+           ((n // 0x10000) % 0x100) / 255, \
+           ((n // 0x1000000) % 0x100) / 255</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 <section>
@@ -1054,6 +1078,7 @@ xkcd_colors = {
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
 <li><code><a title="concur.colors.color_to_rgba" href="#concur.colors.color_to_rgba">color_to_rgba</a></code></li>
+<li><code><a title="concur.colors.color_to_rgba_tuple" href="#concur.colors.color_to_rgba_tuple">color_to_rgba_tuple</a></code></li>
 </ul>
 </li>
 </ul>

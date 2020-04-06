@@ -26,7 +26,7 @@ This is done for convenience, as Python syntax for mapping values is a bit busy.
 <p>Most widgets are just thin wrappers over <a href="https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html">widgets in PyImGui</a>.
 If any widget from ImGui is not listed here, it is mostly trivial to add it. New widgets can be created by writing
 generators by hand, or by using helper functions <a title="concur.core.interactive_elem" href="core.html#concur.core.interactive_elem"><code>interactive_elem()</code></a> or <a title="concur.core.lift" href="core.html#concur.core.lift"><code>lift()</code></a>.</p>
-<p>Some widgets (<a title="concur.widgets.transform" href="#concur.widgets.transform"><code>transform()</code></a>, <a title="concur.widgets.key_pressed" href="#concur.widgets.key_pressed"><code>key_pressed()</code></a>, etc.) don't do any drawing and serve purely for control flow, or user interaction.</p>
+<p>Some widgets (<a title="concur.widgets.transform" href="#concur.widgets.transform"><code>transform()</code></a>, <code>key_pressed</code>, etc.) don't do any drawing and serve purely for control flow, or user interaction.</p>
 <p>All of the functions in this module are re-exported in the root module for convenience.</p>
 <details class="source">
 <summary>
@@ -54,6 +54,7 @@ from typing import Iterable, Any, Tuple
 import imgui
 
 from concur.core import orr, lift, Widget, interactive_elem
+from concur.colors import color_to_rgba_tuple
 
 
 def orr_same_line(widgets):
@@ -128,11 +129,12 @@ def button(label, tag=None):
 
 
 def color_button(label, color, tag=None):
-    &#34;&#34;&#34; Colored button. Color is specified as a tuple (R,G,B,A), each in range 0..1.
+    &#34;&#34;&#34; Colored button. Color can be specified in multiple ways listed in
+    [concur.draw].
 
     Returns `(label, None)` on click, or `(tag, None)` if tag is specified.
     &#34;&#34;&#34;
-    r, g, b, a = color
+    r, g, b, a = color_to_rgba_tuple(color)
     while not imgui.color_button(label, r, g, b, a):
         yield
     return tag if tag is not None else label, None
@@ -155,7 +157,7 @@ def input_text(name, value, buffer_length=255, tag=None):
             yield
 
 
-def key_pressed(name, key_index, repeat=True):
+def key_press(name, key_index, repeat=True):
     &#34;&#34;&#34; Invisible widget that waits for a given key to be pressed.
 
     No widget must be active at the time to prevent triggering hotkeys by editing text fields.
@@ -167,17 +169,17 @@ def key_pressed(name, key_index, repeat=True):
         yield
 
 
-def mouse_click(name, button=0):
+def mouse_click(button=0):
     &#34;&#34;&#34; Invisible widget that waits for a given mouse button to be clicked (default: LMB).
 
-    No interactive widget must be active to trigger this function.
-    Event is returned in the format `(name, (x, y))`, where `(x, y)` are the coordinates
+    This function is triggered only when no widgets are interacted with using mouse.
+    Event is returned in the format `(x, y)`, where `(x, y)` are the coordinates
     of the clicked position.
     &#34;&#34;&#34;
     io = imgui.get_io()
     while True:
         if not imgui.is_any_item_active() and imgui.is_mouse_clicked(button):
-            return name, io.mouse_pos
+            return io.mouse_pos
         yield
 
 
@@ -238,8 +240,9 @@ def text(s):
     &#34;&#34;&#34; Passive text display widget. &#34;&#34;&#34;
     return lift(imgui.text, s)
 
-def text_colored(s, r, g, b, a=1.):
+def text_colored(s, color):
     &#34;&#34;&#34; Passive colored text display widget. &#34;&#34;&#34;
+    r, g, b, a = color_to_rgba_tuple(color)
     return lift(imgui.text_colored, s, r, g, b, a)
 
 def checkbox(label, checked, *args, **kwargs):
@@ -412,18 +415,20 @@ def transform(x, y, widget, tf=None):
 <span>def <span class="ident">color_button</span></span>(<span>label, color, tag=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Colored button. Color is specified as a tuple (R,G,B,A), each in range 0..1.</p>
+<section class="desc"><p>Colored button. Color can be specified in multiple ways listed in
+[concur.draw].</p>
 <p>Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def color_button(label, color, tag=None):
-    &#34;&#34;&#34; Colored button. Color is specified as a tuple (R,G,B,A), each in range 0..1.
+    &#34;&#34;&#34; Colored button. Color can be specified in multiple ways listed in
+    [concur.draw].
 
     Returns `(label, None)` on click, or `(tag, None)` if tag is specified.
     &#34;&#34;&#34;
-    r, g, b, a = color
+    r, g, b, a = color_to_rgba_tuple(color)
     while not imgui.color_button(label, r, g, b, a):
         yield
     return tag if tag is not None else label, None</code></pre>
@@ -556,8 +561,8 @@ None values.</p></section>
             yield</code></pre>
 </details>
 </dd>
-<dt id="concur.widgets.key_pressed"><code class="name flex">
-<span>def <span class="ident">key_pressed</span></span>(<span>name, key_index, repeat=True)</span>
+<dt id="concur.widgets.key_press"><code class="name flex">
+<span>def <span class="ident">key_press</span></span>(<span>name, key_index, repeat=True)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Invisible widget that waits for a given key to be pressed.</p>
@@ -567,7 +572,7 @@ Key codes are specified by the integration layer, e.g. <code>glfw.KEY_A</code>, 
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def key_pressed(name, key_index, repeat=True):
+<pre><code class="python">def key_press(name, key_index, repeat=True):
     &#34;&#34;&#34; Invisible widget that waits for a given key to be pressed.
 
     No widget must be active at the time to prevent triggering hotkeys by editing text fields.
@@ -580,28 +585,28 @@ Key codes are specified by the integration layer, e.g. <code>glfw.KEY_A</code>, 
 </details>
 </dd>
 <dt id="concur.widgets.mouse_click"><code class="name flex">
-<span>def <span class="ident">mouse_click</span></span>(<span>name, button=0)</span>
+<span>def <span class="ident">mouse_click</span></span>(<span>button=0)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Invisible widget that waits for a given mouse button to be clicked (default: LMB).</p>
-<p>No interactive widget must be active to trigger this function.
-Event is returned in the format <code>(name, (x, y))</code>, where <code>(x, y)</code> are the coordinates
+<p>This function is triggered only when no widgets are interacted with using mouse.
+Event is returned in the format <code>(x, y)</code>, where <code>(x, y)</code> are the coordinates
 of the clicked position.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mouse_click(name, button=0):
+<pre><code class="python">def mouse_click(button=0):
     &#34;&#34;&#34; Invisible widget that waits for a given mouse button to be clicked (default: LMB).
 
-    No interactive widget must be active to trigger this function.
-    Event is returned in the format `(name, (x, y))`, where `(x, y)` are the coordinates
+    This function is triggered only when no widgets are interacted with using mouse.
+    Event is returned in the format `(x, y)`, where `(x, y)` are the coordinates
     of the clicked position.
     &#34;&#34;&#34;
     io = imgui.get_io()
     while True:
         if not imgui.is_any_item_active() and imgui.is_mouse_clicked(button):
-            return name, io.mouse_pos
+            return io.mouse_pos
         yield</code></pre>
 </details>
 </dd>
@@ -728,7 +733,7 @@ of the clicked position.</p></section>
 </details>
 </dd>
 <dt id="concur.widgets.text_colored"><code class="name flex">
-<span>def <span class="ident">text_colored</span></span>(<span>s, r, g, b, a=1.0)</span>
+<span>def <span class="ident">text_colored</span></span>(<span>s, color)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Passive colored text display widget.</p></section>
@@ -736,8 +741,9 @@ of the clicked position.</p></section>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def text_colored(s, r, g, b, a=1.):
+<pre><code class="python">def text_colored(s, color):
     &#34;&#34;&#34; Passive colored text display widget. &#34;&#34;&#34;
+    r, g, b, a = color_to_rgba_tuple(color)
     return lift(imgui.text_colored, s, r, g, b, a)</code></pre>
 </details>
 </dd>
@@ -893,7 +899,7 @@ is at <code>[x, y]</code>.</p></section>
 <li><code><a title="concur.widgets.drag_float4" href="#concur.widgets.drag_float4">drag_float4</a></code></li>
 <li><code><a title="concur.widgets.input_float" href="#concur.widgets.input_float">input_float</a></code></li>
 <li><code><a title="concur.widgets.input_text" href="#concur.widgets.input_text">input_text</a></code></li>
-<li><code><a title="concur.widgets.key_pressed" href="#concur.widgets.key_pressed">key_pressed</a></code></li>
+<li><code><a title="concur.widgets.key_press" href="#concur.widgets.key_press">key_press</a></code></li>
 <li><code><a title="concur.widgets.mouse_click" href="#concur.widgets.mouse_click">mouse_click</a></code></li>
 <li><code><a title="concur.widgets.orr_same_line" href="#concur.widgets.orr_same_line">orr_same_line</a></code></li>
 <li><code><a title="concur.widgets.radio_button" href="#concur.widgets.radio_button">radio_button</a></code></li>

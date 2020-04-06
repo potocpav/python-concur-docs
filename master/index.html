@@ -23,11 +23,11 @@
 <p>Concur is a Python UI framework based on synchronous generators.</p>
 <p>It is a port of <a href="https://github.com/ajnsit/purescript-concur">Concur for Purescript</a>, implemented on top of the <a href="https://github.com/ocornut/imgui">Dear ImGui</a> C++ UI library.</p>
 <p>For introduction to core concepts, see the <a href="file:///home/pavel/build/python-concur/docs/index.html#introduction">documentation</a>. A more comprehensive introduction can be found in the <a href="https://github.com/ajnsit/concur-documentation/blob/master/README.md">Documentation for the Haskell/Purescript versions</a>. This obviously uses Haskell/Purescript syntax and semantics, but many of the concepts will apply to the Python version.</p>
-<p>Being an abstraction over ImGui, Concur is best used for debugging, prototyping and data analysis, rather than user-facing applications. ImGui functions can be used directly for any functionality that is not wrapped by Concur. See the <a href="https://pyimgui.readthedocs.io/en/latest/">PyImGui docs</a> for additional widgets, or <a href="https://github.com/ocornut/imgui">ImGui itself</a>.</p>
+<p>Being an abstraction over ImGui, Concur is best used for debugging, prototyping and data analysis, rather than user-facing applications. ImGui functions can be used directly for any functionality that is not wrapped by Concur. See the <a href="https://pyimgui.readthedocs.io/en/latest/">PyImGui docs</a> for additional widgets, or <a href="https://github.com/ocornut/imgui">ImGui itself</a> if you need to poke really deep.</p>
 <h1 id="introduction">Introduction</h1>
 <p>UI components ("widgets") in Concur are Python generators. Internally, widgets do three things:</p>
 <ol>
-<li>Call ImGui commands to draw stuff to screen</li>
+<li>They call ImGui commands to draw stuff to screen</li>
 <li>When the drawing is done, they <code>yield</code> and pass control flow upstream.</li>
 <li>On user interaction, they <code>return result</code>, where result is a value representing user action and/or new widget state.</li>
 </ol>
@@ -43,7 +43,7 @@
 <pre><code class="python">value = yield from button(&quot;Click me&quot;)
 assert value == 123
 </code></pre>
-<p>This shows the most interesting property of Concur: <strong>widgets only exist until they are interacted with.</strong> To interact with a widget repeatedly, it must be re-created each time it's interacted with. This concept is <em>surprisingly</em> powerful – it enables composition in time by simply chaining statements:</p>
+<p>This shows the most interesting property of Concur: <strong>widgets only exist until they are interacted with.</strong> To interact with a widget repeatedly, it must be re-created each time it's interacted with, perhaps inside a loop. This concept is <em>surprisingly</em> powerful – it enables composition in time by simply chaining statements:</p>
 <pre><code class="python">yield from button(&quot;one button&quot;)
 yield # clear the screen
 yield from button(&quot;another button&quot;)
@@ -69,7 +69,7 @@ if tag == &quot;Second&quot;:
 <p>Once the whole user interface is represented as as single widget using various composition primitives, it can be displayed using the <a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main"><code>main()</code></a> function.</p>
 <p>That's it for now. Play around with it. You will discover that these handful of concepts go a <em>long</em> way, and can be used to create even large UIs in a straightforward and clear manner. As a starting point, you can use the <a href="https://github.com/potocpav/python-concur/tree/master/examples">examples</a>.</p>
 <hr>
-<p><sup>1</sup> The name <code>orr</code> is derived from the fact that the resulting widget returns if any child returns (child1 <strong>or</strong> child2). To signify that a list of children is expected (not a pair), <strong>orr</strong> is used instead of <strong>or</strong>. In Concur for Purescript, there is also the <a href="https://pursuit.purescript.org/packages/purescript-concur-core/0.4.1/docs/Concur.Core.Types#v:andd"><code>andd</code> operator</a> which returns when all children return.</p>
+<p><sup>1</sup> The name <code>orr</code> is originally derived from the fact that the resulting widget returns if any child returns (child1 <strong>or</strong> child2). To signify that a list of children is expected (not a pair), <strong>orr</strong> is used instead of <strong>or</strong>. In Concur for Purescript, there is also the dual <a href="https://pursuit.purescript.org/packages/purescript-concur-core/0.4.1/docs/Concur.Core.Types#v:andd"><code>andd</code> operator</a> which returns when all children return.</p>
 <h1 id="troubleshooting">Troubleshooting</h1>
 <p>Here's a list of common issues and their solutions:</p>
 <p><strong>Widget flicker</strong></p>
