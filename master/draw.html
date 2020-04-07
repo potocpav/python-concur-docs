@@ -309,6 +309,9 @@ def scatter(pts, color, marker, marker_size=10, thickness=1, tf=None):
     `&#34;+&#34;`  | plus sign
     `&#34;o&#34;`  | non-filled circle
     &#34;&#34;&#34;
+    if len(pts) == 0:
+        pts = pts.reshape(-1, 2)
+    assert len(pts.shape) == 2 and pts.shape[1] == 2
     if tf is not None:
         pts = tf.transform(pts)
 
@@ -745,6 +748,9 @@ generated geometry.</p>
     `&#34;+&#34;`  | plus sign
     `&#34;o&#34;`  | non-filled circle
     &#34;&#34;&#34;
+    if len(pts) == 0:
+        pts = pts.reshape(-1, 2)
+    assert len(pts.shape) == 2 and pts.shape[1] == 2
     if tf is not None:
         pts = tf.transform(pts)
 

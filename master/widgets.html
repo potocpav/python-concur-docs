@@ -128,6 +128,18 @@ def button(label, tag=None):
     return tag if tag is not None else label, None
 
 
+def invisible_button(label, width, height, tag=None):
+    &#34;&#34;&#34; Invisible button with a given width and height.
+
+    Can be interacted with as a normal button, including clicking and dragging.
+
+    Returns `(label, None)` on click, or `(tag, None)` if tag is specified.
+    &#34;&#34;&#34;
+    while not imgui.invisible_button(label, width, height):
+        yield
+    return tag if tag is not None else label, None
+
+
 def color_button(label, color, tag=None):
     &#34;&#34;&#34; Colored button. Color can be specified in multiple ways listed in
     [concur.draw].
@@ -561,6 +573,29 @@ None values.</p></section>
             yield</code></pre>
 </details>
 </dd>
+<dt id="concur.widgets.invisible_button"><code class="name flex">
+<span>def <span class="ident">invisible_button</span></span>(<span>label, width, height, tag=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Invisible button with a given width and height.</p>
+<p>Can be interacted with as a normal button, including clicking and dragging.</p>
+<p>Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def invisible_button(label, width, height, tag=None):
+    &#34;&#34;&#34; Invisible button with a given width and height.
+
+    Can be interacted with as a normal button, including clicking and dragging.
+
+    Returns `(label, None)` on click, or `(tag, None)` if tag is specified.
+    &#34;&#34;&#34;
+    while not imgui.invisible_button(label, width, height):
+        yield
+    return tag if tag is not None else label, None</code></pre>
+</details>
+</dd>
 <dt id="concur.widgets.key_press"><code class="name flex">
 <span>def <span class="ident">key_press</span></span>(<span>name, key_index, repeat=True)</span>
 </code></dt>
@@ -899,6 +934,7 @@ is at <code>[x, y]</code>.</p></section>
 <li><code><a title="concur.widgets.drag_float4" href="#concur.widgets.drag_float4">drag_float4</a></code></li>
 <li><code><a title="concur.widgets.input_float" href="#concur.widgets.input_float">input_float</a></code></li>
 <li><code><a title="concur.widgets.input_text" href="#concur.widgets.input_text">input_text</a></code></li>
+<li><code><a title="concur.widgets.invisible_button" href="#concur.widgets.invisible_button">invisible_button</a></code></li>
 <li><code><a title="concur.widgets.key_press" href="#concur.widgets.key_press">key_press</a></code></li>
 <li><code><a title="concur.widgets.mouse_click" href="#concur.widgets.mouse_click">mouse_click</a></code></li>
 <li><code><a title="concur.widgets.orr_same_line" href="#concur.widgets.orr_same_line">orr_same_line</a></code></li>
