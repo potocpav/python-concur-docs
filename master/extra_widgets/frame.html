@@ -115,7 +115,7 @@ def _frame(content_gen, show_grid, tf):
     ])
 
 
-def frame(name, state, content_gen=None, show_grid=True):
+def frame(name, state, content_gen=None, drag_tag=None, down_tag=None, show_grid=True):
     &#34;&#34;&#34;The frame widget.
 
     `state` is an instance of `Frame`. See the
@@ -125,7 +125,7 @@ def frame(name, state, content_gen=None, show_grid=True):
     Content is specified using `content_gen`, analogously to how it&#39;s done in `concur.extra_widgets.image.image`.
     &#34;&#34;&#34;
     return map(lambda v: ((v[0], v[1][0]) if v[1][0] is not None else v[1][1]),
-        pan_zoom(name, state, content_gen=partial(_frame, content_gen, show_grid)))</code></pre>
+        pan_zoom(name, state, content_gen=partial(_frame, content_gen, show_grid), drag_tag=drag_tag, down_tag=down_tag))</code></pre>
 </details>
 </section>
 <section>
@@ -136,7 +136,7 @@ def frame(name, state, content_gen=None, show_grid=True):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="concur.extra_widgets.frame.frame"><code class="name flex">
-<span>def <span class="ident">frame</span></span>(<span>name, state, content_gen=None, show_grid=True)</span>
+<span>def <span class="ident">frame</span></span>(<span>name, state, content_gen=None, drag_tag=None, down_tag=None, show_grid=True)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>The frame widget.</p>
@@ -148,7 +148,7 @@ for an usage example.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def frame(name, state, content_gen=None, show_grid=True):
+<pre><code class="python">def frame(name, state, content_gen=None, drag_tag=None, down_tag=None, show_grid=True):
     &#34;&#34;&#34;The frame widget.
 
     `state` is an instance of `Frame`. See the
@@ -158,7 +158,7 @@ for an usage example.</p>
     Content is specified using `content_gen`, analogously to how it&#39;s done in `concur.extra_widgets.image.image`.
     &#34;&#34;&#34;
     return map(lambda v: ((v[0], v[1][0]) if v[1][0] is not None else v[1][1]),
-        pan_zoom(name, state, content_gen=partial(_frame, content_gen, show_grid)))</code></pre>
+        pan_zoom(name, state, content_gen=partial(_frame, content_gen, show_grid), drag_tag=drag_tag, down_tag=down_tag))</code></pre>
 </details>
 </dd>
 </dl>
