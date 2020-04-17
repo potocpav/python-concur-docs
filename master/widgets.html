@@ -128,6 +128,23 @@ def button(label, tag=None):
     return tag if tag is not None else label, None
 
 
+def image_button(name, texture_id, width, height, uv0=(0,0), uv1=(1,1), tint_color=&#39;white&#39;, border_color=&#39;black&#39;, frame_padding=-1):
+    &#34;&#34;&#34; Image button. Returns `(name, None)` on click.
+
+    Args:
+        texture_id: OpenGL texture ID
+        size: image display size two-tuple
+        uv0: UV coordinates for 1st corner (lower-left for OpenGL)
+        uv1: UV coordinates for 2nd corner (upper-right for OpenGL)
+        tint_color: Image tint color
+        border_color: Image border color
+        frame_padding: Frame padding (0: no padding, &lt;0 default padding)
+    &#34;&#34;&#34;
+    while not imgui.image_button(texture_id, width, height, uv0=uv0, uv1=uv1, tint_color=color_to_rgba_tuple(tint_color), border_color=color_to_rgba_tuple(border_color), frame_padding=frame_padding):
+        yield
+    return name, None
+
+
 def invisible_button(label, width, height, tag=None):
     &#34;&#34;&#34; Invisible button with a given width and height.
 
@@ -169,15 +186,20 @@ def input_text(name, value, buffer_length=255, tag=None):
             yield
 
 
-def key_press(name, key_index, repeat=True):
+def key_press(name, key_index, ctrl=False, shift=False, alt=False, super=False, repeat=True):
     &#34;&#34;&#34; Invisible widget that waits for a given key to be pressed.
 
     No widget must be active at the time to prevent triggering hotkeys by editing text fields.
-    Key codes are specified by the integration layer, e.g. `glfw.KEY_A`, or `glfw.KEY_SPACE`.
+    Key codes are specified by glfw, e.g. `glfw.KEY_A`, or `glfw.KEY_SPACE`.
+    Upper-case ASCII codes also work, such as ord(&#39;A&#39;).
     &#34;&#34;&#34;
+    io = imgui.get_io()
     while True:
-        if not imgui.is_any_item_active() and imgui.is_key_pressed(key_index, repeat):
-            return name, None
+        if imgui.is_key_pressed(key_index, repeat):
+            if not imgui.is_any_item_active() and \
+                ctrl == io.key_ctrl and shift == io.key_shift and alt == io.key_alt and super == io.key_super:
+                return name, None
+
         yield
 
 
@@ -232,6 +254,58 @@ def tooltip(tooltip_widget, widget):
         yield
 
 
+def main_menu_bar(widget):
+    &#34;&#34;&#34; Create a main menu bar.
+
+    This requires setting `menu_bar=True` in the `concur.integrations.glfw.main` method.
+    Otherwise, space wouldn&#39;t be reserved for the menu bar, and it would lay on top of
+    window contents.
+
+    Main menu bar must be created outside any windows.
+
+    See [examples/extra/menu_bar.py](https://github.com/potocpav/python-concur/tree/master/examples/extra/menu_bar.py)
+    for an usage example.
+    &#34;&#34;&#34;
+    while True:
+        assert imgui.begin_main_menu_bar(), &#34;Main menu bar must be created outside a window.&#34;
+        try:
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_main_menu_bar()
+        yield
+
+def menu(label, widget, enabled=True):
+    &#34;&#34;&#34; Create an expandable menu in the `main_menu_bar`.
+
+    Widgets commonly used in menus are `menu_item`, and `separator`.
+    &#34;&#34;&#34;
+    while True:
+        expanded = imgui.begin_menu(label, enabled)
+        try:
+            if expanded:
+                next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            if expanded:
+                imgui.end_menu()
+        yield
+
+def menu_item(label, shortcut=None, selected=False, enabled=True, *args, **kwargs):
+    &#34;&#34;&#34; Create a menu item.
+
+    Menu items should be nested inside `menu`.
+
+    Item shortcuts are displayed for convenience, but are not processed in any way.
+    They are easily handled by `key_press` outside the menu code If `key_press` was
+    inside the menu, it would not be active when the menu is not expanded.
+    Items may have a check-box (`selected`), and may or may not be `enabled`.
+    &#34;&#34;&#34;
+    return interactive_elem(imgui.menu_item, label, shortcut, selected, enabled, *args, **kwargs)
+
+
 def separator():
     &#34;&#34;&#34; Horizontal separator. &#34;&#34;&#34;
     return lift(imgui.separator)
@@ -257,6 +331,22 @@ def text_colored(s, color):
     r, g, b, a = color_to_rgba_tuple(color)
     return lift(imgui.text_colored, s, r, g, b, a)
 
+def selectable(label, selected, *args, **kwargs):
+    &#34;&#34;&#34; Selectable line.
+
+    This widget marks the whole line as selectable. To add widgets to `selectable`,
+    simply append them using `orr_same_line`:
+
+    ```python
+    c.orr_same_line([
+        c.selectable(&#34;Selectable&#34;, False),
+        c.text(&#34;Extra text&#34;),
+        ])
+    ```
+     &#34;&#34;&#34;
+    return interactive_elem(imgui.selectable, label, selected, *args, **kwargs)
+
+
 def checkbox(label, checked, *args, **kwargs):
     &#34;&#34;&#34; Two-state checkbox. &#34;&#34;&#34;
     return interactive_elem(imgui.checkbox, label, checked, *args, **kwargs)
@@ -266,12 +356,12 @@ def drag_float(label, value, *args, **kwargs):
     return interactive_elem(imgui.drag_float, label, value, *args, **kwargs)
 
 def drag_float2(label, values, *args, **kwargs):
-    &#34;&#34;&#34; Float selection widget for selecting two `values`. &#34;&#34;&#34;
+    &#34;&#34;&#34; Float selection widget without a slider for selecting two `values`. &#34;&#34;&#34;
     value0, value1 = values
     return interactive_elem(imgui.drag_float2, label, value0, value1, *args, **kwargs)
 
 def drag_float3(label, values, *args, **kwargs):
-    &#34;&#34;&#34; Float selection widget for selecting three `values`. &#34;&#34;&#34;
+    &#34;&#34;&#34; Float selection widget without a slider for selecting three `values`. &#34;&#34;&#34;
     value0, value1, value2 = values
     return interactive_elem(imgui.drag_float3, label, value0, value1, value2, *args, **kwargs)
 
@@ -279,6 +369,25 @@ def drag_float4(label, values, *args, **kwargs):
     &#34;&#34;&#34; Float selection widget without a slider for selecting four `values`. &#34;&#34;&#34;
     value0, value1, value2, value3 = values
     return interactive_elem(imgui.drag_float4, label, value0, value1, value2, value3, *args, **kwargs)
+
+def drag_int(label, value, *args, **kwargs):
+    &#34;&#34;&#34; Integer selection widget without a slider. &#34;&#34;&#34;
+    return interactive_elem(imgui.drag_int, label, value, *args, **kwargs)
+
+def drag_int2(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Integer selection widget without a slider for selecting two `values`. &#34;&#34;&#34;
+    value0, value1 = values
+    return interactive_elem(imgui.drag_int2, label, value0, value1, *args, **kwargs)
+
+def drag_int3(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Integer selection widget without a slider for selecting three `values`. &#34;&#34;&#34;
+    value0, value1, value2 = values
+    return interactive_elem(imgui.drag_int3, label, value0, value1, value2, *args, **kwargs)
+
+def drag_int4(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Integer selection widget without a slider for selecting four `values`. &#34;&#34;&#34;
+    value0, value1, value2, value3 = values
+    return interactive_elem(imgui.drag_int4, label, value0, value1, value2, value3, *args, **kwargs)
 
 def input_float(label, value, *args, **kwargs):
     &#34;&#34;&#34; Float input widget. &#34;&#34;&#34;
@@ -499,13 +608,13 @@ None values.</p></section>
 <span>def <span class="ident">drag_float2</span></span>(<span>label, values, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Float selection widget for selecting two <code>values</code>.</p></section>
+<section class="desc"><p>Float selection widget without a slider for selecting two <code>values</code>.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def drag_float2(label, values, *args, **kwargs):
-    &#34;&#34;&#34; Float selection widget for selecting two `values`. &#34;&#34;&#34;
+    &#34;&#34;&#34; Float selection widget without a slider for selecting two `values`. &#34;&#34;&#34;
     value0, value1 = values
     return interactive_elem(imgui.drag_float2, label, value0, value1, *args, **kwargs)</code></pre>
 </details>
@@ -514,13 +623,13 @@ None values.</p></section>
 <span>def <span class="ident">drag_float3</span></span>(<span>label, values, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Float selection widget for selecting three <code>values</code>.</p></section>
+<section class="desc"><p>Float selection widget without a slider for selecting three <code>values</code>.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def drag_float3(label, values, *args, **kwargs):
-    &#34;&#34;&#34; Float selection widget for selecting three `values`. &#34;&#34;&#34;
+    &#34;&#34;&#34; Float selection widget without a slider for selecting three `values`. &#34;&#34;&#34;
     value0, value1, value2 = values
     return interactive_elem(imgui.drag_float3, label, value0, value1, value2, *args, **kwargs)</code></pre>
 </details>
@@ -538,6 +647,108 @@ None values.</p></section>
     &#34;&#34;&#34; Float selection widget without a slider for selecting four `values`. &#34;&#34;&#34;
     value0, value1, value2, value3 = values
     return interactive_elem(imgui.drag_float4, label, value0, value1, value2, value3, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_int"><code class="name flex">
+<span>def <span class="ident">drag_int</span></span>(<span>label, value, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Integer selection widget without a slider.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_int(label, value, *args, **kwargs):
+    &#34;&#34;&#34; Integer selection widget without a slider. &#34;&#34;&#34;
+    return interactive_elem(imgui.drag_int, label, value, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_int2"><code class="name flex">
+<span>def <span class="ident">drag_int2</span></span>(<span>label, values, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Integer selection widget without a slider for selecting two <code>values</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_int2(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Integer selection widget without a slider for selecting two `values`. &#34;&#34;&#34;
+    value0, value1 = values
+    return interactive_elem(imgui.drag_int2, label, value0, value1, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_int3"><code class="name flex">
+<span>def <span class="ident">drag_int3</span></span>(<span>label, values, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Integer selection widget without a slider for selecting three <code>values</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_int3(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Integer selection widget without a slider for selecting three `values`. &#34;&#34;&#34;
+    value0, value1, value2 = values
+    return interactive_elem(imgui.drag_int3, label, value0, value1, value2, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_int4"><code class="name flex">
+<span>def <span class="ident">drag_int4</span></span>(<span>label, values, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Integer selection widget without a slider for selecting four <code>values</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_int4(label, values, *args, **kwargs):
+    &#34;&#34;&#34; Integer selection widget without a slider for selecting four `values`. &#34;&#34;&#34;
+    value0, value1, value2, value3 = values
+    return interactive_elem(imgui.drag_int4, label, value0, value1, value2, value3, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.image_button"><code class="name flex">
+<span>def <span class="ident">image_button</span></span>(<span>name, texture_id, width, height, uv0=(0, 0), uv1=(1, 1), tint_color='white', border_color='black', frame_padding=-1)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Image button. Returns <code>(name, None)</code> on click.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>texture_id</code></strong></dt>
+<dd>OpenGL texture ID</dd>
+<dt><strong><code>size</code></strong></dt>
+<dd>image display size two-tuple</dd>
+<dt><strong><code>uv0</code></strong></dt>
+<dd>UV coordinates for 1st corner (lower-left for OpenGL)</dd>
+<dt><strong><code>uv1</code></strong></dt>
+<dd>UV coordinates for 2nd corner (upper-right for OpenGL)</dd>
+<dt><strong><code>tint_color</code></strong></dt>
+<dd>Image tint color</dd>
+<dt><strong><code>border_color</code></strong></dt>
+<dd>Image border color</dd>
+<dt><strong><code>frame_padding</code></strong></dt>
+<dd>Frame padding (0: no padding, &lt;0 default padding)</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def image_button(name, texture_id, width, height, uv0=(0,0), uv1=(1,1), tint_color=&#39;white&#39;, border_color=&#39;black&#39;, frame_padding=-1):
+    &#34;&#34;&#34; Image button. Returns `(name, None)` on click.
+
+    Args:
+        texture_id: OpenGL texture ID
+        size: image display size two-tuple
+        uv0: UV coordinates for 1st corner (lower-left for OpenGL)
+        uv1: UV coordinates for 2nd corner (upper-right for OpenGL)
+        tint_color: Image tint color
+        border_color: Image border color
+        frame_padding: Frame padding (0: no padding, &lt;0 default padding)
+    &#34;&#34;&#34;
+    while not imgui.image_button(texture_id, width, height, uv0=uv0, uv1=uv1, tint_color=color_to_rgba_tuple(tint_color), border_color=color_to_rgba_tuple(border_color), frame_padding=frame_padding):
+        yield
+    return name, None</code></pre>
 </details>
 </dd>
 <dt id="concur.widgets.input_float"><code class="name flex">
@@ -597,26 +808,125 @@ None values.</p></section>
 </details>
 </dd>
 <dt id="concur.widgets.key_press"><code class="name flex">
-<span>def <span class="ident">key_press</span></span>(<span>name, key_index, repeat=True)</span>
+<span>def <span class="ident">key_press</span></span>(<span>name, key_index, ctrl=False, shift=False, alt=False, super=False, repeat=True)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Invisible widget that waits for a given key to be pressed.</p>
 <p>No widget must be active at the time to prevent triggering hotkeys by editing text fields.
-Key codes are specified by the integration layer, e.g. <code>glfw.KEY_A</code>, or <code>glfw.KEY_SPACE</code>.</p></section>
+Key codes are specified by glfw, e.g. <code>glfw.KEY_A</code>, or <code>glfw.KEY_SPACE</code>.
+Upper-case ASCII codes also work, such as ord('A').</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def key_press(name, key_index, repeat=True):
+<pre><code class="python">def key_press(name, key_index, ctrl=False, shift=False, alt=False, super=False, repeat=True):
     &#34;&#34;&#34; Invisible widget that waits for a given key to be pressed.
 
     No widget must be active at the time to prevent triggering hotkeys by editing text fields.
-    Key codes are specified by the integration layer, e.g. `glfw.KEY_A`, or `glfw.KEY_SPACE`.
+    Key codes are specified by glfw, e.g. `glfw.KEY_A`, or `glfw.KEY_SPACE`.
+    Upper-case ASCII codes also work, such as ord(&#39;A&#39;).
+    &#34;&#34;&#34;
+    io = imgui.get_io()
+    while True:
+        if imgui.is_key_pressed(key_index, repeat):
+            if not imgui.is_any_item_active() and \
+                ctrl == io.key_ctrl and shift == io.key_shift and alt == io.key_alt and super == io.key_super:
+                return name, None
+
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.main_menu_bar"><code class="name flex">
+<span>def <span class="ident">main_menu_bar</span></span>(<span>widget)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Create a main menu bar.</p>
+<p>This requires setting <code>menu_bar=True</code> in the <a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main"><code>main()</code></a> method.
+Otherwise, space wouldn't be reserved for the menu bar, and it would lay on top of
+window contents.</p>
+<p>Main menu bar must be created outside any windows.</p>
+<p>See <a href="https://github.com/potocpav/python-concur/tree/master/examples/extra/menu_bar.py">examples/extra/menu_bar.py</a>
+for an usage example.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main_menu_bar(widget):
+    &#34;&#34;&#34; Create a main menu bar.
+
+    This requires setting `menu_bar=True` in the `concur.integrations.glfw.main` method.
+    Otherwise, space wouldn&#39;t be reserved for the menu bar, and it would lay on top of
+    window contents.
+
+    Main menu bar must be created outside any windows.
+
+    See [examples/extra/menu_bar.py](https://github.com/potocpav/python-concur/tree/master/examples/extra/menu_bar.py)
+    for an usage example.
     &#34;&#34;&#34;
     while True:
-        if not imgui.is_any_item_active() and imgui.is_key_pressed(key_index, repeat):
-            return name, None
+        assert imgui.begin_main_menu_bar(), &#34;Main menu bar must be created outside a window.&#34;
+        try:
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_main_menu_bar()
         yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.menu"><code class="name flex">
+<span>def <span class="ident">menu</span></span>(<span>label, widget, enabled=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Create an expandable menu in the <a title="concur.widgets.main_menu_bar" href="#concur.widgets.main_menu_bar"><code>main_menu_bar()</code></a>.</p>
+<p>Widgets commonly used in menus are <a title="concur.widgets.menu_item" href="#concur.widgets.menu_item"><code>menu_item()</code></a>, and <a title="concur.widgets.separator" href="#concur.widgets.separator"><code>separator()</code></a>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def menu(label, widget, enabled=True):
+    &#34;&#34;&#34; Create an expandable menu in the `main_menu_bar`.
+
+    Widgets commonly used in menus are `menu_item`, and `separator`.
+    &#34;&#34;&#34;
+    while True:
+        expanded = imgui.begin_menu(label, enabled)
+        try:
+            if expanded:
+                next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            if expanded:
+                imgui.end_menu()
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.menu_item"><code class="name flex">
+<span>def <span class="ident">menu_item</span></span>(<span>label, shortcut=None, selected=False, enabled=True, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Create a menu item.</p>
+<p>Menu items should be nested inside <a title="concur.widgets.menu" href="#concur.widgets.menu"><code>menu()</code></a>.</p>
+<p>Item shortcuts are displayed for convenience, but are not processed in any way.
+They are easily handled by <a title="concur.widgets.key_press" href="#concur.widgets.key_press"><code>key_press()</code></a> outside the menu code If <a title="concur.widgets.key_press" href="#concur.widgets.key_press"><code>key_press()</code></a> was
+inside the menu, it would not be active when the menu is not expanded.
+Items may have a check-box (<code>selected</code>), and may or may not be <code>enabled</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def menu_item(label, shortcut=None, selected=False, enabled=True, *args, **kwargs):
+    &#34;&#34;&#34; Create a menu item.
+
+    Menu items should be nested inside `menu`.
+
+    Item shortcuts are displayed for convenience, but are not processed in any way.
+    They are easily handled by `key_press` outside the menu code If `key_press` was
+    inside the menu, it would not be active when the menu is not expanded.
+    Items may have a check-box (`selected`), and may or may not be `enabled`.
+    &#34;&#34;&#34;
+    return interactive_elem(imgui.menu_item, label, shortcut, selected, enabled, *args, **kwargs)</code></pre>
 </details>
 </dd>
 <dt id="concur.widgets.mouse_click"><code class="name flex">
@@ -681,6 +991,38 @@ of the clicked position.</p></section>
     while not imgui.radio_button(label, active):
         yield
     return (tag if tag is not None else label), None</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.selectable"><code class="name flex">
+<span>def <span class="ident">selectable</span></span>(<span>label, selected, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Selectable line.</p>
+<p>This widget marks the whole line as selectable. To add widgets to <a title="concur.widgets.selectable" href="#concur.widgets.selectable"><code>selectable()</code></a>,
+simply append them using <a title="concur.widgets.orr_same_line" href="#concur.widgets.orr_same_line"><code>orr_same_line()</code></a>:</p>
+<pre><code class="python">c.orr_same_line([
+    c.selectable(&quot;Selectable&quot;, False),
+    c.text(&quot;Extra text&quot;),
+    ])
+</code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def selectable(label, selected, *args, **kwargs):
+    &#34;&#34;&#34; Selectable line.
+
+    This widget marks the whole line as selectable. To add widgets to `selectable`,
+    simply append them using `orr_same_line`:
+
+    ```python
+    c.orr_same_line([
+        c.selectable(&#34;Selectable&#34;, False),
+        c.text(&#34;Extra text&#34;),
+        ])
+    ```
+     &#34;&#34;&#34;
+    return interactive_elem(imgui.selectable, label, selected, *args, **kwargs)</code></pre>
 </details>
 </dd>
 <dt id="concur.widgets.separator"><code class="name flex">
@@ -932,13 +1274,22 @@ is at <code>[x, y]</code>.</p></section>
 <li><code><a title="concur.widgets.drag_float2" href="#concur.widgets.drag_float2">drag_float2</a></code></li>
 <li><code><a title="concur.widgets.drag_float3" href="#concur.widgets.drag_float3">drag_float3</a></code></li>
 <li><code><a title="concur.widgets.drag_float4" href="#concur.widgets.drag_float4">drag_float4</a></code></li>
+<li><code><a title="concur.widgets.drag_int" href="#concur.widgets.drag_int">drag_int</a></code></li>
+<li><code><a title="concur.widgets.drag_int2" href="#concur.widgets.drag_int2">drag_int2</a></code></li>
+<li><code><a title="concur.widgets.drag_int3" href="#concur.widgets.drag_int3">drag_int3</a></code></li>
+<li><code><a title="concur.widgets.drag_int4" href="#concur.widgets.drag_int4">drag_int4</a></code></li>
+<li><code><a title="concur.widgets.image_button" href="#concur.widgets.image_button">image_button</a></code></li>
 <li><code><a title="concur.widgets.input_float" href="#concur.widgets.input_float">input_float</a></code></li>
 <li><code><a title="concur.widgets.input_text" href="#concur.widgets.input_text">input_text</a></code></li>
 <li><code><a title="concur.widgets.invisible_button" href="#concur.widgets.invisible_button">invisible_button</a></code></li>
 <li><code><a title="concur.widgets.key_press" href="#concur.widgets.key_press">key_press</a></code></li>
+<li><code><a title="concur.widgets.main_menu_bar" href="#concur.widgets.main_menu_bar">main_menu_bar</a></code></li>
+<li><code><a title="concur.widgets.menu" href="#concur.widgets.menu">menu</a></code></li>
+<li><code><a title="concur.widgets.menu_item" href="#concur.widgets.menu_item">menu_item</a></code></li>
 <li><code><a title="concur.widgets.mouse_click" href="#concur.widgets.mouse_click">mouse_click</a></code></li>
 <li><code><a title="concur.widgets.orr_same_line" href="#concur.widgets.orr_same_line">orr_same_line</a></code></li>
 <li><code><a title="concur.widgets.radio_button" href="#concur.widgets.radio_button">radio_button</a></code></li>
+<li><code><a title="concur.widgets.selectable" href="#concur.widgets.selectable">selectable</a></code></li>
 <li><code><a title="concur.widgets.separator" href="#concur.widgets.separator">separator</a></code></li>
 <li><code><a title="concur.widgets.slider_float" href="#concur.widgets.slider_float">slider_float</a></code></li>
 <li><code><a title="concur.widgets.slider_int" href="#concur.widgets.slider_int">slider_int</a></code></li>

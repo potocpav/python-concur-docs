@@ -43,7 +43,7 @@ from concur.core import orr, forever, optional, map as cmap
 from concur.extra_widgets.draggable import draggable
 
 
-def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None):
+def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None):
     &#34;&#34;&#34; Create the Pan &amp; Zoom widget, serving as a container for a thing given by `content_gen`.
 
     This widget is mostly not used directly. Instead, a special-purpose wrapper can be used,
@@ -62,6 +62,8 @@ def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=No
         drag_tag: The event tag for LMB drag events. If `None`, no drag events are fired.
         down_tag: The event tag for LMB down events. If `None`, no down events are fired.
             Useful in combination with `drag_tag` to indicate when the dragging started.
+        hover_tag: The event tag for mouse hover when no mouse buttons are down.
+            If `None`, no hover events are fired. Events are fired only when the mouse is moving.
 
     Returns:
         To ease integration with other widgets, this widget returns events in a special format:
@@ -193,9 +195,10 @@ def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=No
 
         if down_tag and not st.is_rmb_dragged and imgui.is_mouse_clicked() and is_window_hovered:
             return name, (None, (down_tag, tf.inv_transform(np.array([[*io.mouse_pos]]))[0]))
-
         if changed or content_value is not None:
             return name, (st if changed else None, content_value)
+        if hover_tag and not st.is_rmb_dragged and not any(imgui.is_mouse_clicked(i) for i in [0,1,2]) and is_window_hovered and (delta[0] or delta[1]):
+            return name, (None, (hover_tag, tf.inv_transform(np.array([[*io.mouse_pos]]))[0]))
         yield
 
 
@@ -294,7 +297,7 @@ class TF(object):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="concur.extra_widgets.pan_zoom.pan_zoom"><code class="name flex">
-<span>def <span class="ident">pan_zoom</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None)</span>
+<span>def <span class="ident">pan_zoom</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Create the Pan &amp; Zoom widget, serving as a container for a thing given by <code>content_gen</code>.</p>
@@ -321,6 +324,9 @@ using the <a title="concur.extra_widgets.pan_zoom.TF" href="#concur.extra_widget
 <dt><strong><code>down_tag</code></strong></dt>
 <dd>The event tag for LMB down events. If <code>None</code>, no down events are fired.
 Useful in combination with <code>drag_tag</code> to indicate when the dragging started.</dd>
+<dt><strong><code>hover_tag</code></strong></dt>
+<dd>The event tag for mouse hover when no mouse buttons are down.
+If <code>None</code>, no hover events are fired. Events are fired only when the mouse is moving.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -334,7 +340,7 @@ or there is no <code>event</code>.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None):
+<pre><code class="python">def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None):
     &#34;&#34;&#34; Create the Pan &amp; Zoom widget, serving as a container for a thing given by `content_gen`.
 
     This widget is mostly not used directly. Instead, a special-purpose wrapper can be used,
@@ -353,6 +359,8 @@ or there is no <code>event</code>.</p>
         drag_tag: The event tag for LMB drag events. If `None`, no drag events are fired.
         down_tag: The event tag for LMB down events. If `None`, no down events are fired.
             Useful in combination with `drag_tag` to indicate when the dragging started.
+        hover_tag: The event tag for mouse hover when no mouse buttons are down.
+            If `None`, no hover events are fired. Events are fired only when the mouse is moving.
 
     Returns:
         To ease integration with other widgets, this widget returns events in a special format:
@@ -484,9 +492,10 @@ or there is no <code>event</code>.</p>
 
         if down_tag and not st.is_rmb_dragged and imgui.is_mouse_clicked() and is_window_hovered:
             return name, (None, (down_tag, tf.inv_transform(np.array([[*io.mouse_pos]]))[0]))
-
         if changed or content_value is not None:
             return name, (st if changed else None, content_value)
+        if hover_tag and not st.is_rmb_dragged and not any(imgui.is_mouse_clicked(i) for i in [0,1,2]) and is_window_hovered and (delta[0] or delta[1]):
+            return name, (None, (hover_tag, tf.inv_transform(np.array([[*io.mouse_pos]]))[0]))
         yield</code></pre>
 </details>
 </dd>

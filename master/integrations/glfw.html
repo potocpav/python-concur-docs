@@ -30,14 +30,33 @@
 
 import glfw
 import OpenGL.GL as gl
+import time
 
 import imgui
 from imgui.integrations.glfw import GlfwRenderer
+
 from concur.integrations.opengl import create_offscreen_fb, get_fb_data
-import time
 
 
 __pdoc__ = dict(create_window=False, begin_maximized_window=False, create_window_dock=False)
+
+
+class PatchedGlfwRenderer(GlfwRenderer):
+    &#34;&#34;&#34; Custom variant of Glfwrenderer in PyImGui:
+
+    https://github.com/swistakm/pyimgui/blob/master/imgui/integrations/glfw.py
+
+    This works around the issue that GLFW uses EN_US keyboard to specify the key codes
+    in `keyboard_callback`. This meant that keyboard shortcuts were broken on non-querty
+    keyboard layouts.
+
+    See https://github.com/ocornut/imgui/issues/2959 for details.
+    &#34;&#34;&#34;
+    def keyboard_callback(self, window, key, scancode, action, mods):
+        if key &lt; 0x100:
+            # Translate characters to the correct keyboard layout.
+            key = ord(glfw.get_key_name(key, 0).upper())
+        super(PatchedGlfwRenderer, self).keyboard_callback(window, key, scancode, action, mods)
 
 
 def create_window(window_name, width, height, visible=True):
@@ -68,26 +87,31 @@ def create_window(window_name, width, height, visible=True):
     return window
 
 
-def begin_maximized_window(name, glfw_window):
+def begin_maximized_window(name, glfw_window, menu_bar=False):
     imgui.set_next_window_position(0, 0)
     imgui.set_next_window_size(*glfw.get_window_size(glfw_window))
     imgui.push_style_var(imgui.STYLE_WINDOW_ROUNDING, 0)
     imgui.push_style_var(imgui.STYLE_WINDOW_BORDERSIZE, 0)
-    window_flags = imgui.WINDOW_NO_TITLE_BAR | imgui.WINDOW_NO_COLLAPSE | imgui.WINDOW_NO_RESIZE | imgui.WINDOW_NO_MOVE | imgui.WINDOW_NO_BRING_TO_FRONT_ON_FOCUS | imgui.WINDOW_NO_NAV_FOCUS | imgui.WINDOW_NO_DOCKING
+    window_flags = imgui.WINDOW_NO_TITLE_BAR | imgui.WINDOW_NO_COLLAPSE | \
+        imgui.WINDOW_NO_RESIZE | imgui.WINDOW_NO_MOVE | \
+        imgui.WINDOW_NO_BRING_TO_FRONT_ON_FOCUS | imgui.WINDOW_NO_NAV_FOCUS | \
+        imgui.WINDOW_NO_DOCKING
+    if menu_bar:
+        window_flags |= imgui.WINDOW_MENU_BAR
     imgui.begin(name, True, window_flags)
     imgui.pop_style_var(2)
 
 
-def create_window_dock(glfw_window):
+def create_window_dock(glfw_window, menu_bar=False):
     imgui.set_next_window_bg_alpha(0)
     imgui.push_style_var(imgui.STYLE_WINDOW_PADDING, (0, 0))
-    begin_maximized_window(&#34;Background Window&#34;, glfw_window)
+    begin_maximized_window(&#34;Background Window&#34;, glfw_window, menu_bar)
     imgui.pop_style_var(1)
     imgui.dock_space(&#34;Window Dock Space&#34;, 0., 0., 1 &lt;&lt; 3)
     imgui.end()
 
 
-def main(name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60):
+def main(name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
     &#34;&#34;&#34; Create a GLFW window, spin up the main loop, and display a given widget inside.
 
     To create a maximized window, pass width and height larger than the screen.
@@ -100,6 +124,7 @@ def main(name, widget, width, height, fps=60, save_screencast=None, screencast_f
         save_screencast: Capture and save the UI into a specified video file (experimental). Main window shouldn&#39;t
             be resized while the application is running when using this option.
         screencast_fps: Save the screencast video with a given FPS.
+        menu_bar: Reserve space for `concur.widgets.main_menu_bar` at the top of the window.
     &#34;&#34;&#34;
     imgui.create_context()
 
@@ -107,7 +132,7 @@ def main(name, widget, width, height, fps=60, save_screencast=None, screencast_f
     imgui.get_io().config_flags |= imgui.CONFIG_DOCKING_ENABLE # | imgui.CONFIG_VIEWPORTS_ENABLE
 
     window = create_window(name, width, height)
-    impl = GlfwRenderer(window)
+    impl = PatchedGlfwRenderer(window)
 
     ## Using this feels significantly choppier than sleeping manually. TODO: investigate &amp; fix
     # glfw.swap_interval(-1)
@@ -124,8 +149,8 @@ def main(name, widget, width, height, fps=60, save_screencast=None, screencast_f
 
         imgui.new_frame()
 
-        create_window_dock(window)
-        begin_maximized_window(&#34;Default##Concur&#34;, window)
+        create_window_dock(window, menu_bar=menu_bar)
+        begin_maximized_window(&#34;Default##Concur&#34;, window, menu_bar=menu_bar)
 
         try:
             next(widget)
@@ -175,7 +200,7 @@ def main(name, widget, width, height, fps=60, save_screencast=None, screencast_f
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="concur.integrations.glfw.main"><code class="name flex">
-<span>def <span class="ident">main</span></span>(<span>name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60)</span>
+<span>def <span class="ident">main</span></span>(<span>name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Create a GLFW window, spin up the main loop, and display a given widget inside.</p>
@@ -195,12 +220,14 @@ def main(name, widget, width, height, fps=60, save_screencast=None, screencast_f
 be resized while the application is running when using this option.</dd>
 <dt><strong><code>screencast_fps</code></strong></dt>
 <dd>Save the screencast video with a given FPS.</dd>
+<dt><strong><code>menu_bar</code></strong></dt>
+<dd>Reserve space for <a title="concur.widgets.main_menu_bar" href="../widgets.html#concur.widgets.main_menu_bar"><code>main_menu_bar()</code></a> at the top of the window.</dd>
 </dl></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def main(name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60):
+<pre><code class="python">def main(name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
     &#34;&#34;&#34; Create a GLFW window, spin up the main loop, and display a given widget inside.
 
     To create a maximized window, pass width and height larger than the screen.
@@ -213,6 +240,7 @@ be resized while the application is running when using this option.</dd>
         save_screencast: Capture and save the UI into a specified video file (experimental). Main window shouldn&#39;t
             be resized while the application is running when using this option.
         screencast_fps: Save the screencast video with a given FPS.
+        menu_bar: Reserve space for `concur.widgets.main_menu_bar` at the top of the window.
     &#34;&#34;&#34;
     imgui.create_context()
 
@@ -220,7 +248,7 @@ be resized while the application is running when using this option.</dd>
     imgui.get_io().config_flags |= imgui.CONFIG_DOCKING_ENABLE # | imgui.CONFIG_VIEWPORTS_ENABLE
 
     window = create_window(name, width, height)
-    impl = GlfwRenderer(window)
+    impl = PatchedGlfwRenderer(window)
 
     ## Using this feels significantly choppier than sleeping manually. TODO: investigate &amp; fix
     # glfw.swap_interval(-1)
@@ -237,8 +265,8 @@ be resized while the application is running when using this option.</dd>
 
         imgui.new_frame()
 
-        create_window_dock(window)
-        begin_maximized_window(&#34;Default##Concur&#34;, window)
+        create_window_dock(window, menu_bar=menu_bar)
+        begin_maximized_window(&#34;Default##Concur&#34;, window, menu_bar=menu_bar)
 
         try:
             next(widget)
@@ -283,6 +311,67 @@ be resized while the application is running when using this option.</dd>
 </dl>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="concur.integrations.glfw.PatchedGlfwRenderer"><code class="flex name class">
+<span>class <span class="ident">PatchedGlfwRenderer</span></span>
+<span>(</span><span>window, attach_callbacks=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Custom variant of Glfwrenderer in PyImGui:</p>
+<p><a href="https://github.com/swistakm/pyimgui/blob/master/imgui/integrations/glfw.py">https://github.com/swistakm/pyimgui/blob/master/imgui/integrations/glfw.py</a></p>
+<p>This works around the issue that GLFW uses EN_US keyboard to specify the key codes
+in <code>keyboard_callback</code>. This meant that keyboard shortcuts were broken on non-querty
+keyboard layouts.</p>
+<p>See <a href="https://github.com/ocornut/imgui/issues/2959">https://github.com/ocornut/imgui/issues/2959</a> for details.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PatchedGlfwRenderer(GlfwRenderer):
+    &#34;&#34;&#34; Custom variant of Glfwrenderer in PyImGui:
+
+    https://github.com/swistakm/pyimgui/blob/master/imgui/integrations/glfw.py
+
+    This works around the issue that GLFW uses EN_US keyboard to specify the key codes
+    in `keyboard_callback`. This meant that keyboard shortcuts were broken on non-querty
+    keyboard layouts.
+
+    See https://github.com/ocornut/imgui/issues/2959 for details.
+    &#34;&#34;&#34;
+    def keyboard_callback(self, window, key, scancode, action, mods):
+        if key &lt; 0x100:
+            # Translate characters to the correct keyboard layout.
+            key = ord(glfw.get_key_name(key, 0).upper())
+        super(PatchedGlfwRenderer, self).keyboard_callback(window, key, scancode, action, mods)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>imgui.integrations.glfw.GlfwRenderer</li>
+<li>imgui.integrations.opengl.ProgrammablePipelineRenderer</li>
+<li>imgui.integrations.opengl.BaseOpenGLRenderer</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="concur.integrations.glfw.PatchedGlfwRenderer.keyboard_callback"><code class="name flex">
+<span>def <span class="ident">keyboard_callback</span></span>(<span>self, window, key, scancode, action, mods)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def keyboard_callback(self, window, key, scancode, action, mods):
+    if key &lt; 0x100:
+        # Translate characters to the correct keyboard layout.
+        key = ord(glfw.get_key_name(key, 0).upper())
+    super(PatchedGlfwRenderer, self).keyboard_callback(window, key, scancode, action, mods)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -299,6 +388,16 @@ be resized while the application is running when using this option.</dd>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
 <li><code><a title="concur.integrations.glfw.main" href="#concur.integrations.glfw.main">main</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="concur.integrations.glfw.PatchedGlfwRenderer" href="#concur.integrations.glfw.PatchedGlfwRenderer">PatchedGlfwRenderer</a></code></h4>
+<ul class="">
+<li><code><a title="concur.integrations.glfw.PatchedGlfwRenderer.keyboard_callback" href="#concur.integrations.glfw.PatchedGlfwRenderer.keyboard_callback">keyboard_callback</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
