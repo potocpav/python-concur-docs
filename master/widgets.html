@@ -203,17 +203,17 @@ def key_press(name, key_index, ctrl=False, shift=False, alt=False, super=False, 
         yield
 
 
-def mouse_click(button=0):
+def mouse_click(name, button=0):
     &#34;&#34;&#34; Invisible widget that waits for a given mouse button to be clicked (default: LMB).
 
     This function is triggered only when no widgets are interacted with using mouse.
-    Event is returned in the format `(x, y)`, where `(x, y)` are the coordinates
+    Event is returned in the format `(name, (x, y))`, where `(x, y)` are the coordinates
     of the clicked position.
     &#34;&#34;&#34;
     io = imgui.get_io()
     while True:
         if not imgui.is_any_item_active() and imgui.is_mouse_clicked(button):
-            return io.mouse_pos
+            return name, io.mouse_pos
         yield
 
 
@@ -930,28 +930,28 @@ Items may have a check-box (<code>selected</code>), and may or may not be <code>
 </details>
 </dd>
 <dt id="concur.widgets.mouse_click"><code class="name flex">
-<span>def <span class="ident">mouse_click</span></span>(<span>button=0)</span>
+<span>def <span class="ident">mouse_click</span></span>(<span>name, button=0)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Invisible widget that waits for a given mouse button to be clicked (default: LMB).</p>
 <p>This function is triggered only when no widgets are interacted with using mouse.
-Event is returned in the format <code>(x, y)</code>, where <code>(x, y)</code> are the coordinates
+Event is returned in the format <code>(name, (x, y))</code>, where <code>(x, y)</code> are the coordinates
 of the clicked position.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mouse_click(button=0):
+<pre><code class="python">def mouse_click(name, button=0):
     &#34;&#34;&#34; Invisible widget that waits for a given mouse button to be clicked (default: LMB).
 
     This function is triggered only when no widgets are interacted with using mouse.
-    Event is returned in the format `(x, y)`, where `(x, y)` are the coordinates
+    Event is returned in the format `(name, (x, y))`, where `(x, y)` are the coordinates
     of the clicked position.
     &#34;&#34;&#34;
     io = imgui.get_io()
     while True:
         if not imgui.is_any_item_active() and imgui.is_mouse_clicked(button):
-            return io.mouse_pos
+            return name, io.mouse_pos
         yield</code></pre>
 </details>
 </dd>
