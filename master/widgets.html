@@ -84,6 +84,8 @@ def window(title: str,
             imgui.set_next_window_position(*position)
         if size is not None:
             imgui.set_next_window_size(*size)
+        else:
+            imgui.set_next_window_size(400, 300, imgui.FIRST_USE_EVER)
         expanded, opened = imgui.begin(title, flags=flags)
         try:
             if expanded and opened:
@@ -118,6 +120,24 @@ def collapsing_header(text, widget, open=True):
                 next(widget)
         except StopIteration as e:
             return e.value
+        yield
+
+
+def tree_node(text, widget, open=True):
+    &#34;&#34;&#34;Display a collapsible tree node. It can be open or closed by default (parameter `open`).
+
+    Tree node content has left offset, unlike `collapsing_header`.
+    &#34;&#34;&#34;
+    while True:
+        expanded = imgui.tree_node(text, flags=open and imgui.TREE_NODE_DEFAULT_OPEN)
+        try:
+            if expanded:
+                next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            if expanded:
+                imgui.tree_pop()
         yield
 
 
@@ -180,6 +200,19 @@ def input_text(name, value, buffer_length=255, tag=None):
     &#34;&#34;&#34; Text input. &#34;&#34;&#34;
     while True:
         changed, new_value = imgui.input_text(name, value, buffer_length)
+        if changed:
+            return (name if tag is None else tag), new_value
+        else:
+            yield
+
+
+def input_text_multiline(name, value, buffer_length=4000, width=0, height=0, flags=0, tag=None):
+    &#34;&#34;&#34; Multiline text input.
+
+    Flags are [defined by PyImGui](https://pyimgui.readthedocs.io/en/latest/guide/inputtext-flags.html#inputtext-flag-options).
+    &#34;&#34;&#34;
+    while True:
+        changed, new_value = imgui.input_text_multiline(name, value, buffer_length, width, height, flags)
         if changed:
             return (name if tag is None else tag), new_value
         else:
@@ -325,6 +358,15 @@ def same_line():
 def text(s):
     &#34;&#34;&#34; Passive text display widget. &#34;&#34;&#34;
     return lift(imgui.text, s)
+
+def text_wrapped(s):
+    &#34;&#34;&#34; Word wrapping text display widget. Recommended for long chunks of text. &#34;&#34;&#34;
+    def f():
+        imgui.push_text_wrap_pos()
+        imgui.text(s)
+        imgui.pop_text_wrap_pos()
+    return lift(f)
+
 
 def text_colored(s, color):
     &#34;&#34;&#34; Passive colored text display widget. &#34;&#34;&#34;
@@ -784,6 +826,29 @@ None values.</p></section>
             yield</code></pre>
 </details>
 </dd>
+<dt id="concur.widgets.input_text_multiline"><code class="name flex">
+<span>def <span class="ident">input_text_multiline</span></span>(<span>name, value, buffer_length=4000, width=0, height=0, flags=0, tag=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Multiline text input.</p>
+<p>Flags are <a href="https://pyimgui.readthedocs.io/en/latest/guide/inputtext-flags.html#inputtext-flag-options">defined by PyImGui</a>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def input_text_multiline(name, value, buffer_length=4000, width=0, height=0, flags=0, tag=None):
+    &#34;&#34;&#34; Multiline text input.
+
+    Flags are [defined by PyImGui](https://pyimgui.readthedocs.io/en/latest/guide/inputtext-flags.html#inputtext-flag-options).
+    &#34;&#34;&#34;
+    while True:
+        changed, new_value = imgui.input_text_multiline(name, value, buffer_length, width, height, flags)
+        if changed:
+            return (name if tag is None else tag), new_value
+        else:
+            yield</code></pre>
+</details>
+</dd>
 <dt id="concur.widgets.invisible_button"><code class="name flex">
 <span>def <span class="ident">invisible_button</span></span>(<span>label, width, height, tag=None)</span>
 </code></dt>
@@ -1148,6 +1213,24 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
         yield</code></pre>
 </details>
 </dd>
+<dt id="concur.widgets.text_wrapped"><code class="name flex">
+<span>def <span class="ident">text_wrapped</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Word wrapping text display widget. Recommended for long chunks of text.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text_wrapped(s):
+    &#34;&#34;&#34; Word wrapping text display widget. Recommended for long chunks of text. &#34;&#34;&#34;
+    def f():
+        imgui.push_text_wrap_pos()
+        imgui.text(s)
+        imgui.pop_text_wrap_pos()
+    return lift(f)</code></pre>
+</details>
+</dd>
 <dt id="concur.widgets.tooltip"><code class="name flex">
 <span>def <span class="ident">tooltip</span></span>(<span>tooltip_widget, widget)</span>
 </code></dt>
@@ -1211,6 +1294,34 @@ is at <code>[x, y]</code>.</p></section>
         yield</code></pre>
 </details>
 </dd>
+<dt id="concur.widgets.tree_node"><code class="name flex">
+<span>def <span class="ident">tree_node</span></span>(<span>text, widget, open=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display a collapsible tree node. It can be open or closed by default (parameter <code>open</code>).</p>
+<p>Tree node content has left offset, unlike <a title="concur.widgets.collapsing_header" href="#concur.widgets.collapsing_header"><code>collapsing_header()</code></a>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tree_node(text, widget, open=True):
+    &#34;&#34;&#34;Display a collapsible tree node. It can be open or closed by default (parameter `open`).
+
+    Tree node content has left offset, unlike `collapsing_header`.
+    &#34;&#34;&#34;
+    while True:
+        expanded = imgui.tree_node(text, flags=open and imgui.TREE_NODE_DEFAULT_OPEN)
+        try:
+            if expanded:
+                next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            if expanded:
+                imgui.tree_pop()
+        yield</code></pre>
+</details>
+</dd>
 <dt id="concur.widgets.window"><code class="name flex">
 <span>def <span class="ident">window</span></span>(<span>title, widget, position=None, size=None, flags=0)</span>
 </code></dt>
@@ -1235,6 +1346,8 @@ is at <code>[x, y]</code>.</p></section>
             imgui.set_next_window_position(*position)
         if size is not None:
             imgui.set_next_window_size(*size)
+        else:
+            imgui.set_next_window_size(400, 300, imgui.FIRST_USE_EVER)
         expanded, opened = imgui.begin(title, flags=flags)
         try:
             if expanded and opened:
@@ -1263,7 +1376,7 @@ is at <code>[x, y]</code>.</p></section>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="two-column">
+<ul class="">
 <li><code><a title="concur.widgets.button" href="#concur.widgets.button">button</a></code></li>
 <li><code><a title="concur.widgets.checkbox" href="#concur.widgets.checkbox">checkbox</a></code></li>
 <li><code><a title="concur.widgets.child" href="#concur.widgets.child">child</a></code></li>
@@ -1281,6 +1394,7 @@ is at <code>[x, y]</code>.</p></section>
 <li><code><a title="concur.widgets.image_button" href="#concur.widgets.image_button">image_button</a></code></li>
 <li><code><a title="concur.widgets.input_float" href="#concur.widgets.input_float">input_float</a></code></li>
 <li><code><a title="concur.widgets.input_text" href="#concur.widgets.input_text">input_text</a></code></li>
+<li><code><a title="concur.widgets.input_text_multiline" href="#concur.widgets.input_text_multiline">input_text_multiline</a></code></li>
 <li><code><a title="concur.widgets.invisible_button" href="#concur.widgets.invisible_button">invisible_button</a></code></li>
 <li><code><a title="concur.widgets.key_press" href="#concur.widgets.key_press">key_press</a></code></li>
 <li><code><a title="concur.widgets.main_menu_bar" href="#concur.widgets.main_menu_bar">main_menu_bar</a></code></li>
@@ -1298,8 +1412,10 @@ is at <code>[x, y]</code>.</p></section>
 <li><code><a title="concur.widgets.text" href="#concur.widgets.text">text</a></code></li>
 <li><code><a title="concur.widgets.text_colored" href="#concur.widgets.text_colored">text_colored</a></code></li>
 <li><code><a title="concur.widgets.text_tooltip" href="#concur.widgets.text_tooltip">text_tooltip</a></code></li>
+<li><code><a title="concur.widgets.text_wrapped" href="#concur.widgets.text_wrapped">text_wrapped</a></code></li>
 <li><code><a title="concur.widgets.tooltip" href="#concur.widgets.tooltip">tooltip</a></code></li>
 <li><code><a title="concur.widgets.transform" href="#concur.widgets.transform">transform</a></code></li>
+<li><code><a title="concur.widgets.tree_node" href="#concur.widgets.tree_node">tree_node</a></code></li>
 <li><code><a title="concur.widgets.window" href="#concur.widgets.window">window</a></code></li>
 </ul>
 </li>
