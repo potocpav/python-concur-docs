@@ -355,6 +355,31 @@ def same_line():
     return lift(imgui.same_line)
 
 
+def font(font_, widget):
+    &#34;&#34;&#34; Render `widget` with a given font.
+
+    The easiest way to create `font_` is probably to call this before the call to
+    `concur.integrations.glfw.main`:
+
+    ```python
+    imgui.create_context()
+    font = imgui.get_io().fonts.add_font_from_file_ttf(&#34;font_file.ttf&#34;, 16)
+    ```
+
+    See the [font guide in PyImGui](https://pyimgui.readthedocs.io/en/latest/guide/using-fonts.html)
+    for more details.
+    &#34;&#34;&#34;
+    while True:
+        imgui.push_font(font_)
+        try:
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.pop_font()
+        yield
+
+
 def text(s):
     &#34;&#34;&#34; Passive text display widget. &#34;&#34;&#34;
     return lift(imgui.text, s)
@@ -748,6 +773,47 @@ None values.</p></section>
     &#34;&#34;&#34; Integer selection widget without a slider for selecting four `values`. &#34;&#34;&#34;
     value0, value1, value2, value3 = values
     return interactive_elem(imgui.drag_int4, label, value0, value1, value2, value3, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.font"><code class="name flex">
+<span>def <span class="ident">font</span></span>(<span>font_, widget)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Render <code>widget</code> with a given font.</p>
+<p>The easiest way to create <code>font_</code> is probably to call this before the call to
+<a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main"><code>main()</code></a>:</p>
+<pre><code class="python">imgui.create_context()
+font = imgui.get_io().fonts.add_font_from_file_ttf(&quot;font_file.ttf&quot;, 16)
+</code></pre>
+<p>See the <a href="https://pyimgui.readthedocs.io/en/latest/guide/using-fonts.html">font guide in PyImGui</a>
+for more details.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def font(font_, widget):
+    &#34;&#34;&#34; Render `widget` with a given font.
+
+    The easiest way to create `font_` is probably to call this before the call to
+    `concur.integrations.glfw.main`:
+
+    ```python
+    imgui.create_context()
+    font = imgui.get_io().fonts.add_font_from_file_ttf(&#34;font_file.ttf&#34;, 16)
+    ```
+
+    See the [font guide in PyImGui](https://pyimgui.readthedocs.io/en/latest/guide/using-fonts.html)
+    for more details.
+    &#34;&#34;&#34;
+    while True:
+        imgui.push_font(font_)
+        try:
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.pop_font()
+        yield</code></pre>
 </details>
 </dd>
 <dt id="concur.widgets.image_button"><code class="name flex">
@@ -1391,6 +1457,7 @@ is at <code>[x, y]</code>.</p></section>
 <li><code><a title="concur.widgets.drag_int2" href="#concur.widgets.drag_int2">drag_int2</a></code></li>
 <li><code><a title="concur.widgets.drag_int3" href="#concur.widgets.drag_int3">drag_int3</a></code></li>
 <li><code><a title="concur.widgets.drag_int4" href="#concur.widgets.drag_int4">drag_int4</a></code></li>
+<li><code><a title="concur.widgets.font" href="#concur.widgets.font">font</a></code></li>
 <li><code><a title="concur.widgets.image_button" href="#concur.widgets.image_button">image_button</a></code></li>
 <li><code><a title="concur.widgets.input_float" href="#concur.widgets.input_float">input_float</a></code></li>
 <li><code><a title="concur.widgets.input_text" href="#concur.widgets.input_text">input_text</a></code></li>
