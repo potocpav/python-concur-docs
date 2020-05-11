@@ -39,7 +39,7 @@ See the [tests directory](https://github.com/potocpav/python-concur/tree/master/
 
 import os
 import imgui
-import numpy as np # for floating point ranges
+import numpy as np  # for floating point ranges
 from functools import partial
 from concur.integrations.puppet import PuppetRenderer, main
 from concur.draw import polyline
@@ -48,8 +48,10 @@ from concur.core import orr, optional
 
 __pdoc__ = dict(test=False)
 
+
 def test(widget_gen, slow=None, draw_cursor=True, width=512, height=512, *args, **argv):
-    return main(&#34;Automatic Tester&#34;,
+    return main(
+        &#34;Automatic Tester&#34;,
         lambda puppet_renderer: widget_gen(draw_cursor, Testing(puppet_renderer, slow)),
         width, height,
         *args, **argv)
@@ -85,9 +87,11 @@ def test_widget(f):
         io = imgui.get_io()
         io.mouse_draw_cursor = draw_cursor
         yield from f(tester)
+
     def g(*args, **argv):
         draw_cursor = &#39;draw_cursor&#39; in argv and argv[&#39;draw_cursor&#39;]
         return test(widget_gen, *args, **argv)
+
     return g
 
 
@@ -99,12 +103,15 @@ def benchmark_widget(f_gen):
     TODO: improve, document
     &#34;&#34;&#34;
     f = f_gen()
+
     def widget(_):
         for _ in range(240):
             next(f)
             yield
+
     def g(benchmark):
         benchmark.pedantic(main, (&#34;Perf Tester&#34;, widget, 512, 512), dict(fps=None), rounds=1)
+
     return g
 
 
@@ -137,7 +144,7 @@ class Testing(object):
     def click_next(self):
         &#34;Click the next widget.&#34;
         x, y = imgui.get_cursor_screen_pos()
-        yield from self.move_cursor(x+5, y+5)
+        yield from self.move_cursor(x + 5, y + 5)
         yield from self.pause()
         yield from self.click()
         # Give the widget time to react
@@ -172,7 +179,7 @@ class Testing(object):
         yield
         if self.slow:
             for f in np.linspace(0, 1, 30):
-                self.puppet.set_mouse_pos(x * f + ox * (1-f), y * f + oy * (1-f))
+                self.puppet.set_mouse_pos(x * f + ox * (1 - f), y * f + oy * (1 - f))
                 yield
         else:
             self.puppet.set_mouse_pos(x, y)
@@ -245,12 +252,15 @@ class Testing(object):
     TODO: improve, document
     &#34;&#34;&#34;
     f = f_gen()
+
     def widget(_):
         for _ in range(240):
             next(f)
             yield
+
     def g(benchmark):
         benchmark.pedantic(main, (&#34;Perf Tester&#34;, widget, 512, 512), dict(fps=None), rounds=1)
+
     return g</code></pre>
 </details>
 </dd>
@@ -310,9 +320,11 @@ primitives from <a title="concur.integrations.puppet.PuppetRenderer" href="integ
         io = imgui.get_io()
         io.mouse_draw_cursor = draw_cursor
         yield from f(tester)
+
     def g(*args, **argv):
         draw_cursor = &#39;draw_cursor&#39; in argv and argv[&#39;draw_cursor&#39;]
         return test(widget_gen, *args, **argv)
+
     return g</code></pre>
 </details>
 </dd>
@@ -363,7 +375,7 @@ primitives from <a title="concur.integrations.puppet.PuppetRenderer" href="integ
     def click_next(self):
         &#34;Click the next widget.&#34;
         x, y = imgui.get_cursor_screen_pos()
-        yield from self.move_cursor(x+5, y+5)
+        yield from self.move_cursor(x + 5, y + 5)
         yield from self.pause()
         yield from self.click()
         # Give the widget time to react
@@ -398,7 +410,7 @@ primitives from <a title="concur.integrations.puppet.PuppetRenderer" href="integ
         yield
         if self.slow:
             for f in np.linspace(0, 1, 30):
-                self.puppet.set_mouse_pos(x * f + ox * (1-f), y * f + oy * (1-f))
+                self.puppet.set_mouse_pos(x * f + ox * (1 - f), y * f + oy * (1 - f))
                 yield
         else:
             self.puppet.set_mouse_pos(x, y)
@@ -497,7 +509,7 @@ primitives from <a title="concur.integrations.puppet.PuppetRenderer" href="integ
 <pre><code class="python">def click_next(self):
     &#34;Click the next widget.&#34;
     x, y = imgui.get_cursor_screen_pos()
-    yield from self.move_cursor(x+5, y+5)
+    yield from self.move_cursor(x + 5, y + 5)
     yield from self.pause()
     yield from self.click()
     # Give the widget time to react
@@ -573,7 +585,7 @@ using methods such as <code>click_marked</code>.</p></section>
     yield
     if self.slow:
         for f in np.linspace(0, 1, 30):
-            self.puppet.set_mouse_pos(x * f + ox * (1-f), y * f + oy * (1-f))
+            self.puppet.set_mouse_pos(x * f + ox * (1 - f), y * f + oy * (1 - f))
             yield
     else:
         self.puppet.set_mouse_pos(x, y)

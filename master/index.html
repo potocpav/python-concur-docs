@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
 <title>concur API documentation</title>
-<meta name="description" content="Concur is a Python UI framework based on synchronous generators …" />
+<meta name="description" content="Most of the functions and classes from submodules are re-exported in the
+`concur` root module. The most convenient way to access them is by importing …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,69 +21,8 @@
 <h1 class="title">Module <code>concur</code></h1>
 </header>
 <section id="section-intro">
-<p>Concur is a Python UI framework based on synchronous generators.</p>
-<p>It is a port of <a href="https://github.com/ajnsit/purescript-concur">Concur for Purescript</a>, implemented on top of the <a href="https://github.com/ocornut/imgui">Dear ImGui</a> C++ UI library.</p>
-<p>For introduction to core concepts, see the <a href="file:///home/pavel/build/python-concur/docs/index.html#introduction">documentation</a>. A more comprehensive introduction can be found in the <a href="https://github.com/ajnsit/concur-documentation/blob/master/README.md">Documentation for the Haskell/Purescript versions</a>. This obviously uses Haskell/Purescript syntax and semantics, but many of the concepts will apply to the Python version.</p>
-<p>Being an abstraction over ImGui, Concur is best used for debugging, prototyping and data analysis, rather than user-facing applications. ImGui functions can be used directly for any functionality that is not wrapped by Concur. See the <a href="https://pyimgui.readthedocs.io/en/latest/">PyImGui docs</a> for additional widgets, or <a href="https://github.com/ocornut/imgui">ImGui itself</a> if you need to poke really deep.</p>
-<h1 id="introduction">Introduction</h1>
-<p>UI components ("widgets") in Concur are Python generators. Internally, widgets do three things:</p>
-<ol>
-<li>They call ImGui commands to draw stuff to screen</li>
-<li>When the drawing is done, they <code>yield</code> and pass control flow upstream.</li>
-<li>On user interaction, they <code>return result</code>, where result is a value representing user action and/or new widget state.</li>
-</ol>
-<p>A simple button widget can be implemented as follows:</p>
-<pre><code class="python">def button(text):
-    while True:
-        is_pressed = imgui.button(text): # Draw the button (1.)
-        if is_pressed:
-            return 123                   # Return a value on click (3.)
-        yield                            # Drawing is done (2.)
-</code></pre>
-<p>The resulting widget can be displayed using <code>return</code> or <code>yield from</code>, optionally collecting its return value.</p>
-<pre><code class="python">value = yield from button(&quot;Click me&quot;)
-assert value == 123
-</code></pre>
-<p>This shows the most interesting property of Concur: <strong>widgets only exist until they are interacted with.</strong> To interact with a widget repeatedly, it must be re-created each time it's interacted with, perhaps inside a loop. This concept is <em>surprisingly</em> powerful – it enables composition in time by simply chaining statements:</p>
-<pre><code class="python">yield from button(&quot;one button&quot;)
-yield # clear the screen
-yield from button(&quot;another button&quot;)
-</code></pre>
-<p>This creates "one button", and after it is clicked, "another button" is created. If the code above isn't in a loop or inside another widget (see below), there is nothing more to do after clicking the second button and the application is closed.</p>
-<p>Composition in space (that is, rendering multiple widgets at once) is done using the <a title="concur.core.orr" href="core.html#concur.core.orr"><code>orr()</code></a> function<sup>1</sup>. The result of the composition is yet another widget:</p>
-<pre><code class="python">import concur as c # concur is usually imported as c
-
-pair = c.orr([button(&quot;First&quot;), button(&quot;Second&quot;)])
-# display `pair` as a normal widget
-yield from pair
-</code></pre>
-<p>The result is a widget <code>pair</code>, which returns as soon as any child widget returns, passing the return value along. How do we tell which button was pressed? We don't, they must simply return different values. By convention, all primitive widgets return a tuple <code>(identifier, value)</code> to be easily identifiable when inside <code>orr</code>.</p>
-<p>For example, built-in buttons return the pair <code>(&lt;name&gt;, None)</code>, so they can be composed like this:</p>
-<pre><code class="python">tag, value = yield from c.orr([c.button(&quot;First&quot;), c.button(&quot;Second&quot;)])
-if tag == &quot;First&quot;:
-    print(&quot;first!&quot;)
-if tag == &quot;Second&quot;:
-    print(&quot;second!&quot;)
-</code></pre>
-<p>Many other widgets return a more useful value as the second tuple element: checkbox returns <code>bool</code>, input_text returns <code>str</code>, etc.</p>
-<p>Many widgets take another widget as an argument (image, window, etc.), which is typically displayed inside (window contents, image overlay, etc.). Note that any composition of widgets is itself a widget with the same semantics, and return values are typically passed through.</p>
-<p>Once the whole user interface is represented as as single widget using various composition primitives, it can be displayed using the <a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main"><code>main()</code></a> function.</p>
-<p>That's it for now. Play around with it. You will discover that these handful of concepts go a <em>long</em> way, and can be used to create even large UIs in a straightforward and clear manner. As a starting point, you can use the <a href="https://github.com/potocpav/python-concur/tree/master/examples">examples</a>.</p>
-<hr>
-<p><sup>1</sup> The name <code>orr</code> is originally derived from the fact that the resulting widget returns if any child returns (child1 <strong>or</strong> child2). To signify that a list of children is expected (not a pair), <strong>orr</strong> is used instead of <strong>or</strong>. In Concur for Purescript, there is also the dual <a href="https://pursuit.purescript.org/packages/purescript-concur-core/0.4.1/docs/Concur.Core.Types#v:andd"><code>andd</code> operator</a> which returns when all children return.</p>
-<h1 id="troubleshooting">Troubleshooting</h1>
-<p>Here's a list of common issues and their solutions:</p>
-<p><strong>Widget flicker</strong></p>
-<p>Between any two <code>yield from _</code> statements that can return, there must be exactly one <code>yield</code> statement. If there is none, elements may get duplicated in a frame after triggering an action. If there is more than one <code>yield</code> statemet, elements may momentarily disappear.</p>
-<p>Most of the time, it is enough to slap a <code>yield</code> at the end of each loop (<a href="https://github.com/potocpav/python-concur/blob/master/examples/counters.py#L19">example</a>). I don't think this bit of syntactic inconvenience can be solved without introducing other quirks.</p>
-<p><strong>Event congestion</strong></p>
-<p>On each frame, at most one action can get triggered from an <code>concur.core.orr</code> block. Actions from first sub-widgets are prioritized, and any actions from further sub-widgets will get thrown out. This is a problem when there are rapidly-firing widgets, such as video playback.</p>
-<p>Push the widgets with lower priority down the widget lists, or swap the congesting <code>orr</code> function for <code>multi_orr</code>. <code>concur.core.multi_orr</code> returns a list of all fired events, which trades correctness for some boilerplate. Typically, the top-level widget list is <code>multi_orr</code>, while the lower levels can be <code>orr</code>.</p>
-<p><strong>Asynchronous computations</strong></p>
-<p>In <a href="https://github.com/ajnsit/concur-js">other </a><a href="https://github.com/purescript-concur/purescript-concur-react">versions </a><a href="https://github.com/ajnsit/concur">of Concur</a>, all widgets are triggered asynchronously. This may not be practical in Python, due to a limitation of async generators: they can't <code>return</code>, they only <code>yield</code>. Synchronous generators are used instead, which means that all widget code is run in the main thread. Asynchronous code must be explicitly run in a background thread, which is easily achieved by passing a future into the <code>concur.core.Block</code> function. See the <a href="https://github.com/potocpav/python-concur/blob/master/examples/timers.py">timers example</a> for details.</p>
-<h1 id="api">API</h1>
 <p>Most of the functions and classes from submodules are re-exported in the
-<code>concur</code> root module. The most convenient way to access them is by importing <code>concur</code> qualified:</p>
+<a title="concur" href="#concur"><code>concur</code></a> root module. The most convenient way to access them is by importing <a title="concur" href="#concur"><code>concur</code></a> qualified:</p>
 <pre><code class="python">import concur as c
 
 # nearly anything can be accessed using `c.anything` now.
@@ -94,15 +34,6 @@ no user interaction), so they are separate and can be accessed using <code>c.dra
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-.. include:: ../README.md
-   :start-after: &lt;!-- Start docs --&gt;
-   :end-before: &lt;!-- End docs --&gt;
-
-.. include:: introduction.md
-
-.. include:: troubleshooting.md
-
-# API
 
 Most of the functions and classes from submodules are re-exported in the
 `concur` root module. The most convenient way to access them is by importing `concur` qualified:
@@ -200,11 +131,7 @@ for convenience</p></section>
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#troubleshooting">Troubleshooting</a></li>
-<li><a href="#api">API</a></li>
-</ul>
+<ul></ul>
 </div>
 <ul id="index">
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
