@@ -2,7 +2,7 @@
 
 This tutorial walks you through the basic usage of the [Python Concur GUI library](https://potocpav.github.io/python-concur-docs/homepage.html). If you don't have Concur on your machine, you can [install it easily](https://github.com/potocpav/python-concur#installation) using Pip.
 
-I encourage you to experiment with the commands below to get a better feel of what the possibilities are.
+I encourage you to experiment with the commands below to get a better feel of what the possibilities are. All the code snippets below can be (sequentially) pasted into a Python interactive prompt.
 
 Start by running the interactive prompt in console, or use your favorite IDE's REPL.
 
@@ -90,14 +90,14 @@ c.main(c.input_text("Text input", "hello!"))
  <generator object button at 0x7f12381a8b50>
  ```
 
-Widgets are plain old Python generators! We can put two generators back-to-back using the standard `itertools.chain` function:
+Widgets are plain old Python generators! We can put several generators back-to-back using the standard `itertools.chain` function:
 
 ```python
 from itertools import chain
 c.main(chain(c.button("Click me!"), c.button("And me!"), c.button("Exit.")))
 ```
 
-There is some widget flicker in this example, but let's ignore it for now. There is a bigger problem: using `itertools` functions for generator composition is very clunky. Luckily, Python has dedicated syntax for painless generator composition: `yield from`. The previous example can be rewritten as:
+There is some widget flicker in this example, but let's ignore it for now. There is a bigger problem: using `itertools` functions for generator composition is very clunky. Luckily, Python has dedicated syntax for generator composition: `yield from`. The previous example can be rewritten as:
 
 ```python
 def app():
@@ -110,9 +110,9 @@ def app():
 c.main(app())
 ```
 
-I sneaked in some extra `yield` statements, and the widget flicker disappeared. This is a wart I wasn't able to design Concur around: to render correctly, there must be a `yield` between any two `yield from` statements.
+I sneaked in some extra `yield` statements, and the widget flicker disappeared. To render correctly, there must be a `yield` between any two `yield from` statements. This is a wart caused by inflexibility of Python, and I wasn't able to work around it so far.
 
-This syntax is more than just a minor convenience: it lets us use all the power of the Python language for widget chaining (called _temporal composition_). We can create our first never-ending application by creating an endless loop:
+This syntax is more than just a minor convenience: it lets us use all the power of the Python language for widget chaining. We can create our first never-ending interactive application by creating an endless loop:
 
 ```python
 def app():
@@ -159,7 +159,7 @@ Clicked: ('Orange', None)
  * A slider_float returns a `float`
  * _etc._
 
-The `c.orr` function just passes these events together unchanged.
+The `c.orr` function just passes these events through unchanged.
 
 ## First Application
 
@@ -186,13 +186,17 @@ def counter():
 c.main(counter())
 ```
 
-As the last thing, let's tackle windows. In concur, creating dock-able windows is trivial: just call the `c.window` function, pass it a window name, and a widget to be displayed inside. The following snippet creates four windows, every one contains a fully functional counter from the previous snippet.
+This showcases a common design pattern. The whole application sits inside an endless loop. First, the whole widget tree is constructed and displayed using `yield from`. Return events are collected into a `key, value` tuple. These two variables are then branched on in an `if-elif-else` block, and the state is changed accordingly. Lastly, there is the `yield` statement to prevent flicker on events. Larger applications may contain multiple such loops, allowing for components to be separated.
+
+As the last thing, let's briefly tackle windows. In concur, creating dock-able windows is trivial: just call the `c.window` function, pass it a window name, and a widget to be displayed inside. The following snippet creates four windows, every one contains a fully functional counter from the previous snippet.
 
 ```python
 c.main(c.orr([c.window(f"Window {i}", counter()) for i in range(4)]))
 ```
 
-Try dragging the windows around by their titles. Try interacting with the counters. Everything just works, in a few lines of code. If you try experimenting with window creation, please keep in mind that all windows must have unique titles. This is another little wart which wasn't solved yet - sorry for that. Window layout is automatically saved into the file "imgui.ini" in the current directory.
+Try dragging the windows around by their titles. Try interacting with the counters. Everything just works, in a few lines of code. Window layout is automatically saved into the file "imgui.ini" in the current directory, so it is preserved even after the app is closed.
+
+If you try experimenting with window creation, keep in mind that all windows must have unique titles. This is another little wart which I wasn't able to solve yet. 
 
 ## What next?
 
