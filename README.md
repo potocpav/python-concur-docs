@@ -1,11 +1,30 @@
 
 # Documentation for Python Concur
 
-This repo hosts the documentation for the [Python Concur](https://github.com/potocpav/python-concur) GUI library.
+Welcome to the [Python Concur](https://github.com/potocpav/python-concur) documentation repository!
 
-0. [Showcase](https://potocpav.github.io/python-concur-docs/homepage.html)
-1. [Installation](https://github.com/potocpav/python-concur#installation)
-2. [Introduction](Introduction.md)
-3. [Examples](https://github.com/potocpav/python-concur/tree/master/examples)
-4. [API Reference](https://potocpav.github.io/python-concur-docs/master/)
-5. [Troubleshooting](Troubleshooting.md)
+Python Concur is a library for creating GUI applications in Python. To get a better overview, visit [The Python Concur Website](https://potocpav.github.io/python-concur-docs/homepage.html).
+
+If you know about useful learning resources not listed here, feel free to create a pull request, or file an issue.
+
+## Getting Started
+
+* [Installation](https://github.com/potocpav/python-concur#installation):
+Download Concur and run a Hello World application.
+* [Examples](https://github.com/potocpav/python-concur/tree/master/examples): Code examples illustrating basic Concur usage.
+
+## Learning
+
+* [Introduction](Introduction.md): A hands-on introductory tutorial
+<!-- * [Widgets](Widgets.md): -->
+* [API Reference](https://potocpav.github.io/python-concur-docs/master/)
+* [Troubleshooting](Troubleshooting.md)
+
+## Articles
+
+* [Designing a GUI Framework](https://potocpav.github.io/programming/2020/05/01/designing-a-gui-framework.html)
+
+## Related Libraries
+
+* [ImGui](https://github.com/ocornut/imgui): The C++ GUI library Concur is based on. Some extra functions not exposed through PyImGui can be found here.
+* [PyImGui](https://github.com/swistakm/pyimgui): Python bindings to the ImGui library. It contains a useful [reference](https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html) documenting all the exposed functions.
