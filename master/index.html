@@ -6,7 +6,7 @@
 <meta name="generator" content="pdoc 0.7.5" />
 <title>concur API documentation</title>
 <meta name="description" content="Most of the functions and classes from submodules are re-exported in the
-`concur` root module. The most convenient way to access them is by importing …" />
+`concur` root module. The idiomatic way to access them is by importing …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -22,13 +22,13 @@
 </header>
 <section id="section-intro">
 <p>Most of the functions and classes from submodules are re-exported in the
-<a title="concur" href="#concur"><code>concur</code></a> root module. The most convenient way to access them is by importing <a title="concur" href="#concur"><code>concur</code></a> qualified:</p>
+<a title="concur" href="#concur"><code>concur</code></a> root module. The idiomatic way to access them is by importing <a title="concur" href="#concur"><code>concur</code></a> qualified:</p>
 <pre><code class="python">import concur as c
 
 # nearly anything can be accessed using `c.anything` now.
 </code></pre>
-<p>A notable exception is the <a title="concur.draw" href="draw.html"><code>concur.draw</code></a> functions: they have a bit different semantics (no layout,
-no user interaction), so they are separate and can be accessed using <code>c.draw.something</code>.</p>
+<p>A notable exception is the <a title="concur.draw" href="draw.html"><code>concur.draw</code></a> functions: they have a bit different semantics, so they are in a separate
+module, <code>c.draw</code>.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -36,7 +36,7 @@ no user interaction), so they are separate and can be accessed using <code>c.dra
 <pre><code class="python">&#34;&#34;&#34;
 
 Most of the functions and classes from submodules are re-exported in the
-`concur` root module. The most convenient way to access them is by importing `concur` qualified:
+`concur` root module. The idiomatic way to access them is by importing `concur` qualified:
 
 ```python
 import concur as c
@@ -44,8 +44,8 @@ import concur as c
 # nearly anything can be accessed using `c.anything` now.
 ```
 
-A notable exception is the `concur.draw` functions: they have a bit different semantics (no layout,
-no user interaction), so they are separate and can be accessed using `c.draw.something`.
+A notable exception is the `concur.draw` functions: they have a bit different semantics, so they are in a separate
+module, `c.draw`.
 &#34;&#34;&#34;
 
 import concur.extra_widgets
@@ -77,7 +77,7 @@ def partial(*args, **argv):
 </dd>
 <dt><code class="name"><a title="concur.core" href="core.html">concur.core</a></code></dt>
 <dd>
-<section class="desc"><p>Functions providing core functionality, widget creation, manipulation, and composition …</p></section>
+<section class="desc"><p>Core functionality, widget creation, manipulation, and composition …</p></section>
 </dd>
 <dt><code class="name"><a title="concur.draw" href="draw.html">concur.draw</a></code></dt>
 <dd>

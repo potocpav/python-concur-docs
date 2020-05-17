@@ -51,8 +51,8 @@ __pdoc__ = dict(test=False)
 
 def test(widget_gen, slow=None, draw_cursor=True, width=512, height=512, *args, **argv):
     return main(
-        &#34;Automatic Tester&#34;,
         lambda puppet_renderer: widget_gen(draw_cursor, Testing(puppet_renderer, slow)),
+        &#34;Automatic Tester&#34;,
         width, height,
         *args, **argv)
 
@@ -110,7 +110,7 @@ def benchmark_widget(f_gen):
             yield
 
     def g(benchmark):
-        benchmark.pedantic(main, (&#34;Perf Tester&#34;, widget, 512, 512), dict(fps=None), rounds=1)
+        benchmark.pedantic(main, (widget, &#34;Perf Tester&#34;, 512, 512), dict(fps=None), rounds=1)
 
     return g
 
@@ -259,7 +259,7 @@ class Testing(object):
             yield
 
     def g(benchmark):
-        benchmark.pedantic(main, (&#34;Perf Tester&#34;, widget, 512, 512), dict(fps=None), rounds=1)
+        benchmark.pedantic(main, (widget, &#34;Perf Tester&#34;, 512, 512), dict(fps=None), rounds=1)
 
     return g</code></pre>
 </details>

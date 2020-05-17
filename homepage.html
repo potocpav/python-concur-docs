@@ -76,7 +76,7 @@
             <div class="mx-auto col-md-7 order-md-1 my-4">
               <pre><code class="language-python container p-3 rounded border shadow-sm">import concur as c
 
-c.main("Hello World", c.text("Hello, world!"), 400, 288)</code></pre>
+c.main(c.text("Hello, world!"), "Hello World", 400, 288)</code></pre>
               </div>
             <div class="mx-auto col-md-5 order-md-2 my-4" style="text-align: center">
               <img class="img-fluid" width="400" src="sshots/hello_world.png">
@@ -102,7 +102,7 @@ def counter():
             count -= 1
         yield
 
-c.main("Counter", counter(), 400, 288)</code></pre>
+c.main(counter(), "Counter", 400, 288)</code></pre>
               </div>
             <div class="mx-auto col-md-5 order-md-2 my-4" style="text-align: center">
               <video width=400 height=288 autoplay loop>
@@ -123,7 +123,7 @@ def app():
         _, im = yield from c.image("Image", im)
         yield
 
-c.main("Image", app(), 400, 288)</code></pre>
+c.main(app(), "Image", 400, 288)</code></pre>
               </div>
             <div class="mx-auto col-md-5 order-md-2 my-4" style="text-align: center">
               <video width=400 height=288 autoplay loop>
@@ -150,7 +150,7 @@ def plot():
         _, frame = yield from c.frame("Frame", frame, line)
         yield
 
-c.main("Plot", plot(), 400, 288)</code></pre>
+c.main(plot(), "Plot", 400, 288)</code></pre>
               </div>
             <div class="mx-auto col-md-5 order-md-2 my-4" style="text-align: center">
               <video width=400 height=288 autoplay loop>
@@ -183,7 +183,7 @@ def app():
         yield
 
 if __name__ == "__main__":
-    c.main("Plot", app(), 400, 288)</code></pre>
+    c.main(app(), "Plot", 400, 288)</code></pre>
               </div>
             <div class="mx-auto col-md-5 order-md-2 my-4" style="text-align: center">
               <video width=400 height=288 autoplay loop>

@@ -34,6 +34,7 @@ import time
 
 import imgui
 from imgui.integrations.glfw import GlfwRenderer
+from contextlib import contextmanager
 
 from concur.integrations.opengl import create_offscreen_fb, get_fb_data
 
@@ -113,13 +114,25 @@ def create_window_dock(glfw_window, menu_bar=False):
     imgui.end()
 
 
-def main(name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
+@contextmanager
+def managed_resource():
+    # Code to acquire resource, e.g.:
+    resource = acquire_resource(*args, **kwds)
+    try:
+        yield resource
+    finally:
+        # Code to release resource, e.g.:
+        release_resource(resource)
+
+
+def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
     &#34;&#34;&#34; Create a GLFW window, spin up the main loop, and display a given widget inside.
 
     To create a maximized window, pass width and height larger than the screen.
 
     Arguments:
         widget: The widget to display inside the window. When the widget returns, the application exits.
+        name: Window name, displayed in the title bar and other OS outputs.
         width: Desired window width.
         height: Desired window height.
         fps: Maximum number of frames per second
@@ -146,56 +159,47 @@ def main(name, widget, width, height, fps=60, save_screencast=None, screencast_f
         offscreen_fb = create_offscreen_fb(width, height)
         writer = imageio.get_writer(save_screencast, mode=&#39;I&#39;, fps=screencast_fps)
 
-    while not glfw.window_should_close(window):
-        t0 = time.perf_counter()
-        glfw.poll_events()
-        impl.process_inputs()
+    try:
+        while not glfw.window_should_close(window):
+            t0 = time.perf_counter()
+            glfw.poll_events()
+            impl.process_inputs()
 
-        imgui.new_frame()
+            imgui.new_frame()
 
-        create_window_dock(window, menu_bar=menu_bar)
-        begin_maximized_window(&#34;Default##Concur&#34;, window, menu_bar=menu_bar)
+            create_window_dock(window, menu_bar=menu_bar)
+            begin_maximized_window(&#34;Default##Concur&#34;, window, menu_bar=menu_bar)
 
-        try:
-            next(widget)
-        except StopIteration:
-            imgui.end()
-            imgui.render()
-            break
-        except:
-            # Cleanup on exception for iPython
-            imgui.end()
-            imgui.render()
-            impl.shutdown()
-            glfw.terminate()
-            if save_screencast:
-                writer.close()
-            raise
+            try:
+                next(widget)
+            except StopIteration:
+                break
+            finally:
+                imgui.end()
+                imgui.render()
 
-        imgui.end()
-        gl.glClearColor(0.5, 0.5, 0.5, 1)
-        gl.glClear(gl.GL_COLOR_BUFFER_BIT)
-        imgui.render()
+                gl.glClearColor(0.5, 0.5, 0.5, 1)
+                gl.glClear(gl.GL_COLOR_BUFFER_BIT)
 
+                if save_screencast:
+                    gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, offscreen_fb)
+                    impl.render(imgui.get_draw_data())
+                    image = get_fb_data(offscreen_fb, width, height)
+                    writer.append_data(image)
+                gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, 0)
+
+                impl.render(imgui.get_draw_data())
+                glfw.swap_buffers(window)
+
+            t1 = time.perf_counter()
+            if t1 - t0 &lt; 1/fps:
+                time.sleep(1/fps - (t1 - t0))
+    finally:
+        impl.shutdown()
+        imgui.destroy_context(imgui.get_current_context())
+        glfw.terminate()
         if save_screencast:
-            gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, offscreen_fb)
-            impl.render(imgui.get_draw_data())
-            image = get_fb_data(offscreen_fb, width, height)
-            writer.append_data(image)
-            gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, 0)
-
-        impl.render(imgui.get_draw_data())
-        glfw.swap_buffers(window)
-
-        t1 = time.perf_counter()
-        if t1 - t0 &lt; 1/fps:
-            time.sleep(1/fps - (t1 - t0))
-
-    if save_screencast:
-        writer.close()
-
-    impl.shutdown()
-    glfw.terminate()</code></pre>
+            writer.close()</code></pre>
 </details>
 </section>
 <section>
@@ -206,7 +210,7 @@ def main(name, widget, width, height, fps=60, save_screencast=None, screencast_f
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="concur.integrations.glfw.main"><code class="name flex">
-<span>def <span class="ident">main</span></span>(<span>name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False)</span>
+<span>def <span class="ident">main</span></span>(<span>widget, name='Concur', width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Create a GLFW window, spin up the main loop, and display a given widget inside.</p>
@@ -215,6 +219,8 @@ def main(name, widget, width, height, fps=60, save_screencast=None, screencast_f
 <dl>
 <dt><strong><code>widget</code></strong></dt>
 <dd>The widget to display inside the window. When the widget returns, the application exits.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Window name, displayed in the title bar and other OS outputs.</dd>
 <dt><strong><code>width</code></strong></dt>
 <dd>Desired window width.</dd>
 <dt><strong><code>height</code></strong></dt>
@@ -233,13 +239,14 @@ be resized while the application is running when using this option.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def main(name, widget, width, height, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
+<pre><code class="python">def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
     &#34;&#34;&#34; Create a GLFW window, spin up the main loop, and display a given widget inside.
 
     To create a maximized window, pass width and height larger than the screen.
 
     Arguments:
         widget: The widget to display inside the window. When the widget returns, the application exits.
+        name: Window name, displayed in the title bar and other OS outputs.
         width: Desired window width.
         height: Desired window height.
         fps: Maximum number of frames per second
@@ -266,56 +273,67 @@ be resized while the application is running when using this option.</dd>
         offscreen_fb = create_offscreen_fb(width, height)
         writer = imageio.get_writer(save_screencast, mode=&#39;I&#39;, fps=screencast_fps)
 
-    while not glfw.window_should_close(window):
-        t0 = time.perf_counter()
-        glfw.poll_events()
-        impl.process_inputs()
+    try:
+        while not glfw.window_should_close(window):
+            t0 = time.perf_counter()
+            glfw.poll_events()
+            impl.process_inputs()
 
-        imgui.new_frame()
+            imgui.new_frame()
 
-        create_window_dock(window, menu_bar=menu_bar)
-        begin_maximized_window(&#34;Default##Concur&#34;, window, menu_bar=menu_bar)
+            create_window_dock(window, menu_bar=menu_bar)
+            begin_maximized_window(&#34;Default##Concur&#34;, window, menu_bar=menu_bar)
 
-        try:
-            next(widget)
-        except StopIteration:
-            imgui.end()
-            imgui.render()
-            break
-        except:
-            # Cleanup on exception for iPython
-            imgui.end()
-            imgui.render()
-            impl.shutdown()
-            glfw.terminate()
-            if save_screencast:
-                writer.close()
-            raise
+            try:
+                next(widget)
+            except StopIteration:
+                break
+            finally:
+                imgui.end()
+                imgui.render()
 
-        imgui.end()
-        gl.glClearColor(0.5, 0.5, 0.5, 1)
-        gl.glClear(gl.GL_COLOR_BUFFER_BIT)
-        imgui.render()
+                gl.glClearColor(0.5, 0.5, 0.5, 1)
+                gl.glClear(gl.GL_COLOR_BUFFER_BIT)
 
+                if save_screencast:
+                    gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, offscreen_fb)
+                    impl.render(imgui.get_draw_data())
+                    image = get_fb_data(offscreen_fb, width, height)
+                    writer.append_data(image)
+                gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, 0)
+
+                impl.render(imgui.get_draw_data())
+                glfw.swap_buffers(window)
+
+            t1 = time.perf_counter()
+            if t1 - t0 &lt; 1/fps:
+                time.sleep(1/fps - (t1 - t0))
+    finally:
+        impl.shutdown()
+        imgui.destroy_context(imgui.get_current_context())
+        glfw.terminate()
         if save_screencast:
-            gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, offscreen_fb)
-            impl.render(imgui.get_draw_data())
-            image = get_fb_data(offscreen_fb, width, height)
-            writer.append_data(image)
-            gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, 0)
-
-        impl.render(imgui.get_draw_data())
-        glfw.swap_buffers(window)
-
-        t1 = time.perf_counter()
-        if t1 - t0 &lt; 1/fps:
-            time.sleep(1/fps - (t1 - t0))
-
-    if save_screencast:
-        writer.close()
-
-    impl.shutdown()
-    glfw.terminate()</code></pre>
+            writer.close()</code></pre>
+</details>
+</dd>
+<dt id="concur.integrations.glfw.managed_resource"><code class="name flex">
+<span>def <span class="ident">managed_resource</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@contextmanager
+def managed_resource():
+    # Code to acquire resource, e.g.:
+    resource = acquire_resource(*args, **kwds)
+    try:
+        yield resource
+    finally:
+        # Code to release resource, e.g.:
+        release_resource(resource)</code></pre>
 </details>
 </dd>
 </dl>
@@ -402,6 +420,7 @@ keyboard layouts.</p>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
 <li><code><a title="concur.integrations.glfw.main" href="#concur.integrations.glfw.main">main</a></code></li>
+<li><code><a title="concur.integrations.glfw.managed_resource" href="#concur.integrations.glfw.managed_resource">managed_resource</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>

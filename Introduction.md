@@ -29,18 +29,10 @@ label = c.text("Hello, world!")
 The above line created the widget, but it doesn't show it on its own. A lot of stuff must happen to display widgets: window must be created, event loop must be started, etc. This is all handled by a single function invocation in Concur:
 
 ```python
-c.main("Test", label, 500, 500)
+c.main(label)
 ```
 
-This line creates a window with a widget `label` inside, and a given name ("Test") and dimensions (500×500 px). After closing the window, the Python prompt can be used again.
-
-In a real-world application `c.main` would be called only once, so the extra boilerplate doesn't matter. In this tutorial, however, we will call it many times, so it's convenient to get rid of the extra arguments like this:
-
-```python
-main = lambda widget: c.main("Test", widget, 500, 500)
-```
-
-Widgets can be now displayed inside a window by simply calling `main(widgets)`.
+This line creates a default window with a widget `label` inside. After closing the window, the Python prompt can be used again.
 
 ## Composition
 
@@ -54,19 +46,19 @@ pair = c.orr([label, banana])
 We created a new widget, `banana`, and composed it with the `label` into a single widget called `pair`. It can be displayed as usual:
 
 ```python
-main(pair)
+c.main(pair)
 ```
 
 This `c.orr` function opens up a whole lot of possibilities. We can create whole lists of widgets trivially:
 
 ```python
-main(c.orr([pair] * 5))
+c.main(c.orr([pair] * 5))
 ```
 
 Or use list comprehensions:
 
 ```python
-main(c.orr([c.text(f"Thing {i}") for i in range(10)]))
+c.main(c.orr([c.text(f"Thing {i}") for i in range(10)]))
 ```
 
 We can use the flexibility Python provides to combine widgets in any way we like.
@@ -74,7 +66,7 @@ We can use the flexibility Python provides to combine widgets in any way we like
 As you can see, `c.orr` composes widgets vertically, one below another. Concur in general uses a very simple layout system, mostly just using the reading order: from left to right, from top to bottom. This seems very limiting, but Concur also supports windows and docking, which can be used to create more complex layouts. For now, let me just show horizontal widget composition using `c.orr_same_line`:
 
 ```python
-main(c.orr_same_line([pair] * 3))
+c.main(c.orr_same_line([pair] * 3))
 ```
 
 ## Interactivity
@@ -82,13 +74,13 @@ main(c.orr_same_line([pair] * 3))
 What if we want to interact with stuff? There are widgets for that too. We can create a button, for example:
 
 ```python
-main(c.button("Click me!"))
+c.main(c.button("Click me!"))
 ```
 
 We wouldn't expect the button to do anything useful, since we didn't specify any event handler. In most other frameworks, such a button would do nothing on click. In Concur, instead, the application exits. This shows the fact that Concur widgets are rather short-lived: they cease to exist on any user interaction. It is even more striking for other widgets, such as `input_text`: it exits on any character input. You can try it for yourself:
 
 ```python
-main(c.input_text("Text input", "hello!"))
+c.main(c.input_text("Text input", "hello!"))
 ```
 
  So how can we react to GUI events? Let's find out what a widget actually is. We can ask the Python prompt:
@@ -102,7 +94,7 @@ Widgets are plain old Python generators! We can put two generators back-to-back 
 
 ```python
 from itertools import chain
-main(chain(c.button("Click me!"), c.button("And me!"), c.button("Exit.")))
+c.main(chain(c.button("Click me!"), c.button("And me!"), c.button("Exit.")))
 ```
 
 There is some widget flicker in this example, but let's ignore it for now. There is a bigger problem: using `itertools` functions for generator composition is very clunky. Luckily, Python has dedicated syntax for painless generator composition: `yield from`. The previous example can be rewritten as:
@@ -115,7 +107,7 @@ def app():
     yield
     yield from c.button("Exit.")
 
-main(app())
+c.main(app())
 ```
 
 I sneaked in some extra `yield` statements, and the widget flicker disappeared. This is a wart I wasn't able to design Concur around: to render correctly, there must be a `yield` between any two `yield from` statements.
@@ -130,7 +122,7 @@ def app():
         i += 1
         yield
 
-main(app())
+c.main(app())
 ```
 
 The possibilities are endless. Now it's time to use the two types of composition together. We would like to display multiple buttons at the same time, and tell which one was clicked. This is a thing we didn't discuss earlier: widgets actually return useful values for this exact purpose.
@@ -146,7 +138,7 @@ def app():
         print("Clicked:", event)
         yield
 
-main(app())
+c.main(app())
 ```
 
 After some clicking, you will probably find out that the `event` variable is a tuple:
@@ -191,13 +183,13 @@ def counter():
             i = value
         yield
 
-main(counter())
+c.main(counter())
 ```
 
 As the last thing, let's tackle windows. In concur, creating dock-able windows is trivial: just call the `c.window` function, pass it a window name, and a widget to be displayed inside. The following snippet creates four windows, every one contains a fully functional counter from the previous snippet.
 
 ```python
-main(c.orr([c.window(f"Window {i}", counter()) for i in range(4)]))
+c.main(c.orr([c.window(f"Window {i}", counter()) for i in range(4)]))
 ```
 
 Try dragging the windows around by their titles. Try interacting with the counters. Everything just works, in a few lines of code. If you try experimenting with window creation, please keep in mind that all windows must have unique titles. This is another little wart which wasn't solved yet - sorry for that. Window layout is automatically saved into the file "imgui.ini" in the current directory.
