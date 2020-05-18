@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.1" />
 <title>concur.draw API documentation</title>
 <meta name="description" content="Passive geometric shape widgets to be drawn as `concur.extra_widgets.image.image` or `concur.extra_widgets.frame.frame` overlay, or on their own …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
 </head>
 <body>
@@ -20,10 +20,10 @@
 <h1 class="title">Module <code>concur.draw</code></h1>
 </header>
 <section id="section-intro">
-<p>Passive geometric shape widgets to be drawn as <a title="concur.extra_widgets.image.image" href="extra_widgets/image.html#concur.extra_widgets.image.image"><code>image()</code></a> or <a title="concur.extra_widgets.frame.frame" href="extra_widgets/frame.html#concur.extra_widgets.frame.frame"><code>frame()</code></a> overlay, or on their own.</p>
+<p>Passive geometric shape widgets to be drawn as <code><a title="concur.extra_widgets.image.image" href="extra_widgets/image.html#concur.extra_widgets.image.image">image()</a></code> or <code><a title="concur.extra_widgets.frame.frame" href="extra_widgets/frame.html#concur.extra_widgets.frame.frame">frame()</a></code> overlay, or on their own.</p>
 <p>All these widgets have the following in common:</p>
 <ul>
-<li>They are passive, so they don't need names. For active overlay, use normal widgets, such as buttons, wrapped inside <a title="concur.widgets.transform" href="widgets.html#concur.widgets.transform"><code>transform()</code></a>.</li>
+<li>They are passive, so they don't need names. For active overlay, use normal widgets, such as buttons, wrapped inside <code><a title="concur.widgets.transform" href="widgets.html#concur.widgets.transform">transform()</a></code>.</li>
 <li>They don't do automatic layout. Instead the exact position is specified by hand.</li>
 <li>Color can be specified in several ways:<ul>
 <li>RGBA tuple with values between 0 and 1. For example, <code>(0.5, 0.5, 1, 1)</code> is light blue.</li>
@@ -33,11 +33,11 @@
 <li>A single <code>int</code>, specifying ABGR color. For example, <code>0xffaa0000</code> is dark blue.</li>
 </ul>
 </li>
-<li><code>tf</code> is the <a title="concur.extra_widgets.pan_zoom.TF" href="extra_widgets/pan_zoom.html#concur.extra_widgets.pan_zoom.TF"><code>TF</code></a> object specifying transformations from screen-space to image-space and back.
+<li><code>tf</code> is the <code><a title="concur.extra_widgets.pan_zoom.TF" href="extra_widgets/pan_zoom.html#concur.extra_widgets.pan_zoom.TF">TF</a></code> object specifying transformations from screen-space to image-space and back.
 If no transformation is supplied, the element is drawn in screen space units.</li>
 </ul>
-<p>Theses widgets are not re-exported in the root module, and are normally used as <code>c.draw.line(...)</code>, etc.
-They can be composed normally using the <a title="concur.core.orr" href="core.html#concur.core.orr"><code>orr()</code></a> function.</p>
+<p>Theses widgets are not re-exported in the root module, and are normally used as <code>c.draw.line(&hellip;)</code>, etc.
+They can be composed normally using the <code><a title="concur.core.orr" href="core.html#concur.core.orr">orr()</a></code> function.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -373,7 +373,7 @@ def scatter(pts, color, marker, marker_size=10, thickness=1, tf=None):
 <span>def <span class="ident">circle</span></span>(<span>cx, cy, radius, color, thickness=1, num_segments=16, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Circle specified by its center and radius.</p></section>
+<div class="desc"><p>Circle specified by its center and radius.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -395,7 +395,7 @@ def scatter(pts, color, marker, marker_size=10, thickness=1, tf=None):
 <span>def <span class="ident">ellipse</span></span>(<span>mean, cov, sd, color, thickness=1, num_segments=16, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Ellipse defined by a mean, covariance matrix, and SD.</p></section>
+<div class="desc"><p>Ellipse defined by a mean, covariance matrix, and SD.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -414,9 +414,9 @@ def scatter(pts, color, marker, marker_size=10, thickness=1, tf=None):
 <span>def <span class="ident">ellipses</span></span>(<span>means, covs, sd, color, thickness=1, num_segments=16, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Multiple ellipses defined by a means, covariance matrices, and SD.</p>
-<p>The call is very similar to <a title="concur.draw.ellipse" href="#concur.draw.ellipse"><code>ellipse()</code></a>, but <code>mean</code> and <code>cov</code> are vectorized: there is one more dimension (zeroth) for both.
-For <code>n</code> ellipses, the shape of <code>mean</code> is <code>(n, 2)</code>, and the shape of <code>cov</code> is <code>(n, 2, 2)</code>.</p></section>
+<div class="desc"><p>Multiple ellipses defined by a means, covariance matrices, and SD.</p>
+<p>The call is very similar to <code><a title="concur.draw.ellipse" href="#concur.draw.ellipse">ellipse()</a></code>, but <code>mean</code> and <code>cov</code> are vectorized: there is one more dimension (zeroth) for both.
+For <code>n</code> ellipses, the shape of <code>mean</code> is <code>(n, 2)</code>, and the shape of <code>cov</code> is <code>(n, 2, 2)</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -447,10 +447,10 @@ For <code>n</code> ellipses, the shape of <code>mean</code> is <code>(n, 2)</cod
 <span>def <span class="ident">image</span></span>(<span>tex_id, x, y, width, height, uv_a=(0, 0), uv_b=(1, 1), tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Draw an image with the given origin (x, y), width and height.</p>
-<p>This is a raw drawing function. Use <a title="concur.extra_widgets.image.image" href="extra_widgets/image.html#concur.extra_widgets.image.image"><code>image()</code></a> instead
+<div class="desc"><p>Draw an image with the given origin (x, y), width and height.</p>
+<p>This is a raw drawing function. Use <code><a title="concur.extra_widgets.image.image" href="extra_widgets/image.html#concur.extra_widgets.image.image">image()</a></code> instead
 if you want an image widget. Note that OpenGL textures may be rendered incorrectly
-if width or height isn't divisible by 4.</p></section>
+if width or height isn't divisible by 4.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -476,7 +476,7 @@ if width or height isn't divisible by 4.</p></section>
 <span>def <span class="ident">line</span></span>(<span>x0, y0, x1, y1, color, thickness=1, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Line connecting two points.</p></section>
+<div class="desc"><p>Line connecting two points.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -496,8 +496,8 @@ if width or height isn't divisible by 4.</p></section>
 <span>def <span class="ident">polygon</span></span>(<span>points, color, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Filled polygon. Points must form a convex area.</p>
-<p><code>points</code> is a list of (x, y) tuples, or a NumPy array of equivalent shape.</p></section>
+<div class="desc"><p>Filled polygon. Points must form a convex area.</p>
+<p><code>points</code> is a list of (x, y) tuples, or a NumPy array of equivalent shape.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -519,11 +519,11 @@ if width or height isn't divisible by 4.</p></section>
 <span>def <span class="ident">polygons</span></span>(<span>points, color, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Multiple filled polygons with the same length and color.</p>
-<p>Calling this function is more efficient than calling <a title="concur.draw.polygon" href="#concur.draw.polygon"><code>polygon()</code></a> multiple times, because all the data is given
+<div class="desc"><p>Multiple filled polygons with the same length and color.</p>
+<p>Calling this function is more efficient than calling <code><a title="concur.draw.polygon" href="#concur.draw.polygon">polygon()</a></code> multiple times, because all the data is given
 to the C++ back-end in one Python call, and because transformation is vectorized.</p>
 <p><code>points</code> is a NumPy array with shape <code>(n, m, 2)</code>, where <code>n</code> is the number of polygons, and <code>m</code> is the number of points
-in each polyline.</p></section>
+in each polyline.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -550,8 +550,8 @@ in each polyline.</p></section>
 <span>def <span class="ident">polyline</span></span>(<span>points, color, closed=False, thickness=1, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Polygonal line or a closed polygon.</p>
-<p><code>points</code> is a list of (x, y) tuples, or a NumPy array of equivalent shape.</p></section>
+<div class="desc"><p>Polygonal line or a closed polygon.</p>
+<p><code>points</code> is a list of (x, y) tuples, or a NumPy array of equivalent shape.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -573,11 +573,11 @@ in each polyline.</p></section>
 <span>def <span class="ident">polylines</span></span>(<span>points, color, closed=False, thickness=1, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Multiple polygonal lines with the same length and parameters.</p>
-<p>Calling this function is more efficient than calling <a title="concur.draw.polyline" href="#concur.draw.polyline"><code>polyline()</code></a> multiple times, because all the data is given
+<div class="desc"><p>Multiple polygonal lines with the same length and parameters.</p>
+<p>Calling this function is more efficient than calling <code><a title="concur.draw.polyline" href="#concur.draw.polyline">polyline()</a></code> multiple times, because all the data is given
 to the C++ back-end in one Python call, and because transformation is vectorized.</p>
 <p><code>points</code> is a NumPy array with shape <code>(n, m, 2)</code>, where <code>n</code> is the number of polylines, and <code>m</code> is the number of points
-in each polyline.</p></section>
+in each polyline.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -607,7 +607,7 @@ in each polyline.</p></section>
 <span>def <span class="ident">rect</span></span>(<span>x0, y0, x1, y1, color, thickness=1, rounding=0, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Straight non-filled rectangle specified by its two corners.</p></section>
+<div class="desc"><p>Straight non-filled rectangle specified by its two corners.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -630,7 +630,7 @@ in each polyline.</p></section>
 <span>def <span class="ident">rect_filled</span></span>(<span>x0, y0, x1, y1, color, rounding=0, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Straight non-filled rectangle specified by its two corners.</p></section>
+<div class="desc"><p>Straight non-filled rectangle specified by its two corners.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -653,8 +653,8 @@ in each polyline.</p></section>
 <span>def <span class="ident">rects</span></span>(<span>rects, color, thickness=1, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Multiple straight non-filled rectangles specified by their two corners.</p>
-<p><a title="concur.draw.rects" href="#concur.draw.rects"><code>rects()</code></a> is a NumPy array of shape <code>(n, 4)</code>, where <code>n</code> is the number of rectangles.</p></section>
+<div class="desc"><p>Multiple straight non-filled rectangles specified by their two corners.</p>
+<p><code><a title="concur.draw.rects" href="#concur.draw.rects">rects()</a></code> is a NumPy array of shape <code>(n, 4)</code>, where <code>n</code> is the number of rectangles.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -689,24 +689,17 @@ in each polyline.</p></section>
 <span>def <span class="ident">scatter</span></span>(<span>pts, color, marker, marker_size=10, thickness=1, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Draw a scatter plot with given marker settings.</p>
+<div class="desc"><p>Draw a scatter plot with given marker settings.</p>
 <p>If multiple settings are desired (such as two distinct point colors), call
 this function more than once with different parameters.</p>
 <p>Some markers are more performant than others, depending on the amount of
 generated geometry.</p>
 <h2 id="arguments">Arguments</h2>
-<dl>
-<dt><strong><code>pts</code></strong></dt>
-<dd>NumPy array with shape <code>(n, 2)</code>, where <code>n</code> is the point count.</dd>
-<dt><strong><code>color</code></strong></dt>
-<dd>Color to draw the markers.</dd>
-<dt><strong><code>marker</code></strong></dt>
-<dd>Marker type. See the table below.</dd>
-<dt><strong><code>marker_size</code></strong></dt>
-<dd>Size of the markers in pixels.</dd>
-<dt><strong><code>thickness</code></strong></dt>
-<dd>Line width for non-filled markers</dd>
-</dl>
+<p>pts: NumPy array with shape <code>(n, 2)</code>, where <code>n</code> is the point count.
+color: Color to draw the markers.
+marker: Marker type. See the table below.
+marker_size: Size of the markers in pixels.
+thickness: Line width for non-filled markers</p>
 <hr>
 <table>
 <thead>
@@ -737,7 +730,7 @@ generated geometry.</p>
 <td>non-filled square</td>
 </tr>
 </tbody>
-</table></section>
+</table></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -821,8 +814,8 @@ generated geometry.</p>
 <span>def <span class="ident">text</span></span>(<span>string, x, y, color, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Text, using the default font and font size.</p>
-<p>This is a raw drawing function. Use <a title="concur.widgets.text" href="widgets.html#concur.widgets.text"><code>text()</code></a> instead if you want a text widget.</p></section>
+<div class="desc"><p>Text, using the default font and font size.</p>
+<p>This is a raw drawing function. Use <code><a title="concur.widgets.text" href="widgets.html#concur.widgets.text">text()</a></code> instead if you want a text widget.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -881,7 +874,7 @@ generated geometry.</p>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

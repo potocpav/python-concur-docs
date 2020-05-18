@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.1" />
 <title>concur.extra_widgets.image API documentation</title>
 <meta name="description" content="Scrollable, zoomable image widget with overlay support." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
 </head>
 <body>
@@ -178,12 +178,12 @@ class Image(object):
 <span>def <span class="ident">image</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>The image widget.</p>
+<div class="desc"><p>The image widget.</p>
 <p>See the <a href="https://github.com/potocpav/python-concur/blob/master/examples/image.py">image example</a>
 for a simple example usage, and the
 <a href="https://github.com/potocpav/python-concur/blob/master/examples/extra/image_events.py">image events example</a>
 for an example involving event handling.</p>
-<p>It is very common to use <a title="concur.partial" href="../index.html#concur.partial"><code>partial()</code></a> to pass additional arguments to the <code>content_gen</code> function:</p>
+<p>It is very common to use <code><a title="concur.partial" href="../index.html#concur.partial">partial()</a></code> to pass additional arguments to the <code>content_gen</code> function:</p>
 <pre><code class="python">def overlay(pos, tf):
     return c.draw.circle(*pos, 10, (0,0,0,1), tf=tf)
 
@@ -191,40 +191,33 @@ _, im = yield from c.image(&quot;Image&quot;, im, content_gen=c.partial(overlay,
 </code></pre>
 <h2 id="arguments">Arguments</h2>
 <dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Widget name, serves as the identifier for state change events</dd>
-<dt><strong><code>state</code></strong></dt>
-<dd>Instance of <a title="concur.extra_widgets.image.Image" href="#concur.extra_widgets.image.Image"><code>Image</code></a>.</dd>
-<dt><strong><code>width</code></strong></dt>
-<dd>Widget width in pixels. If not specified, the widget stretches to fill the parent widget.</dd>
-<dt><strong><code>height</code></strong></dt>
-<dd>Widget height in pixels. If not specified, the widget stretches to fill the parent widget.</dd>
-<dt><strong><code>content_gen</code></strong></dt>
+<dt><strong><code>name</code></strong> :&ensp;<code>Widget name, serves as the identifier for state change events</code></dt>
+<dd>&nbsp;</dd>
+<dt>state: Instance of <code><a title="concur.extra_widgets.image.Image" href="#concur.extra_widgets.image.Image">Image</a></code>.</dt>
+<dt>width: Widget width in pixels. If not specified, the widget stretches to fill the parent widget.</dt>
+<dt>height: Widget height in pixels. If not specified, the widget stretches to fill the parent widget.</dt>
+<dt><strong><code>content_gen</code></strong> :&ensp;<code>Function which generates a widget which is displayed as an overlay. This function</code></dt>
 <dd>
-<p>Function which generates a widget which is displayed as an overlay. This function
-should accept one or two keyword arguments:</p>
+<p>should accept one or two keyword arguments:</p>
 <ul>
 <li><strong>event_gen</strong>: Widget which yields events specified by the <code>drag_tag</code>, <code>down_tag</code>, and
 <code>hover_tag</code> arguments. The <code>event_gen</code> argument is only expected if any of those tags is not <code>None</code>.</li>
-<li><strong>tf</strong>: Instance of <a title="concur.extra_widgets.pan_zoom.TF" href="pan_zoom.html#concur.extra_widgets.pan_zoom.TF"><code>TF</code></a>. It can be used to transform between
-screen-space and image-space coordinates. The geometrical objects in <a title="concur.draw" href="../draw.html"><code>concur.draw</code></a> take <code>tf</code>
+<li><strong>tf</strong>: Instance of <code><a title="concur.extra_widgets.pan_zoom.TF" href="pan_zoom.html#concur.extra_widgets.pan_zoom.TF">TF</a></code>. It can be used to transform between
+screen-space and image-space coordinates. The geometrical objects in <code><a title="concur.draw" href="../draw.html">concur.draw</a></code> take <code>tf</code>
 as an optional argument. Widgets which don't accept the <code>tf</code> argument, such as buttons, can be
-wrapped inside the <a title="concur.widgets.transform" href="../widgets.html#concur.widgets.transform"><code>transform()</code></a> widget.</li>
+wrapped inside the <code><a title="concur.widgets.transform" href="../widgets.html#concur.widgets.transform">transform()</a></code> widget.</li>
 </ul>
 <p>Any events fired by the widget generated by <code>content_gen</code> are passed through unchanged.</p>
 </dd>
-<dt><strong><code>drag_tag</code></strong></dt>
-<dd>Mouse drag event tag. The event is <code>tag, (dx, dy)</code>, where <code>dx, dy</code> are the image-space
-coordinate differences from the last frame.</dd>
-<dt><strong><code>down_tag</code></strong></dt>
-<dd>Mouse down event tag. The event is <code>tag, (x, y)</code>, where <code>x, y</code> is the image-space
-mouse position. The <code>down_tag</code> fires once at the start of every mouse drag sequence.</dd>
-<dt><strong><code>hover_tag</code></strong></dt>
-<dd>Mouse hover event tag. The event is <code>tag, (x, y)</code>, where <code>x, y</code> is the image-space
-mouse position.</dd>
+<dt><strong><code>drag_tag</code></strong> :&ensp;<code>Mouse drag event tag. The event is </code>tag, (dx, dy)<code>, where </code>dx, dy<code>are the image-space</code></dt>
+<dd>coordinate differences from the last frame.</dd>
+<dt><strong><code>down_tag</code></strong> :&ensp;<code>Mouse down event tag. The event is </code>tag, (x, y)<code>, where </code>x, y<code>is the image-space</code></dt>
+<dd>mouse position. The <code>down_tag</code> fires once at the start of every mouse drag sequence.</dd>
+<dt><strong><code>hover_tag</code></strong> :&ensp;<code>Mouse hover event tag. The event is </code>tag, (x, y)<code>, where </code>x, y<code>is the image-space</code></dt>
+<dd>mouse position.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>An image widget, which yields its state update events triggered by pan &amp; zoom, and any events created inside the overlay specified by <code>content_gen</code>.</p></section>
+<p>An image widget, which yields its state update events triggered by pan &amp; zoom, and any events created inside the overlay specified by <code>content_gen</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -303,9 +296,9 @@ mouse position.</dd>
 <span>(</span><span>image=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Image state containing pan and zoom information, and texture data. </p>
-<p><code>image</code> must be something convertible to <code>numpy.array</code>: greyscale, RGB, or RGBA.
-Channel is in the last dimension.</p></section>
+<div class="desc"><p>Image state containing pan and zoom information, and texture data. </p>
+<p><code><a title="concur.extra_widgets.image.image" href="#concur.extra_widgets.image.image">image()</a> </code> must be something convertible to <code>numpy.array</code>: greyscale, RGB, or RGBA.
+Channel is in the last dimension.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -380,7 +373,7 @@ Channel is in the last dimension.</p></section>
 <span>def <span class="ident">change_image</span></span>(<span>self, image)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Change the image for a different one. <code>image</code> must be None, or something convertible to
+<div class="desc"><p>Change the image for a different one. <code><a title="concur.extra_widgets.image.image" href="#concur.extra_widgets.image.image">image()</a> </code> must be None, or something convertible to
 <code>numpy.array</code> in greyscale, RGB, or RGBA format. Channel is in the last dimension.
 If None, a black placeholder image is displayed.</p>
 <p><code>change_image</code> must be called at most once per each frame for one Image.
@@ -391,7 +384,7 @@ For performance, it is beneficial to use NumPy textures:</p>
 <li>with three or four channels (RGB, RGBA),</li>
 <li>in C order.</li>
 </ul>
-<p>Otherwise, the array will be copied &amp; converted.</p></section>
+<p>Otherwise, the array will be copied &amp; converted.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -447,7 +440,7 @@ For performance, it is beneficial to use NumPy textures:</p>
 <span>def <span class="ident">reset_view</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Reset view so that the whole image fits into the widget.</p></section>
+<div class="desc"><p>Reset view so that the whole image fits into the widget.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -493,7 +486,7 @@ For performance, it is beneficial to use NumPy textures:</p>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

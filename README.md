@@ -15,8 +15,9 @@ Download Concur and run a Hello World application.
 ## Learning
 
 * [Introduction](Introduction.md): A hands-on introductory tutorial
+* [Old Introduction](Widgets.md): Tutorial from a different angle. It starts with a custom widget implementation and goes from there.
 * [Examples](https://github.com/potocpav/python-concur/tree/master/examples): Code examples illustrating basic Concur usage.
-* [**API Reference**](https://potocpav.github.io/python-concur-docs/master/)
+* [API Reference](https://potocpav.github.io/python-concur-docs/master/)
 * [Troubleshooting](Troubleshooting.md)
 
 ## Articles

@@ -32,7 +32,7 @@ The above line created the widget, but it doesn't show it on its own. A lot of s
 c.main(label)
 ```
 
-This line creates a default window with a widget `label` inside. After closing the window, the Python prompt can be used again.
+This line creates a default window with a widget `label` inside. After closing the window, the Python prompt can be used again. Window size and title can be customized using [optional arguments](https://potocpav.github.io/python-concur-docs/master/integrations/glfw.html).
 
 ## Composition
 
@@ -90,7 +90,7 @@ c.main(c.input_text("Text input", "hello!"))
  <generator object button at 0x7f12381a8b50>
  ```
 
-Widgets are plain old Python generators! We can put several generators back-to-back using the standard `itertools.chain` function:
+Widgets are plain old Python generators! We can put several generators back-to-back using the standard [`itertools.chain`](https://docs.python.org/3/library/itertools.html#itertools.chain) function:
 
 ```python
 from itertools import chain
@@ -127,7 +127,6 @@ c.main(app())
 
 The possibilities are endless. Now it's time to use the two types of composition together. We would like to display multiple buttons at the same time, and tell which one was clicked. This is a thing we didn't discuss earlier: widgets actually return useful values for this exact purpose.
 
-
 ```python
 def app():
     while True:
@@ -159,11 +158,11 @@ Clicked: ('Orange', None)
  * A slider_float returns a `float`
  * _etc._
 
-The `c.orr` function just passes these events through unchanged.
+The `c.orr` function just waits for an event to be returned by any child widget, and passes it through unchanged.
 
 ## First Application
 
-Armed with this knowledge, we are finally able to create non-trivial applications. But to keep it simple, here is a classic counter example.
+Armed with this knowledge, we are actually able to create non-trivial applications. To keep it simple, here is a classic counter example.
 
 ```python
 def counter():
@@ -186,17 +185,17 @@ def counter():
 c.main(counter())
 ```
 
-This showcases a common design pattern. The whole application sits inside an endless loop. First, the whole widget tree is constructed and displayed using `yield from`. Return events are collected into a `key, value` tuple. These two variables are then branched on in an `if-elif-else` block, and the state is changed accordingly. Lastly, there is the `yield` statement to prevent flicker on events. Larger applications may contain multiple such loops, allowing for components to be separated.
+This showcases a common design pattern. The application sits inside an endless loop. First, the whole widget tree is constructed and displayed using `yield from c.orr(...)`. Returned events are collected into the `key, value` tuple. These two variables are then branched on in an `if-elif-else` block, and the state is changed accordingly. Lastly, there is the `yield` statement to prevent flicker on events. Larger applications may contain multiple such loops, allowing for components to be separated.
 
-As the last thing, let's briefly tackle windows. In concur, creating dock-able windows is trivial: just call the `c.window` function, pass it a window name, and a widget to be displayed inside. The following snippet creates four windows, every one contains a fully functional counter from the previous snippet.
+As the last thing, let's briefly tackle windows. In concur, creating dock-able windows is trivial: just call the `c.window` function, pass it a window name, and a widget to be displayed inside. The following snippet creates four windows, every one contains a counter from the previous snippet.
 
 ```python
 c.main(c.orr([c.window(f"Window {i}", counter()) for i in range(4)]))
 ```
 
-Try dragging the windows around by their titles. Try interacting with the counters. Everything just works, in a few lines of code. Window layout is automatically saved into the file "imgui.ini" in the current directory, so it is preserved even after the app is closed.
+Try dragging the windows around by their titles. Try interacting with the counters. Everything just works, in a few lines of code. Window layout is automatically saved into the file "imgui.ini" in the current directory, so it is preserved even after the app is closed. You can try closing and opening the application, the last window layout will be restored.
 
-If you try experimenting with window creation, keep in mind that all windows must have unique titles. This is another little wart which I wasn't able to solve yet. 
+Keep in mind that all windows must have unique titles. This is another little wart which I wasn't able to solve yet.
 
 ## What next?
 

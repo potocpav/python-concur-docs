@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.1" />
 <title>concur.integrations.glfw API documentation</title>
 <meta name="description" content="Main integration back-end." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
 </head>
 <body>
@@ -34,7 +34,6 @@ import time
 
 import imgui
 from imgui.integrations.glfw import GlfwRenderer
-from contextlib import contextmanager
 
 from concur.integrations.opengl import create_offscreen_fb, get_fb_data
 
@@ -112,17 +111,6 @@ def create_window_dock(glfw_window, menu_bar=False):
     imgui.pop_style_var(1)
     imgui.dock_space(&#34;Window Dock Space&#34;, 0., 0., 1 &lt;&lt; 3)
     imgui.end()
-
-
-@contextmanager
-def managed_resource():
-    # Code to acquire resource, e.g.:
-    resource = acquire_resource(*args, **kwds)
-    try:
-        yield resource
-    finally:
-        # Code to release resource, e.g.:
-        release_resource(resource)
 
 
 def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
@@ -213,28 +201,21 @@ def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_scre
 <span>def <span class="ident">main</span></span>(<span>widget, name='Concur', width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Create a GLFW window, spin up the main loop, and display a given widget inside.</p>
+<div class="desc"><p>Create a GLFW window, spin up the main loop, and display a given widget inside.</p>
 <p>To create a maximized window, pass width and height larger than the screen.</p>
 <h2 id="arguments">Arguments</h2>
 <dl>
-<dt><strong><code>widget</code></strong></dt>
-<dd>The widget to display inside the window. When the widget returns, the application exits.</dd>
-<dt><strong><code>name</code></strong></dt>
-<dd>Window name, displayed in the title bar and other OS outputs.</dd>
-<dt><strong><code>width</code></strong></dt>
-<dd>Desired window width.</dd>
-<dt><strong><code>height</code></strong></dt>
-<dd>Desired window height.</dd>
-<dt><strong><code>fps</code></strong></dt>
-<dd>Maximum number of frames per second</dd>
-<dt><strong><code>save_screencast</code></strong></dt>
-<dd>Capture and save the UI into a specified video file (experimental). Main window shouldn't
-be resized while the application is running when using this option.</dd>
-<dt><strong><code>screencast_fps</code></strong></dt>
-<dd>Save the screencast video with a given FPS.</dd>
-<dt><strong><code>menu_bar</code></strong></dt>
-<dd>Reserve space for <a title="concur.widgets.main_menu_bar" href="../widgets.html#concur.widgets.main_menu_bar"><code>main_menu_bar()</code></a> at the top of the window.</dd>
-</dl></section>
+<dt>widget: The widget to display inside the window. When the widget returns, the application exits.</dt>
+<dt>name: Window name, displayed in the title bar and other OS outputs.</dt>
+<dt>width: Desired window width.</dt>
+<dt>height: Desired window height.</dt>
+<dt><strong><code>fps</code></strong> :&ensp;<code>Maximum number</code> of <code>frames per second</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>save_screencast</code></strong> :&ensp;<code>Capture and save the UI into a specified video file (experimental). Main window shouldn't</code></dt>
+<dd>be resized while the application is running when using this option.</dd>
+</dl>
+<p>screencast_fps: Save the screencast video with a given FPS.
+menu_bar: Reserve space for <code><a title="concur.widgets.main_menu_bar" href="../widgets.html#concur.widgets.main_menu_bar">main_menu_bar()</a></code> at the top of the window.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -316,26 +297,6 @@ be resized while the application is running when using this option.</dd>
             writer.close()</code></pre>
 </details>
 </dd>
-<dt id="concur.integrations.glfw.managed_resource"><code class="name flex">
-<span>def <span class="ident">managed_resource</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@contextmanager
-def managed_resource():
-    # Code to acquire resource, e.g.:
-    resource = acquire_resource(*args, **kwds)
-    try:
-        yield resource
-    finally:
-        # Code to release resource, e.g.:
-        release_resource(resource)</code></pre>
-</details>
-</dd>
 </dl>
 </section>
 <section>
@@ -346,12 +307,12 @@ def managed_resource():
 <span>(</span><span>window, attach_callbacks=True)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Custom variant of Glfwrenderer in PyImGui:</p>
+<div class="desc"><p>Custom variant of Glfwrenderer in PyImGui:</p>
 <p><a href="https://github.com/swistakm/pyimgui/blob/master/imgui/integrations/glfw.py">https://github.com/swistakm/pyimgui/blob/master/imgui/integrations/glfw.py</a></p>
 <p>This works around the issue that GLFW uses EN_US keyboard to specify the key codes
 in <code>keyboard_callback</code>. This meant that keyboard shortcuts were broken on non-querty
 keyboard layouts.</p>
-<p>See <a href="https://github.com/ocornut/imgui/issues/2959">https://github.com/ocornut/imgui/issues/2959</a> for details.</p></section>
+<p>See <a href="https://github.com/ocornut/imgui/issues/2959">https://github.com/ocornut/imgui/issues/2959</a> for details.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -387,7 +348,7 @@ keyboard layouts.</p>
 <span>def <span class="ident">keyboard_callback</span></span>(<span>self, window, key, scancode, action, mods)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -420,7 +381,6 @@ keyboard layouts.</p>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
 <li><code><a title="concur.integrations.glfw.main" href="#concur.integrations.glfw.main">main</a></code></li>
-<li><code><a title="concur.integrations.glfw.managed_resource" href="#concur.integrations.glfw.managed_resource">managed_resource</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
@@ -437,7 +397,7 @@ keyboard layouts.</p>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

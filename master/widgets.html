@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.1" />
 <title>concur.widgets API documentation</title>
 <meta name="description" content="A collection of widgets based off of ImGui …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
 </head>
 <body>
@@ -25,8 +25,8 @@
 This is done for convenience, as Python syntax for mapping values is a bit busy.</p>
 <p>Most widgets are just thin wrappers over <a href="https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html">widgets in PyImGui</a>.
 If any widget from ImGui is not listed here, it is mostly trivial to add it. New widgets can be created by writing
-generators by hand, or by using helper functions <a title="concur.core.interactive_elem" href="core.html#concur.core.interactive_elem"><code>interactive_elem()</code></a> or <a title="concur.core.lift" href="core.html#concur.core.lift"><code>lift()</code></a>.</p>
-<p>Some widgets (<a title="concur.widgets.transform" href="#concur.widgets.transform"><code>transform()</code></a>, <code>key_pressed</code>, etc.) don't do any drawing and serve purely for control flow, or user interaction.</p>
+generators by hand, or by using helper functions <code><a title="concur.core.interactive_elem" href="core.html#concur.core.interactive_elem">interactive_elem()</a></code> or <code><a title="concur.core.lift" href="core.html#concur.core.lift">lift()</a></code>.</p>
+<p>Some widgets (<code><a title="concur.widgets.transform" href="#concur.widgets.transform">transform()</a></code>, <code><a title="concur.widgets.key_press" href="#concur.widgets.key_press">key_press()</a></code>, etc.) don't do any drawing and serve purely for control flow, or user interaction.</p>
 <p>All of the functions in this module are re-exported in the root module for convenience.</p>
 <details class="source">
 <summary>
@@ -41,7 +41,7 @@ Most widgets are just thin wrappers over [widgets in PyImGui](https://pyimgui.re
 If any widget from ImGui is not listed here, it is mostly trivial to add it. New widgets can be created by writing
 generators by hand, or by using helper functions `concur.core.interactive_elem` or `concur.core.lift`.
 
-Some widgets (`transform`, `key_pressed`, etc.) don&#39;t do any drawing and serve purely for control flow, or user interaction.
+Some widgets (`transform`, `key_press`, etc.) don&#39;t do any drawing and serve purely for control flow, or user interaction.
 
 All of the functions in this module are re-exported in the root module for convenience.
 &#34;&#34;&#34;
@@ -549,7 +549,7 @@ def transform(x, y, widget, tf=None):
 <span>def <span class="ident">button</span></span>(<span>label, tag=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Button. Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
+<div class="desc"><p>Button. Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -565,7 +565,7 @@ def transform(x, y, widget, tf=None):
 <span>def <span class="ident">checkbox</span></span>(<span>label, checked, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Two-state checkbox.</p></section>
+<div class="desc"><p>Two-state checkbox.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -579,7 +579,7 @@ def transform(x, y, widget, tf=None):
 <span>def <span class="ident">child</span></span>(<span>name, widget, width, height, border=False, flags=0)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Create a sized box with a <code>widget</code> inside a window.</p></section>
+<div class="desc"><p>Create a sized box with a <code>widget</code> inside a window.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -601,7 +601,7 @@ def transform(x, y, widget, tf=None):
 <span>def <span class="ident">collapsing_header</span></span>(<span>text, widget, open=True)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Display a collapsible section header. It can be open or closed by default (parameter <code>open</code>).</p></section>
+<div class="desc"><p>Display a collapsible section header. It can be open or closed by default (parameter <code>open</code>).</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -623,9 +623,9 @@ def transform(x, y, widget, tf=None):
 <span>def <span class="ident">color_button</span></span>(<span>label, color, tag=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Colored button. Color can be specified in multiple ways listed in
+<div class="desc"><p>Colored button. Color can be specified in multiple ways listed in
 [concur.draw].</p>
-<p>Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
+<p>Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -646,10 +646,10 @@ def transform(x, y, widget, tf=None):
 <span>def <span class="ident">columns</span></span>(<span>elems, identifier=None, border=True, widths=[])</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Table, using the imgui columns API.</p>
+<div class="desc"><p>Table, using the imgui columns API.</p>
 <p><code>elems</code> is a 2D array of widgets
 <code>widths</code> is a optional vector of column widths in pixels. May contain
-None values.</p></section>
+None values.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -681,7 +681,7 @@ None values.</p></section>
 <span>def <span class="ident">drag_float</span></span>(<span>label, value, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Float selection widget without a slider.</p></section>
+<div class="desc"><p>Float selection widget without a slider.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -695,7 +695,7 @@ None values.</p></section>
 <span>def <span class="ident">drag_float2</span></span>(<span>label, values, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Float selection widget without a slider for selecting two <code>values</code>.</p></section>
+<div class="desc"><p>Float selection widget without a slider for selecting two <code>values</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -710,7 +710,7 @@ None values.</p></section>
 <span>def <span class="ident">drag_float3</span></span>(<span>label, values, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Float selection widget without a slider for selecting three <code>values</code>.</p></section>
+<div class="desc"><p>Float selection widget without a slider for selecting three <code>values</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -725,7 +725,7 @@ None values.</p></section>
 <span>def <span class="ident">drag_float4</span></span>(<span>label, values, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Float selection widget without a slider for selecting four <code>values</code>.</p></section>
+<div class="desc"><p>Float selection widget without a slider for selecting four <code>values</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -740,7 +740,7 @@ None values.</p></section>
 <span>def <span class="ident">drag_int</span></span>(<span>label, value, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Integer selection widget without a slider.</p></section>
+<div class="desc"><p>Integer selection widget without a slider.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -754,7 +754,7 @@ None values.</p></section>
 <span>def <span class="ident">drag_int2</span></span>(<span>label, values, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Integer selection widget without a slider for selecting two <code>values</code>.</p></section>
+<div class="desc"><p>Integer selection widget without a slider for selecting two <code>values</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -769,7 +769,7 @@ None values.</p></section>
 <span>def <span class="ident">drag_int3</span></span>(<span>label, values, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Integer selection widget without a slider for selecting three <code>values</code>.</p></section>
+<div class="desc"><p>Integer selection widget without a slider for selecting three <code>values</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -784,7 +784,7 @@ None values.</p></section>
 <span>def <span class="ident">drag_int4</span></span>(<span>label, values, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Integer selection widget without a slider for selecting four <code>values</code>.</p></section>
+<div class="desc"><p>Integer selection widget without a slider for selecting four <code>values</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -799,14 +799,14 @@ None values.</p></section>
 <span>def <span class="ident">font</span></span>(<span>font_, widget)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Render <code>widget</code> with a given font.</p>
+<div class="desc"><p>Render <code>widget</code> with a given font.</p>
 <p>The easiest way to create <code>font_</code> is probably to call this before the call to
-<a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main"><code>main()</code></a>:</p>
+<code><a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main">main()</a></code>:</p>
 <pre><code class="python">imgui.create_context()
 font = imgui.get_io().fonts.add_font_from_file_ttf(&quot;font_file.ttf&quot;, 16)
 </code></pre>
 <p>See the <a href="https://pyimgui.readthedocs.io/en/latest/guide/using-fonts.html">font guide in PyImGui</a>
-for more details.</p></section>
+for more details.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -840,7 +840,7 @@ for more details.</p></section>
 <span>def <span class="ident">image_button</span></span>(<span>name, texture_id, width, height, uv0=(0, 0), uv1=(1, 1), tint_color='white', border_color='black', frame_padding=-1)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Image button. Returns <code>(name, None)</code> on click.</p>
+<div class="desc"><p>Image button. Returns <code>(name, None)</code> on click.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>texture_id</code></strong></dt>
@@ -857,7 +857,7 @@ for more details.</p></section>
 <dd>Image border color</dd>
 <dt><strong><code>frame_padding</code></strong></dt>
 <dd>Frame padding (0: no padding, &lt;0 default padding)</dd>
-</dl></section>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -883,7 +883,7 @@ for more details.</p></section>
 <span>def <span class="ident">input_float</span></span>(<span>label, value, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Float input widget.</p></section>
+<div class="desc"><p>Float input widget.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -897,7 +897,7 @@ for more details.</p></section>
 <span>def <span class="ident">input_text</span></span>(<span>name, value, buffer_length=255, tag=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Text input.</p></section>
+<div class="desc"><p>Text input.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -916,8 +916,8 @@ for more details.</p></section>
 <span>def <span class="ident">input_text_multiline</span></span>(<span>name, value, buffer_length=4000, width=0, height=0, flags=0, tag=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Multiline text input.</p>
-<p>Flags are <a href="https://pyimgui.readthedocs.io/en/latest/guide/inputtext-flags.html#inputtext-flag-options">defined by PyImGui</a>.</p></section>
+<div class="desc"><p>Multiline text input.</p>
+<p>Flags are <a href="https://pyimgui.readthedocs.io/en/latest/guide/inputtext-flags.html#inputtext-flag-options">defined by PyImGui</a>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -939,9 +939,9 @@ for more details.</p></section>
 <span>def <span class="ident">invisible_button</span></span>(<span>label, width, height, tag=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Invisible button with a given width and height.</p>
+<div class="desc"><p>Invisible button with a given width and height.</p>
 <p>Can be interacted with as a normal button, including clicking and dragging.</p>
-<p>Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
+<p>Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -962,10 +962,10 @@ for more details.</p></section>
 <span>def <span class="ident">key_press</span></span>(<span>name, key_index, ctrl=False, shift=False, alt=False, super=False, repeat=True)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Invisible widget that waits for a given key to be pressed.</p>
+<div class="desc"><p>Invisible widget that waits for a given key to be pressed.</p>
 <p>No widget must be active at the time to prevent triggering hotkeys by editing text fields.
 Key codes are specified by glfw, e.g. <code>glfw.KEY_A</code>, or <code>glfw.KEY_SPACE</code>.
-Upper-case ASCII codes also work, such as ord('A').</p></section>
+Upper-case ASCII codes also work, such as ord('A').</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -994,13 +994,13 @@ Upper-case ASCII codes also work, such as ord('A').</p></section>
 <span>def <span class="ident">main_menu_bar</span></span>(<span>widget)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Create a main menu bar.</p>
-<p>This requires setting <code>menu_bar=True</code> in the <a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main"><code>main()</code></a> method.
+<div class="desc"><p>Create a main menu bar.</p>
+<p>This requires setting <code>menu_bar=True</code> in the <code><a title="concur.integrations.glfw.main" href="integrations/glfw.html#concur.integrations.glfw.main">main()</a></code> method.
 Otherwise, space wouldn't be reserved for the menu bar, and it would lay on top of
 window contents.</p>
 <p>Main menu bar must be created outside any windows.</p>
 <p>See <a href="https://github.com/potocpav/python-concur/tree/master/examples/extra/menu_bar.py">examples/extra/menu_bar.py</a>
-for an usage example.</p></section>
+for an usage example.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1032,8 +1032,8 @@ for an usage example.</p></section>
 <span>def <span class="ident">menu</span></span>(<span>label, widget, enabled=True)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Create an expandable menu in the <a title="concur.widgets.main_menu_bar" href="#concur.widgets.main_menu_bar"><code>main_menu_bar()</code></a>.</p>
-<p>Widgets commonly used in menus are <a title="concur.widgets.menu_item" href="#concur.widgets.menu_item"><code>menu_item()</code></a>, and <a title="concur.widgets.separator" href="#concur.widgets.separator"><code>separator()</code></a>.</p></section>
+<div class="desc"><p>Create an expandable menu in the <code><a title="concur.widgets.main_menu_bar" href="#concur.widgets.main_menu_bar">main_menu_bar()</a></code>.</p>
+<p>Widgets commonly used in menus are <code><a title="concur.widgets.menu_item" href="#concur.widgets.menu_item">menu_item()</a></code>, and <code><a title="concur.widgets.separator" href="#concur.widgets.separator">separator()</a></code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1060,12 +1060,12 @@ for an usage example.</p></section>
 <span>def <span class="ident">menu_item</span></span>(<span>label, shortcut=None, selected=False, enabled=True, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Create a menu item.</p>
-<p>Menu items should be nested inside <a title="concur.widgets.menu" href="#concur.widgets.menu"><code>menu()</code></a>.</p>
+<div class="desc"><p>Create a menu item.</p>
+<p>Menu items should be nested inside <code><a title="concur.widgets.menu" href="#concur.widgets.menu">menu()</a></code>.</p>
 <p>Item shortcuts are displayed for convenience, but are not processed in any way.
-They are easily handled by <a title="concur.widgets.key_press" href="#concur.widgets.key_press"><code>key_press()</code></a> outside the menu code If <a title="concur.widgets.key_press" href="#concur.widgets.key_press"><code>key_press()</code></a> was
+They are easily handled by <code><a title="concur.widgets.key_press" href="#concur.widgets.key_press">key_press()</a></code> outside the menu code If <code><a title="concur.widgets.key_press" href="#concur.widgets.key_press">key_press()</a></code> was
 inside the menu, it would not be active when the menu is not expanded.
-Items may have a check-box (<code>selected</code>), and may or may not be <code>enabled</code>.</p></section>
+Items may have a check-box (<code>selected</code>), and may or may not be <code>enabled</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1087,10 +1087,10 @@ Items may have a check-box (<code>selected</code>), and may or may not be <code>
 <span>def <span class="ident">mouse_click</span></span>(<span>name, button=0)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Invisible widget that waits for a given mouse button to be clicked (default: LMB).</p>
+<div class="desc"><p>Invisible widget that waits for a given mouse button to be clicked (default: LMB).</p>
 <p>This function is triggered only when no widgets are interacted with using mouse.
 Event is returned in the format <code>(name, (x, y))</code>, where <code>(x, y)</code> are the coordinates
-of the clicked position.</p></section>
+of the clicked position.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1113,7 +1113,7 @@ of the clicked position.</p></section>
 <span>def <span class="ident">orr_same_line</span></span>(<span>widgets)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Use instead of <a title="concur.core.orr" href="core.html#concur.core.orr"><code>orr()</code></a> to layout child widgets horizontally instead of vertically.</p></section>
+<div class="desc"><p>Use instead of <code><a title="concur.core.orr" href="core.html#concur.core.orr">orr()</a></code> to layout child widgets horizontally instead of vertically.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1135,7 +1135,7 @@ of the clicked position.</p></section>
 <span>def <span class="ident">radio_button</span></span>(<span>label, active, tag=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Radio button. Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></section>
+<div class="desc"><p>Radio button. Returns <code>(label, None)</code> on click, or <code>(tag, None)</code> if tag is specified.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1151,14 +1151,14 @@ of the clicked position.</p></section>
 <span>def <span class="ident">selectable</span></span>(<span>label, selected, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Selectable line.</p>
-<p>This widget marks the whole line as selectable. To add widgets to <a title="concur.widgets.selectable" href="#concur.widgets.selectable"><code>selectable()</code></a>,
-simply append them using <a title="concur.widgets.orr_same_line" href="#concur.widgets.orr_same_line"><code>orr_same_line()</code></a>:</p>
+<div class="desc"><p>Selectable line.</p>
+<p>This widget marks the whole line as selectable. To add widgets to <code><a title="concur.widgets.selectable" href="#concur.widgets.selectable">selectable()</a></code>,
+simply append them using <code><a title="concur.widgets.orr_same_line" href="#concur.widgets.orr_same_line">orr_same_line()</a></code>:</p>
 <pre><code class="python">c.orr_same_line([
     c.selectable(&quot;Selectable&quot;, False),
     c.text(&quot;Extra text&quot;),
     ])
-</code></pre></section>
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1183,7 +1183,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">separator</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Horizontal separator.</p></section>
+<div class="desc"><p>Horizontal separator.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1197,7 +1197,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">slider_float</span></span>(<span>label, value, min_value, max_value, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Float selection slider.</p></section>
+<div class="desc"><p>Float selection slider.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1211,7 +1211,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">slider_int</span></span>(<span>label, value, min_value, max_value, *args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Int selection slider.</p></section>
+<div class="desc"><p>Int selection slider.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1225,7 +1225,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">spacing</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Extra vertical space.</p></section>
+<div class="desc"><p>Extra vertical space.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1239,7 +1239,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">test_window</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>ImGui test window with a multitude of widgets.</p></section>
+<div class="desc"><p>ImGui test window with a multitude of widgets.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1253,7 +1253,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">text</span></span>(<span>s)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Passive text display widget.</p></section>
+<div class="desc"><p>Passive text display widget.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1267,7 +1267,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">text_colored</span></span>(<span>s, color)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Passive colored text display widget.</p></section>
+<div class="desc"><p>Passive colored text display widget.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1282,7 +1282,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">text_tooltip</span></span>(<span>text, widget)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Display a text tooltip on hover</p></section>
+<div class="desc"><p>Display a text tooltip on hover</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1306,7 +1306,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">text_wrapped</span></span>(<span>s)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Word wrapping text display widget. Recommended for long chunks of text.</p></section>
+<div class="desc"><p>Word wrapping text display widget. Recommended for long chunks of text.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1324,7 +1324,7 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">tooltip</span></span>(<span>tooltip_widget, widget)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Display a widget tooltip on hover. May contain arbitrary elements, such as images.</p></section>
+<div class="desc"><p>Display a widget tooltip on hover. May contain arbitrary elements, such as images.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1355,9 +1355,9 @@ simply append them using <a title="concur.widgets.orr_same_line" href="#concur.w
 <span>def <span class="ident">transform</span></span>(<span>x, y, widget, tf=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Use <a title="concur.extra_widgets.pan_zoom.TF" href="extra_widgets/pan_zoom.html#concur.extra_widgets.pan_zoom.TF"><code>TF</code></a> and a specified position <code>x, y</code> to transform a widget.</p>
+<div class="desc"><p>Use <code><a title="concur.extra_widgets.pan_zoom.TF" href="extra_widgets/pan_zoom.html#concur.extra_widgets.pan_zoom.TF">TF</a></code> and a specified position <code>x, y</code> to transform a widget.</p>
 <p>Only widget position will be affected (not scaling), and it will be positioned so that its upper left corner
-is at <code>[x, y]</code>.</p></section>
+is at <code>[x, y]</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1387,8 +1387,8 @@ is at <code>[x, y]</code>.</p></section>
 <span>def <span class="ident">tree_node</span></span>(<span>text, widget, open=True)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Display a collapsible tree node. It can be open or closed by default (parameter <code>open</code>).</p>
-<p>Tree node content has left offset, unlike <a title="concur.widgets.collapsing_header" href="#concur.widgets.collapsing_header"><code>collapsing_header()</code></a>.</p></section>
+<div class="desc"><p>Display a collapsible tree node. It can be open or closed by default (parameter <code>open</code>).</p>
+<p>Tree node content has left offset, unlike <code><a title="concur.widgets.collapsing_header" href="#concur.widgets.collapsing_header">collapsing_header()</a></code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1412,11 +1412,11 @@ is at <code>[x, y]</code>.</p></section>
 </details>
 </dd>
 <dt id="concur.widgets.window"><code class="name flex">
-<span>def <span class="ident">window</span></span>(<span>title, widget, position=None, size=None, flags=0)</span>
+<span>def <span class="ident">window</span></span>(<span>title: str, widget: Any, position: Tuple[int, int] = None, size: Tuple[int, int] = None, flags: int = 0) -> Any</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Create a window with a given <code>widget</code> inside.</p>
-<p>Window title must be unique. Contents are drawn only if the window is opened.</p></section>
+<div class="desc"><p>Create a window with a given <code>widget</code> inside.</p>
+<p>Window title must be unique. Contents are drawn only if the window is opened.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1513,7 +1513,7 @@ is at <code>[x, y]</code>.</p></section>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
