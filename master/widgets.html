@@ -21,8 +21,10 @@
 </header>
 <section id="section-intro">
 <p>A collection of widgets based off of ImGui.</p>
-<p>By convention, all widgets take a string identifier as the first parameter, and return the <code>(identifier, value)</code> pair.
-This is done for convenience, as Python syntax for mapping values is a bit busy.</p>
+<p>By convention, most widgets take a string identifier as the first parameter, and return the <code>(identifier, value)</code> pair.
+This is done for convenience, as Python syntax for mapping values is a bit busy. If you want to return a different
+identifier to what is displayed on screen, use the <code>tag</code> keyword argument which is available for all widgets where
+it makes sense.</p>
 <p>Most widgets are just thin wrappers over <a href="https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html">widgets in PyImGui</a>.
 If any widget from ImGui is not listed here, it is mostly trivial to add it. New widgets can be created by writing
 generators by hand, or by using helper functions <code><a title="concur.core.interactive_elem" href="core.html#concur.core.interactive_elem">interactive_elem()</a></code> or <code><a title="concur.core.lift" href="core.html#concur.core.lift">lift()</a></code>.</p>
@@ -34,8 +36,10 @@ generators by hand, or by using helper functions <code><a title="concur.core.int
 </summary>
 <pre><code class="python">&#34;&#34;&#34; A collection of widgets based off of ImGui.
 
-By convention, all widgets take a string identifier as the first parameter, and return the `(identifier, value)` pair.
-This is done for convenience, as Python syntax for mapping values is a bit busy.
+By convention, most widgets take a string identifier as the first parameter, and return the `(identifier, value)` pair.
+This is done for convenience, as Python syntax for mapping values is a bit busy. If you want to return a different
+identifier to what is displayed on screen, use the `tag` keyword argument which is available for all widgets where
+it makes sense.
 
 Most widgets are just thin wrappers over [widgets in PyImGui](https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html).
 If any widget from ImGui is not listed here, it is mostly trivial to add it. New widgets can be created by writing

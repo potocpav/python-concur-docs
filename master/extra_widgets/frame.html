@@ -44,7 +44,7 @@ class Frame(PanZoom):
         &#34;&#34;&#34;
         Simple PanZoom re-export with specified margins.
 
-        Arguments:
+        Args:
             top_left:     Coordinates of the top left corner of the displayed content area.
             bottom_right: Coordinates of the bottom right corner of the displayed content area.
             keep_aspect:  Keep aspect ratio (x/y) equal to a given constant and zoom proportionally.
@@ -203,15 +203,22 @@ for an usage example.</p>
 <dd>
 <div class="desc"><p>Pan &amp; zoom state. </p>
 <p>Simple PanZoom re-export with specified margins.</p>
-<h2 id="arguments">Arguments</h2>
-<p>top_left:
-Coordinates of the top left corner of the displayed content area.
-bottom_right: Coordinates of the bottom right corner of the displayed content area.
-keep_aspect:
-Keep aspect ratio (x/y) equal to a given constant and zoom proportionally.
-if keep_aspect==True, it is equivalent to keep_aspect==1.
-fix_axis:
-Do not zoom in a given axis (<code>'x'</code>, <code>'y'</code>, or <code>None</code>).</p></div>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>top_left</code></strong></dt>
+<dd>
+<p>Coordinates of the top left corner of the displayed content area.</p>
+</dd>
+<dt><strong><code>bottom_right</code></strong></dt>
+<dd>Coordinates of the bottom right corner of the displayed content area.</dd>
+<dt><strong><code>keep_aspect</code></strong></dt>
+<dd>Keep aspect ratio (x/y) equal to a given constant and zoom proportionally.
+if keep_aspect==True, it is equivalent to keep_aspect==1.</dd>
+<dt><strong><code>fix_axis</code></strong></dt>
+<dd>
+<p>Do not zoom in a given axis (<code>'x'</code>, <code>'y'</code>, or <code>None</code>).</p>
+</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -221,7 +228,7 @@ Do not zoom in a given axis (<code>'x'</code>, <code>'y'</code>, or <code>None</
         &#34;&#34;&#34;
         Simple PanZoom re-export with specified margins.
 
-        Arguments:
+        Args:
             top_left:     Coordinates of the top left corner of the displayed content area.
             bottom_right: Coordinates of the bottom right corner of the displayed content area.
             keep_aspect:  Keep aspect ratio (x/y) equal to a given constant and zoom proportionally.

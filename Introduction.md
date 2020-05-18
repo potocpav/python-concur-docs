@@ -63,7 +63,7 @@ c.main(c.orr([c.text(f"Thing {i}") for i in range(10)]))
 
 We can use the flexibility Python provides to combine widgets in any way we like.
 
-As you can see, `c.orr` composes widgets vertically, one below another. Concur in general uses a very simple layout system, mostly just using the reading order: from left to right, from top to bottom. This seems very limiting, but Concur also supports windows and docking, which can be used to create more complex layouts. For now, let me just show horizontal widget composition using `c.orr_same_line`:
+As you can see, `c.orr` composes widgets vertically, one below another. Concur in general uses a very simple layout system, mostly just following the reading order: from left to right, from top to bottom. This seems very limiting, but Concur also supports windows and docking, which can be used to create more complex layouts. For now, let me just show horizontal widget composition using `c.orr_same_line`:
 
 ```python
 c.main(c.orr_same_line([pair] * 3))

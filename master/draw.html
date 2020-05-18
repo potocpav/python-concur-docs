@@ -296,7 +296,7 @@ def scatter(pts, color, marker, marker_size=10, thickness=1, tf=None):
     Some markers are more performant than others, depending on the amount of
     generated geometry.
 
-    Arguments:
+    Args:
       pts: NumPy array with shape `(n, 2)`, where `n` is the point count.
       color: Color to draw the markers.
       marker: Marker type. See the table below.
@@ -694,12 +694,19 @@ in each polyline.</p></div>
 this function more than once with different parameters.</p>
 <p>Some markers are more performant than others, depending on the amount of
 generated geometry.</p>
-<h2 id="arguments">Arguments</h2>
-<p>pts: NumPy array with shape <code>(n, 2)</code>, where <code>n</code> is the point count.
-color: Color to draw the markers.
-marker: Marker type. See the table below.
-marker_size: Size of the markers in pixels.
-thickness: Line width for non-filled markers</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pts</code></strong></dt>
+<dd>NumPy array with shape <code>(n, 2)</code>, where <code>n</code> is the point count.</dd>
+<dt><strong><code>color</code></strong></dt>
+<dd>Color to draw the markers.</dd>
+<dt><strong><code>marker</code></strong></dt>
+<dd>Marker type. See the table below.</dd>
+<dt><strong><code>marker_size</code></strong></dt>
+<dd>Size of the markers in pixels.</dd>
+<dt><strong><code>thickness</code></strong></dt>
+<dd>Line width for non-filled markers</dd>
+</dl>
 <hr>
 <table>
 <thead>
@@ -744,7 +751,7 @@ thickness: Line width for non-filled markers</p>
     Some markers are more performant than others, depending on the amount of
     generated geometry.
 
-    Arguments:
+    Args:
       pts: NumPy array with shape `(n, 2)`, where `n` is the point count.
       color: Color to draw the markers.
       marker: Marker type. See the table below.

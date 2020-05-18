@@ -118,7 +118,7 @@ def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_scre
 
     To create a maximized window, pass width and height larger than the screen.
 
-    Arguments:
+    Args:
         widget: The widget to display inside the window. When the widget returns, the application exits.
         name: Window name, displayed in the title bar and other OS outputs.
         width: Desired window width.
@@ -203,19 +203,26 @@ def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_scre
 <dd>
 <div class="desc"><p>Create a GLFW window, spin up the main loop, and display a given widget inside.</p>
 <p>To create a maximized window, pass width and height larger than the screen.</p>
-<h2 id="arguments">Arguments</h2>
+<h2 id="args">Args</h2>
 <dl>
-<dt>widget: The widget to display inside the window. When the widget returns, the application exits.</dt>
-<dt>name: Window name, displayed in the title bar and other OS outputs.</dt>
-<dt>width: Desired window width.</dt>
-<dt>height: Desired window height.</dt>
-<dt><strong><code>fps</code></strong> :&ensp;<code>Maximum number</code> of <code>frames per second</code></dt>
-<dd>&nbsp;</dd>
-<dt><strong><code>save_screencast</code></strong> :&ensp;<code>Capture and save the UI into a specified video file (experimental). Main window shouldn't</code></dt>
-<dd>be resized while the application is running when using this option.</dd>
-</dl>
-<p>screencast_fps: Save the screencast video with a given FPS.
-menu_bar: Reserve space for <code><a title="concur.widgets.main_menu_bar" href="../widgets.html#concur.widgets.main_menu_bar">main_menu_bar()</a></code> at the top of the window.</p></div>
+<dt><strong><code>widget</code></strong></dt>
+<dd>The widget to display inside the window. When the widget returns, the application exits.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Window name, displayed in the title bar and other OS outputs.</dd>
+<dt><strong><code>width</code></strong></dt>
+<dd>Desired window width.</dd>
+<dt><strong><code>height</code></strong></dt>
+<dd>Desired window height.</dd>
+<dt><strong><code>fps</code></strong></dt>
+<dd>Maximum number of frames per second</dd>
+<dt><strong><code>save_screencast</code></strong></dt>
+<dd>Capture and save the UI into a specified video file (experimental). Main window shouldn't
+be resized while the application is running when using this option.</dd>
+<dt><strong><code>screencast_fps</code></strong></dt>
+<dd>Save the screencast video with a given FPS.</dd>
+<dt><strong><code>menu_bar</code></strong></dt>
+<dd>Reserve space for <code><a title="concur.widgets.main_menu_bar" href="../widgets.html#concur.widgets.main_menu_bar">main_menu_bar()</a></code> at the top of the window.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -225,7 +232,7 @@ menu_bar: Reserve space for <code><a title="concur.widgets.main_menu_bar" href="
 
     To create a maximized window, pass width and height larger than the screen.
 
-    Arguments:
+    Args:
         widget: The widget to display inside the window. When the widget returns, the application exits.
         name: Window name, displayed in the title bar and other OS outputs.
         width: Desired window width.
