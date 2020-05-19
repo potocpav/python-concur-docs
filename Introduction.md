@@ -4,7 +4,7 @@ This tutorial walks you through the basic usage of the [Python Concur GUI librar
 
 I encourage you to experiment with the commands below to get a better feel of what the possibilities are. All the code snippets below can be (sequentially) pasted into a Python interactive prompt.
 
-Start by running the interactive prompt in console, a Jupyter notebook, or use your favorite IDE's REPL.
+Start by running the interactive prompt in console, spin up a local Jupyter notebook, or use your favorite IDE's REPL.
 
 ```bash
 $ python3
@@ -86,6 +86,8 @@ We wouldn't expect the button to do anything useful, since we didn't specify any
 ```python
 c.main(c.input_text("Text input", "hello!"))
 ```
+
+![Input Text Screenshot](introduction_imgs/input_text.png)
 
  So how can we react to GUI events? Let's find out what a widget actually is. We can ask the Python prompt:
 
@@ -190,6 +192,8 @@ def counter():
 
 c.main(counter())
 ```
+
+![Windows Screenshot](introduction_imgs/counter.png)
 
 This showcases a common design pattern. The application sits inside an endless loop. First, the whole widget tree is constructed and displayed using `yield from c.orr(...)`. Returned events are collected into the `key, value` tuple. These two variables are then branched on in an `if-elif-else` block, and the state is changed accordingly. Lastly, there is the `yield` statement to prevent flicker on events. Larger applications may contain multiple such loops, allowing for components to be separated.
 
