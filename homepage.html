@@ -147,7 +147,7 @@ def line(tf):
 def plot():
     frame = c.Frame((-1, 1), (1, -1))
     while True:
-        _, frame = yield from c.frame("Frame", frame, line)
+        _, frame = yield from c.frame("Frame", frame, content_gen=line)
         yield
 
 c.main(plot(), "Plot", 400, 288)</code></pre>
@@ -179,7 +179,7 @@ def graph(tf):
 def app():
     view = c.Frame((-1.5, 1.5), (1.5, -1.5))
     while True:
-        _, view = yield from c.frame("Frame", view, graph)
+        _, view = yield from c.frame("Frame", view, content_gen=graph)
         yield
 
 if __name__ == "__main__":
