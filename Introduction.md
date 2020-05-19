@@ -4,7 +4,7 @@ This tutorial walks you through the basic usage of the [Python Concur GUI librar
 
 I encourage you to experiment with the commands below to get a better feel of what the possibilities are. All the code snippets below can be (sequentially) pasted into a Python interactive prompt.
 
-Start by running the interactive prompt in console, or use your favorite IDE's REPL.
+Start by running the interactive prompt in console, a Jupyter notebook, or use your favorite IDE's REPL.
 
 ```bash
 $ python3
@@ -32,6 +32,8 @@ The above line created the widget, but it doesn't show it on its own. A lot of s
 c.main(label)
 ```
 
+![Hello, World Screenshot](introduction_imgs/hello.png)
+
 This line creates a default window with a widget `label` inside. After closing the window, the Python prompt can be used again. Window size and title can be customized using [optional arguments](https://potocpav.github.io/python-concur-docs/master/integrations/glfw.html).
 
 ## Composition
@@ -54,6 +56,8 @@ This `c.orr` function opens up a whole lot of possibilities. We can create whole
 ```python
 c.main(c.orr([pair] * 5))
 ```
+
+![Orr Screenshot](introduction_imgs/orr.png)
 
 Or use list comprehensions:
 
@@ -140,6 +144,8 @@ def app():
 c.main(app())
 ```
 
+![Buttons Screenshot](introduction_imgs/buttons.png)
+
 After some clicking, you will probably find out that the `event` variable is a tuple:
 
 ```python
@@ -170,12 +176,12 @@ def counter():
     while True:
         key, value = yield from c.orr([
             c.text(f"Count: {i}"),
-            c.button("Add 10"),
+            c.button("Add 5"),
             c.button("Reset"),
             c.drag_int("Drag", i),
             ])
-        if key == "Add 10":
-            i += 10
+        if key == "Add 5":
+            i += 5
         elif key == "Reset":
             i = 0
         elif key == "Drag":
@@ -192,6 +198,8 @@ As the last thing, let's briefly tackle windows. In concur, creating dock-able w
 ```python
 c.main(c.orr([c.window(f"Window {i}", counter()) for i in range(4)]))
 ```
+
+![Windows Screenshot](introduction_imgs/windows.png)
 
 Try dragging the windows around by their titles. Try interacting with the counters. Everything just works, in a few lines of code. Window layout is automatically saved into the file "imgui.ini" in the current directory, so it is preserved even after the app is closed. You can try closing and opening the application, the last window layout will be restored.
 
