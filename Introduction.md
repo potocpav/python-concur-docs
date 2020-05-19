@@ -38,20 +38,20 @@ This line creates a default window with a widget `label` inside. After closing t
 
 ## Composition
 
-It isn't very exciting to just display some passive text in a window. We want a way to display multiple widgets at once. But we can't pass them into `c.main`, as it only accepts a single widget. This is what the `c.orr` function is for: it composes a list of widgets into a single widget:
+It isn't very exciting to just display some passive text in a window. We want a way to display multiple widgets at once. But we can't pass them into `c.main`, as it only accepts a single widget. This is what the `c.orr` function is for: it composes a list of widgets into a single widget.
 
 ```python
 banana = c.text_colored("Banana", "yellow")
 pair = c.orr([label, banana])
 ```
 
-We created a new widget, `banana`, and composed it with the `label` into a single widget called `pair`. It can be displayed as usual:
+We created a new widget, `banana`, and composed it with the `label` into a single widget called `pair`. It can be displayed as usual.
 
 ```python
 c.main(pair)
 ```
 
-This `c.orr` function opens up a whole lot of possibilities. We can create whole lists of widgets trivially:
+This `c.orr` function opens up a whole lot of possibilities. We can create whole lists of widgets trivially.
 
 ```python
 c.main(c.orr([pair] * 5))
@@ -213,4 +213,4 @@ Keep in mind that all windows must have unique titles. This is another little wa
 
 This is basically all there is to the  Concur library. There are, of course, [many more widgets](https://potocpav.github.io/python-concur-docs/master/widgets.html) to build any application you want. It is also easy to create zoomable images with overlay, or simple plots. You can of course build custom widgets too.
 
-All this scales even to large applications with thousands of lines of code. For more information, visit the [Concur documentation site](https://github.com/potocpav/python-concur-docs).
+All this scales even to large applications with thousands of lines of code. For some examples and screenshots, [visit the Concur homepage](https://potocpav.github.io/python-concur-docs/homepage.html). For more documentation resources, see the [Concur documentation site](https://github.com/potocpav/python-concur-docs).
