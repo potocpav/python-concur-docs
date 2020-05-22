@@ -56,10 +56,15 @@ def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=No
         width: widget width in pixels. If `None`, it fills the available space.
         height: widget height in pixels. If `None`, it fills the available space.
         content_gen: Widget generator to display inside the pan-zoom widget. All events are passed
-            through as a return tuple member. This is a function that takes the
-            `concur.extra_widgets.pan_zoom.TF` object, and returns a Concur
-            widget. It is up to the widget to do the necessary transformations
-            using the `TF` object.
+            through as a return tuple member. This is a function that returns a Concur widget, and
+            takes two keyword arguments:
+
+            * **tf**: `concur.extra_widgets.pan_zoom.TF` object with transformation information
+            * **event_gen** (optional): only used if any of the `*_tag` arguments is present. It is
+              an event generator which returns the drag, down, and hover events when they occur.
+
+            It is up to the widget to do the necessary transformations
+            using the `TF` object, and react to the events created by `event_gen`.
         drag_tag: The event tag for LMB drag events. If `None`, no drag events are fired.
         down_tag: The event tag for LMB down events. If `None`, no down events are fired.
             Useful in combination with `drag_tag` to indicate when the dragging started.
@@ -327,11 +332,18 @@ such as <code><a title="concur.extra_widgets.image.image" href="image.html#concu
 <dt><strong><code>height</code></strong></dt>
 <dd>widget height in pixels. If <code>None</code>, it fills the available space.</dd>
 <dt><strong><code>content_gen</code></strong></dt>
-<dd>Widget generator to display inside the pan-zoom widget. All events are passed
-through as a return tuple member. This is a function that takes the
-<code><a title="concur.extra_widgets.pan_zoom.TF" href="#concur.extra_widgets.pan_zoom.TF">TF</a></code> object, and returns a Concur
-widget. It is up to the widget to do the necessary transformations
-using the <code><a title="concur.extra_widgets.pan_zoom.TF" href="#concur.extra_widgets.pan_zoom.TF">TF</a></code> object.</dd>
+<dd>
+<p>Widget generator to display inside the pan-zoom widget. All events are passed
+through as a return tuple member. This is a function that returns a Concur widget, and
+takes two keyword arguments:</p>
+<ul>
+<li><strong>tf</strong>: <code><a title="concur.extra_widgets.pan_zoom.TF" href="#concur.extra_widgets.pan_zoom.TF">TF</a></code> object with transformation information</li>
+<li><strong>event_gen</strong> (optional): only used if any of the <code>*_tag</code> arguments is present. It is
+an event generator which returns the drag, down, and hover events when they occur.</li>
+</ul>
+<p>It is up to the widget to do the necessary transformations
+using the <code><a title="concur.extra_widgets.pan_zoom.TF" href="#concur.extra_widgets.pan_zoom.TF">TF</a></code> object, and react to the events created by <code>event_gen</code>.</p>
+</dd>
 <dt><strong><code>drag_tag</code></strong></dt>
 <dd>The event tag for LMB drag events. If <code>None</code>, no drag events are fired.</dd>
 <dt><strong><code>down_tag</code></strong></dt>
@@ -361,10 +373,15 @@ If <code>None</code>, no hover events are fired. Events are fired only when the 
         width: widget width in pixels. If `None`, it fills the available space.
         height: widget height in pixels. If `None`, it fills the available space.
         content_gen: Widget generator to display inside the pan-zoom widget. All events are passed
-            through as a return tuple member. This is a function that takes the
-            `concur.extra_widgets.pan_zoom.TF` object, and returns a Concur
-            widget. It is up to the widget to do the necessary transformations
-            using the `TF` object.
+            through as a return tuple member. This is a function that returns a Concur widget, and
+            takes two keyword arguments:
+
+            * **tf**: `concur.extra_widgets.pan_zoom.TF` object with transformation information
+            * **event_gen** (optional): only used if any of the `*_tag` arguments is present. It is
+              an event generator which returns the drag, down, and hover events when they occur.
+
+            It is up to the widget to do the necessary transformations
+            using the `TF` object, and react to the events created by `event_gen`.
         drag_tag: The event tag for LMB drag events. If `None`, no drag events are fired.
         down_tag: The event tag for LMB down events. If `None`, no down events are fired.
             Useful in combination with `drag_tag` to indicate when the dragging started.

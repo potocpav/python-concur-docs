@@ -23,7 +23,7 @@
 <p>Passive geometric shape widgets to be drawn as <code><a title="concur.extra_widgets.image.image" href="extra_widgets/image.html#concur.extra_widgets.image.image">image()</a></code> or <code><a title="concur.extra_widgets.frame.frame" href="extra_widgets/frame.html#concur.extra_widgets.frame.frame">frame()</a></code> overlay, or on their own.</p>
 <p>All these widgets have the following in common:</p>
 <ul>
-<li>They are passive, so they don't need names. For active overlay, use normal widgets, such as buttons, wrapped inside <code><a title="concur.widgets.transform" href="widgets.html#concur.widgets.transform">transform()</a></code>.</li>
+<li>They are passive, so they don't need names. For active overlay, several mechanisms can be used, listed below.</li>
 <li>They don't do automatic layout. Instead the exact position is specified by hand.</li>
 <li>Color can be specified in several ways:<ul>
 <li>RGBA tuple with values between 0 and 1. For example, <code>(0.5, 0.5, 1, 1)</code> is light blue.</li>
@@ -38,6 +38,30 @@ If no transformation is supplied, the element is drawn in screen space units.</l
 </ul>
 <p>Theses widgets are not re-exported in the root module, and are normally used as <code>c.draw.line(&hellip;)</code>, etc.
 They can be composed normally using the <code><a title="concur.core.orr" href="core.html#concur.core.orr">orr()</a></code> function.</p>
+<h2 id="creating-interactive-overlays">Creating Interactive Overlays</h2>
+<p>There are several ways of creating overlays which react to user input.</p>
+<ul>
+<li>
+<p><strong>Using interactive widgets as overlay</strong>. Widgets, such as buttons, can be displayed as overlay at a specified
+position using the <code><a title="concur.widgets.transform" href="widgets.html#concur.widgets.transform">transform()</a></code> function. This can be used also for dragging stuff by wrapping the
+widget in a <code><a title="concur.extra_widgets.draggable.draggable" href="extra_widgets/draggable.html#concur.extra_widgets.draggable.draggable">draggable()</a></code>. To create rectangular clickable areas,
+the <code><a title="concur.widgets.invisible_button" href="widgets.html#concur.widgets.invisible_button">invisible_button()</a></code> widget can be used. See the
+<a href="https://github.com/potocpav/python-concur/blob/master/examples/image.py">image example</a> for a basic usage example.</p>
+</li>
+<li>
+<p><strong>Using the events managed by <code><a title="concur.extra_widgets.image.image" href="extra_widgets/image.html#concur.extra_widgets.image.image">image()</a></code> and <code><a title="concur.extra_widgets.frame.frame" href="extra_widgets/frame.html#concur.extra_widgets.frame.frame">frame()</a></code></strong>. The
+<code>drag_tag</code>, <code>down_tag</code>, and <code>hover_tag</code> arguments can be used to implement complex interactions, such as control point
+editing. See the
+<a href="https://github.com/potocpav/python-concur/blob/master/examples/extra/image_events.py">image_events</a> example for
+a basic usage example. This option will give you click/hover positions and drag deltas, but it is up to you to
+implement any logic on top of that, such as highlighting the hovered line, etc.</p>
+</li>
+<li>
+<p><strong>Using the <code><a title="concur.widgets.mouse_click" href="widgets.html#concur.widgets.mouse_click">mouse_click()</a></code> widget</strong>. This widget just returns mouse position for any click not inside any
+widget. This is the simplest option, but it is probably better to use the other options. See the
+<a href="https://github.com/potocpav/annotation-tool/blob/master/annotator.py">annotation tool</a> example for an usage example.</p>
+</li>
+</ul>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -46,7 +70,7 @@ They can be composed normally using the <code><a title="concur.core.orr" href="c
 
 All these widgets have the following in common:
 
-* They are passive, so they don&#39;t need names. For active overlay, use normal widgets, such as buttons, wrapped inside `concur.widgets.transform`.
+* They are passive, so they don&#39;t need names. For active overlay, several mechanisms can be used, listed below.
 * They don&#39;t do automatic layout. Instead the exact position is specified by hand.
 * Color can be specified in several ways:
     * RGBA tuple with values between 0 and 1. For example, `(0.5, 0.5, 1, 1)` is light blue.
@@ -59,6 +83,27 @@ All these widgets have the following in common:
 
 Theses widgets are not re-exported in the root module, and are normally used as `c.draw.line(...)`, etc.
 They can be composed normally using the `concur.core.orr` function.
+
+## Creating Interactive Overlays
+
+There are several ways of creating overlays which react to user input.
+
+* **Using interactive widgets as overlay**. Widgets, such as buttons, can be displayed as overlay at a specified
+  position using the `concur.widgets.transform` function. This can be used also for dragging stuff by wrapping the
+  widget in a `concur.extra_widgets.draggable.draggable`. To create rectangular clickable areas,
+  the `concur.widgets.invisible_button` widget can be used. See the
+  [image example](https://github.com/potocpav/python-concur/blob/master/examples/image.py) for a basic usage example.
+
+* **Using the events managed by `concur.extra_widgets.image.image` and `concur.extra_widgets.frame.frame`**. The
+  `drag_tag`, `down_tag`, and `hover_tag` arguments can be used to implement complex interactions, such as control point
+  editing. See the
+  [image_events](https://github.com/potocpav/python-concur/blob/master/examples/extra/image_events.py) example for
+  a basic usage example. This option will give you click/hover positions and drag deltas, but it is up to you to
+  implement any logic on top of that, such as highlighting the hovered line, etc.
+
+* **Using the `concur.widgets.mouse_click` widget**. This widget just returns mouse position for any click not inside any
+  widget. This is the simplest option, but it is probably better to use the other options. See the
+  [annotation tool](https://github.com/potocpav/annotation-tool/blob/master/annotator.py) example for an usage example.
 &#34;&#34;&#34;
 
 import numpy as np
@@ -851,7 +896,9 @@ generated geometry.</p>
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#creating-interactive-overlays">Creating Interactive Overlays</a></li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
