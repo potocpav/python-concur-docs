@@ -11,6 +11,7 @@ If you know about useful learning resources not listed here, feel free to create
 
 * [Installation](https://github.com/potocpav/python-concur#installation):
 Download Concur and run a Hello World application.
+* [Issue Tracker](https://github.com/potocpav/python-concur-docs/issues): Ask any questions here. Feel free to create new issues.
 
 ## Learning
 
