@@ -217,10 +217,22 @@ def radio_button(label, active, tag=None):
     return (tag if tag is not None else label), None
 
 
-def input_text(name, value, buffer_length=255, tag=None):
-    &#34;&#34;&#34; Text input. &#34;&#34;&#34;
+def dummy(width, height):
+    &#34;&#34;&#34; Add a dummy element of a given `width` and `height`.
+
+    Useful for custom-sized vertical and horizontal spacings.
+    &#34;&#34;&#34;
+    return lift(imgui.dummy, width, height)
+
+
+def input_text(name, value, buffer_length=255, tag=None, flags=0):
+    &#34;&#34;&#34; Text input.
+
+    Flags are [defined by PyImGui](https://pyimgui.readthedocs.io/en/latest/guide/inputtext-flags.html#inputtext-flag-options).
+    `buffer_length` doesn&#39;t affect widget size on screen, it limits the maximum character count only.
+    &#34;&#34;&#34;
     while True:
-        changed, new_value = imgui.input_text(name, value, buffer_length)
+        changed, new_value = imgui.input_text(name, value, buffer_length, flags)
         if changed:
             return (name if tag is None else tag), new_value
         else:
@@ -856,6 +868,24 @@ None values.</p></div>
     return interactive_elem(imgui.drag_int4, label, value0, value1, value2, value3, *args, **kwargs)</code></pre>
 </details>
 </dd>
+<dt id="concur.widgets.dummy"><code class="name flex">
+<span>def <span class="ident">dummy</span></span>(<span>width, height)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a dummy element of a given <code>width</code> and <code>height</code>.</p>
+<p>Useful for custom-sized vertical and horizontal spacings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dummy(width, height):
+    &#34;&#34;&#34; Add a dummy element of a given `width` and `height`.
+
+    Useful for custom-sized vertical and horizontal spacings.
+    &#34;&#34;&#34;
+    return lift(imgui.dummy, width, height)</code></pre>
+</details>
+</dd>
 <dt id="concur.widgets.font"><code class="name flex">
 <span>def <span class="ident">font</span></span>(<span>font_, widget)</span>
 </code></dt>
@@ -955,18 +985,24 @@ for more details.</p></div>
 </details>
 </dd>
 <dt id="concur.widgets.input_text"><code class="name flex">
-<span>def <span class="ident">input_text</span></span>(<span>name, value, buffer_length=255, tag=None)</span>
+<span>def <span class="ident">input_text</span></span>(<span>name, value, buffer_length=255, tag=None, flags=0)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Text input.</p></div>
+<div class="desc"><p>Text input.</p>
+<p>Flags are <a href="https://pyimgui.readthedocs.io/en/latest/guide/inputtext-flags.html#inputtext-flag-options">defined by PyImGui</a>.
+<code>buffer_length</code> doesn't affect widget size on screen, it limits the maximum character count only.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def input_text(name, value, buffer_length=255, tag=None):
-    &#34;&#34;&#34; Text input. &#34;&#34;&#34;
+<pre><code class="python">def input_text(name, value, buffer_length=255, tag=None, flags=0):
+    &#34;&#34;&#34; Text input.
+
+    Flags are [defined by PyImGui](https://pyimgui.readthedocs.io/en/latest/guide/inputtext-flags.html#inputtext-flag-options).
+    `buffer_length` doesn&#39;t affect widget size on screen, it limits the maximum character count only.
+    &#34;&#34;&#34;
     while True:
-        changed, new_value = imgui.input_text(name, value, buffer_length)
+        changed, new_value = imgui.input_text(name, value, buffer_length, flags)
         if changed:
             return (name if tag is None else tag), new_value
         else:
@@ -1541,6 +1577,7 @@ is at <code>[x, y]</code>.</p></div>
 <li><code><a title="concur.widgets.drag_int2" href="#concur.widgets.drag_int2">drag_int2</a></code></li>
 <li><code><a title="concur.widgets.drag_int3" href="#concur.widgets.drag_int3">drag_int3</a></code></li>
 <li><code><a title="concur.widgets.drag_int4" href="#concur.widgets.drag_int4">drag_int4</a></code></li>
+<li><code><a title="concur.widgets.dummy" href="#concur.widgets.dummy">dummy</a></code></li>
 <li><code><a title="concur.widgets.font" href="#concur.widgets.font">font</a></code></li>
 <li><code><a title="concur.widgets.image_button" href="#concur.widgets.image_button">image_button</a></code></li>
 <li><code><a title="concur.widgets.input_float" href="#concur.widgets.input_float">input_float</a></code></li>
