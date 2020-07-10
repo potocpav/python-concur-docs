@@ -9,7 +9,7 @@ Perhaps only my lack of knowledge and/or discipline is to blame. I invite you to
 
 ## How to Use ImGui
 
-So how can you write applications in ImGui? I use ImGui in Python with the [PyImGui](https://github.com/swistakm/pyimgui) bindings. Code belows assumes this setup. 
+So how can you write applications in ImGui? I use ImGui in Python with the [PyImGui](https://github.com/swistakm/pyimgui) bindings. Code belows assumes this setup.
 
 ### Take 1: Direct State Modification
 
@@ -20,11 +20,11 @@ changed, state.name = input_text("Name", state.name, 100)
 changed, state.surname = input_text("Surname", state.surname, 100)
 ```
 
-This form of direct assignment to state is perhaps the most natural way to use the provided widgets. This has a drawback, however. The order of widgets matters.
+This form of direct assignment to state is perhaps the most natural way to use ImGui widgets. It has a drawback, however. The order of widgets matters.
 
 Some order dependence is probably unavoidable, because state changes have to be applied in *some* order. But in this case, even semantically harmless reordering leads to visual artifacts. You end up drawing different parts of the UI with different states within a single frame, which leads to flicker/tearing.
 
-In other words, there are spurious dependencies between widgets which are not reflected in code. These must be mentally juggled by the programmer. It feels like trying to navigate a mine field, particularly with asynchronous events and/or continuous state changes.
+In other words, many spurious dependencies between widgets arise, which are not clearly reflected in code. These must be mentally juggled by the programmer.
 
 ### Take 2: Indirect State Modification
 
@@ -44,11 +44,13 @@ Now the application is consistent with no flicker. However, we just traded visua
 
 This is typically not a problem for user-triggered events, since ImGui makes sure only one interaction happens in any one frame. But in presence of async events such as video playback, this is an issue. In my experience, asynchronous behaviour tends to proliferate as the application grows and gets polished. We can give async events special treatment (execute them at the beginning), but this leads to non-composability - they can't be nested inside other code.
 
+<!--
 We and up having to mix-and-match the approaches above, but it comes with significant cognitive load.
+-->
 
 ## Take 3: event-based system
 
-If state modification is no good, let's turn to the `changed` return value. We could return only **events** from our UI code, and then modify state later, based on those events. This separates UI from logic, which is nice for many reasons, not only preventing UI inconsistencies.
+If state modification is no good, let's turn to the `changed` return value. We could return only **events** from our UI code, and then modify state later, based on those events. This separates UI code from logic, which is nice for many reasons, not only preventing UI inconsistencies.
 
 ```python
 # draw UI
@@ -62,7 +64,7 @@ if surname_changed:
     state.surname = surname_state
 ```
 
-This code is unfortunately no good, since the UI code and state reaction can't live in separate functions. They are coupled by all the event variables. This is a better take:
+This code is not practical, since the UI code and state reaction have to live in one function - they are coupled by all the event variables. And we need to change state separately, since we want to do it only after all the drawing has been done. This is a better take:
 
 ```python
 events = []
@@ -113,11 +115,11 @@ This is 10 lines of code (including model). For each widget, you need a minimum 
 
 You may now think that the boilerplate is still bad. Couldn't most of the application be written in the *naive* ImGui style (**Take 1**), and only delegate the event-based complexity (**Take 3**) to a thin outer layer where needed?
 
-You are partly right: Concur has some boilerplate, and it gets a bit annoying. I haven't found a way yet to make it better.
+You are partly right: Concur has some boilerplate, and it gets a bit annoying. I haven't found a way to make it better yet.
 
 But I think that using mostly *naive* style is not feasible. It is the unfortunate nature of mutable state that it is infectious. You can't really abstract it away. If an inner component modifies state directly, we are back to inconsistent UI drawing, no matter what. If we instead let components play on their own local copies of state, they may diverge in non-merge-able ways by the point we get to event handling.
 
-It seems like we truly need events all the way down.
+We may truly need **events all the way down**.
 
 <!--
 This may actually be a good approach, which I haven't fully explored yet. It basically combines all three **Takes** above:
