@@ -58,6 +58,7 @@ __pdoc__ = dict(same_line=False)
 import numpy as np  # for `transform`
 from typing import Iterable, Any, Tuple
 import imgui
+import pickle # for drag and drop payload
 
 from concur.core import orr, lift, Widget, interactive_elem
 from concur.colors import color_to_rgba_tuple
@@ -529,6 +530,69 @@ def test_window():
     return lift(imgui.show_test_window)
 
 
+def drag_drop_source(tag, payload, widget, dragged_widget=None, flags=0):
+    &#34;&#34;&#34; Drag-and-Drop Source Widget.
+
+    This widget is used in conjunction with `concur.widgets.drag_drop_target`.
+
+    See the [https://github.com/potocpav/python-concur/blob/master/examples/extra/drag_and_drop.py](examples/extra/drag_and_drop.py)
+    for an example.
+
+    Args:
+        tag: Drag-and-Drop event tag. Must match the tag in `drag_drop_target`.
+        payload: Pickle-able value which is to be returned in the drag-and-drop event.
+        widget: Widget which can be dragged.
+        dragged_widget: Widget inside the tooltip which is displayed while dragging.
+            Defaults to a `widget` copy.
+        flags: Flags to modify dragging behavior.
+            See [the pyimgui docs](https://pyimgui.readthedocs.io/en/latest/reference/imgui.html?highlight=WINDOW_MENU_BAR#imgui.DRAG_DROP_SOURCE_NO_PREVIEW_TOOLTIP)
+            for the flag list.
+    &#34;&#34;&#34;
+    while True:
+        try:
+            imgui.begin_group()
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_group()
+        assert not (flags &amp; imgui.DRAG_DROP_SOURCE_ALLOW_NULL_ID), &#34;`SourceAllowNullID` is automatically set - do not set it manually.&#34;
+        if imgui.begin_drag_drop_source(flags | imgui.DRAG_DROP_SOURCE_ALLOW_NULL_ID):
+            imgui.set_drag_drop_payload(tag, pickle.dumps(payload))
+            try:
+                next(dragged_widget if dragged_widget else widget)
+            except StopIteration as e:
+                assert ValueError(&#34;Drag and drop indicator widget (`dragged_widget`) fired an event. You can use `concur.forever` to supress widget events. If you have a legitimate use-case for this, please file an issue.&#34;)
+            finally:
+                imgui.end_drag_drop_source()
+        yield
+
+
+def drag_drop_target(tag, widget, value=None):
+    &#34;&#34;&#34; Drag-and-Drop Target Widget.
+
+    This widget is used in conjunction with `concur.widgets.drag_drop_source`.
+
+    Args:
+        tag: Drag-and-Drop event tag. Must match the tag in `drag_drop_source`.
+        widget: Widget which accepts the drag-and-drop event.
+    &#34;&#34;&#34;
+    while True:
+        try:
+            imgui.begin_group()
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_group()
+        if imgui.begin_drag_drop_target():
+            payload = imgui.accept_drag_drop_payload(tag)
+            imgui.end_drag_drop_target()
+            if payload is not None:
+                return tag, (value, pickle.loads(payload))
+        yield
+
+
 def columns(elems, identifier=None, border=True, widths=[]):
     &#34;&#34;&#34; Table, using the imgui columns API.
 
@@ -750,6 +814,114 @@ None values.</p></div>
             accum.append(lift(imgui.next_column))
     accum.append(lift(imgui.columns, 1))
     return orr(accum)</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_drop_source"><code class="name flex">
+<span>def <span class="ident">drag_drop_source</span></span>(<span>tag, payload, widget, dragged_widget=None, flags=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Drag-and-Drop Source Widget.</p>
+<p>This widget is used in conjunction with <code><a title="concur.widgets.drag_drop_target" href="#concur.widgets.drag_drop_target">drag_drop_target()</a></code>.</p>
+<p>See the <a href="examples/extra/drag_and_drop.py">https://github.com/potocpav/python-concur/blob/master/examples/extra/drag_and_drop.py</a>
+for an example.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>tag</code></strong></dt>
+<dd>Drag-and-Drop event tag. Must match the tag in <code><a title="concur.widgets.drag_drop_target" href="#concur.widgets.drag_drop_target">drag_drop_target()</a></code>.</dd>
+<dt><strong><code>payload</code></strong></dt>
+<dd>Pickle-able value which is to be returned in the drag-and-drop event.</dd>
+<dt><strong><code>widget</code></strong></dt>
+<dd>Widget which can be dragged.</dd>
+<dt><strong><code>dragged_widget</code></strong></dt>
+<dd>Widget inside the tooltip which is displayed while dragging.
+Defaults to a <code>widget</code> copy.</dd>
+<dt><strong><code>flags</code></strong></dt>
+<dd>Flags to modify dragging behavior.
+See <a href="https://pyimgui.readthedocs.io/en/latest/reference/imgui.html?highlight=WINDOW_MENU_BAR#imgui.DRAG_DROP_SOURCE_NO_PREVIEW_TOOLTIP">the pyimgui docs</a>
+for the flag list.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_drop_source(tag, payload, widget, dragged_widget=None, flags=0):
+    &#34;&#34;&#34; Drag-and-Drop Source Widget.
+
+    This widget is used in conjunction with `concur.widgets.drag_drop_target`.
+
+    See the [https://github.com/potocpav/python-concur/blob/master/examples/extra/drag_and_drop.py](examples/extra/drag_and_drop.py)
+    for an example.
+
+    Args:
+        tag: Drag-and-Drop event tag. Must match the tag in `drag_drop_target`.
+        payload: Pickle-able value which is to be returned in the drag-and-drop event.
+        widget: Widget which can be dragged.
+        dragged_widget: Widget inside the tooltip which is displayed while dragging.
+            Defaults to a `widget` copy.
+        flags: Flags to modify dragging behavior.
+            See [the pyimgui docs](https://pyimgui.readthedocs.io/en/latest/reference/imgui.html?highlight=WINDOW_MENU_BAR#imgui.DRAG_DROP_SOURCE_NO_PREVIEW_TOOLTIP)
+            for the flag list.
+    &#34;&#34;&#34;
+    while True:
+        try:
+            imgui.begin_group()
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_group()
+        assert not (flags &amp; imgui.DRAG_DROP_SOURCE_ALLOW_NULL_ID), &#34;`SourceAllowNullID` is automatically set - do not set it manually.&#34;
+        if imgui.begin_drag_drop_source(flags | imgui.DRAG_DROP_SOURCE_ALLOW_NULL_ID):
+            imgui.set_drag_drop_payload(tag, pickle.dumps(payload))
+            try:
+                next(dragged_widget if dragged_widget else widget)
+            except StopIteration as e:
+                assert ValueError(&#34;Drag and drop indicator widget (`dragged_widget`) fired an event. You can use `concur.forever` to supress widget events. If you have a legitimate use-case for this, please file an issue.&#34;)
+            finally:
+                imgui.end_drag_drop_source()
+        yield</code></pre>
+</details>
+</dd>
+<dt id="concur.widgets.drag_drop_target"><code class="name flex">
+<span>def <span class="ident">drag_drop_target</span></span>(<span>tag, widget, value=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Drag-and-Drop Target Widget.</p>
+<p>This widget is used in conjunction with <code><a title="concur.widgets.drag_drop_source" href="#concur.widgets.drag_drop_source">drag_drop_source()</a></code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>tag</code></strong></dt>
+<dd>Drag-and-Drop event tag. Must match the tag in <code><a title="concur.widgets.drag_drop_source" href="#concur.widgets.drag_drop_source">drag_drop_source()</a></code>.</dd>
+<dt><strong><code>widget</code></strong></dt>
+<dd>Widget which accepts the drag-and-drop event.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drag_drop_target(tag, widget, value=None):
+    &#34;&#34;&#34; Drag-and-Drop Target Widget.
+
+    This widget is used in conjunction with `concur.widgets.drag_drop_source`.
+
+    Args:
+        tag: Drag-and-Drop event tag. Must match the tag in `drag_drop_source`.
+        widget: Widget which accepts the drag-and-drop event.
+    &#34;&#34;&#34;
+    while True:
+        try:
+            imgui.begin_group()
+            next(widget)
+        except StopIteration as e:
+            return e.value
+        finally:
+            imgui.end_group()
+        if imgui.begin_drag_drop_target():
+            payload = imgui.accept_drag_drop_payload(tag)
+            imgui.end_drag_drop_target()
+            if payload is not None:
+                return tag, (value, pickle.loads(payload))
+        yield</code></pre>
 </details>
 </dd>
 <dt id="concur.widgets.drag_float"><code class="name flex">
@@ -1571,6 +1743,8 @@ is at <code>[x, y]</code>.</p></div>
 <li><code><a title="concur.widgets.collapsing_header" href="#concur.widgets.collapsing_header">collapsing_header</a></code></li>
 <li><code><a title="concur.widgets.color_button" href="#concur.widgets.color_button">color_button</a></code></li>
 <li><code><a title="concur.widgets.columns" href="#concur.widgets.columns">columns</a></code></li>
+<li><code><a title="concur.widgets.drag_drop_source" href="#concur.widgets.drag_drop_source">drag_drop_source</a></code></li>
+<li><code><a title="concur.widgets.drag_drop_target" href="#concur.widgets.drag_drop_target">drag_drop_target</a></code></li>
 <li><code><a title="concur.widgets.drag_float" href="#concur.widgets.drag_float">drag_float</a></code></li>
 <li><code><a title="concur.widgets.drag_float2" href="#concur.widgets.drag_float2">drag_float2</a></code></li>
 <li><code><a title="concur.widgets.drag_float3" href="#concur.widgets.drag_float3">drag_float3</a></code></li>
