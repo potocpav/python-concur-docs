@@ -46,7 +46,7 @@ from concur.core import multi_orr, orr, forever, listen, optional, map as cmap
 from concur.extra_widgets.draggable import draggable
 
 
-def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None):
+def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None):
     &#34;&#34;&#34; Create the Pan &amp; Zoom widget, serving as a container for a thing given by `content_gen`.
 
     This widget is mostly not used directly. Instead, a special-purpose wrapper can be used,
@@ -69,8 +69,6 @@ def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=No
         drag_tag: The event tag for LMB drag events. If `None`, no drag events are fired.
         down_tag: The event tag for LMB down events. If `None`, no down events are fired.
             Useful in combination with `drag_tag` to indicate when the dragging started.
-        hover_tag: The event tag for mouse hover when no mouse buttons are down.
-            If `None`, no hover events are fired. Events are fired only when the mouse is moving.
 
     Returns:
         To ease integration with other widgets, this widget returns events in a special format, `(name, state, event)`.
@@ -189,12 +187,6 @@ def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=No
                 and imgui.is_mouse_clicked() \
                 and is_window_hovered:
             event_queue.put((down_tag, new_tf.inv_transform(np.array([[*io.mouse_pos]]))[0]))
-        if hover_tag \
-                and not st.is_rmb_dragged \
-                and not any(imgui.is_mouse_down(i) for i in [0,1,2]) \
-                and is_window_hovered \
-                and (delta[0] or delta[1]):
-            event_queue.put((hover_tag, new_tf.inv_transform(np.array([[*io.mouse_pos]]))[0]))
         if drag_tag \
                 and not st.is_rmb_dragged:
             imgui.invisible_button(&#34;&#34;, w, h)
@@ -279,6 +271,10 @@ class TF(object):
     It may be useful to transform stuff by hand in cases when default behavior is not sufficient,
     such as specifying the line width in image coordinates.
 
+    The `hovered` attribute is useful to highlight elements on mouse hover. Use `imgui.get_io().mouse_pos`
+    to get mouse position in screen-space and transform it using `TF.inv_transform` into
+    image coordinates.
+
     Attributes:
         c2s:      Content-to-screen transformation matrix.
         s2c:      Screen-to-content transformation matrix.
@@ -290,6 +286,7 @@ class TF(object):
         self.s2c = s2c
         self.view_c = view_c
         self.view_s = view_s
+        self.hovered = False
 
     def __eq__(self, other):
         return \
@@ -316,7 +313,7 @@ class TF(object):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="concur.extra_widgets.pan_zoom.pan_zoom"><code class="name flex">
-<span>def <span class="ident">pan_zoom</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None)</span>
+<span>def <span class="ident">pan_zoom</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create the Pan &amp; Zoom widget, serving as a container for a thing given by <code>content_gen</code>.</p>
@@ -349,9 +346,6 @@ using the <code><a title="concur.extra_widgets.pan_zoom.TF" href="#concur.extra_
 <dt><strong><code>down_tag</code></strong></dt>
 <dd>The event tag for LMB down events. If <code>None</code>, no down events are fired.
 Useful in combination with <code>drag_tag</code> to indicate when the dragging started.</dd>
-<dt><strong><code>hover_tag</code></strong></dt>
-<dd>The event tag for mouse hover when no mouse buttons are down.
-If <code>None</code>, no hover events are fired. Events are fired only when the mouse is moving.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>To ease integration with other widgets, this widget returns events in a special format, <code>(name, state, event)</code>.
@@ -361,7 +355,7 @@ If <code>None</code>, no hover events are fired. Events are fired only when the 
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None):
+<pre><code class="python">def pan_zoom(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None):
     &#34;&#34;&#34; Create the Pan &amp; Zoom widget, serving as a container for a thing given by `content_gen`.
 
     This widget is mostly not used directly. Instead, a special-purpose wrapper can be used,
@@ -384,8 +378,6 @@ If <code>None</code>, no hover events are fired. Events are fired only when the 
         drag_tag: The event tag for LMB drag events. If `None`, no drag events are fired.
         down_tag: The event tag for LMB down events. If `None`, no down events are fired.
             Useful in combination with `drag_tag` to indicate when the dragging started.
-        hover_tag: The event tag for mouse hover when no mouse buttons are down.
-            If `None`, no hover events are fired. Events are fired only when the mouse is moving.
 
     Returns:
         To ease integration with other widgets, this widget returns events in a special format, `(name, state, event)`.
@@ -504,12 +496,6 @@ If <code>None</code>, no hover events are fired. Events are fired only when the 
                 and imgui.is_mouse_clicked() \
                 and is_window_hovered:
             event_queue.put((down_tag, new_tf.inv_transform(np.array([[*io.mouse_pos]]))[0]))
-        if hover_tag \
-                and not st.is_rmb_dragged \
-                and not any(imgui.is_mouse_down(i) for i in [0,1,2]) \
-                and is_window_hovered \
-                and (delta[0] or delta[1]):
-            event_queue.put((hover_tag, new_tf.inv_transform(np.array([[*io.mouse_pos]]))[0]))
         if drag_tag \
                 and not st.is_rmb_dragged:
             imgui.invisible_button(&#34;&#34;, w, h)
@@ -659,6 +645,9 @@ matrices in homogenous coordinates with two rows and three columns (shape: <code
 <p>Mostly, the necessary conversions are performed by overlay widgets in <code><a title="concur.draw" href="../draw.html">concur.draw</a></code>.
 It may be useful to transform stuff by hand in cases when default behavior is not sufficient,
 such as specifying the line width in image coordinates.</p>
+<p>The <code>hovered</code> attribute is useful to highlight elements on mouse hover. Use <code>imgui.get_io().mouse_pos</code>
+to get mouse position in screen-space and transform it using <code><a title="concur.extra_widgets.pan_zoom.TF.inv_transform" href="#concur.extra_widgets.pan_zoom.TF.inv_transform">TF.inv_transform()</a></code> into
+image coordinates.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>c2s</code></strong></dt>
@@ -695,6 +684,10 @@ such as specifying the line width in image coordinates.</p>
     It may be useful to transform stuff by hand in cases when default behavior is not sufficient,
     such as specifying the line width in image coordinates.
 
+    The `hovered` attribute is useful to highlight elements on mouse hover. Use `imgui.get_io().mouse_pos`
+    to get mouse position in screen-space and transform it using `TF.inv_transform` into
+    image coordinates.
+
     Attributes:
         c2s:      Content-to-screen transformation matrix.
         s2c:      Screen-to-content transformation matrix.
@@ -706,6 +699,7 @@ such as specifying the line width in image coordinates.</p>
         self.s2c = s2c
         self.view_c = view_c
         self.view_s = view_s
+        self.hovered = False
 
     def __eq__(self, other):
         return \
