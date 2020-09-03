@@ -63,7 +63,7 @@ class PatchedGlfwRenderer(GlfwRenderer):
         super(PatchedGlfwRenderer, self).keyboard_callback(window, key, scancode, action, mods)
 
 
-def create_window(window_name, width, height, visible=True):
+def create_window(window_name, width, height, visible=True, maximized=False):
     &#34;&#34;&#34; Create a GLFW window. &#34;&#34;&#34;
     if not glfw.init():
         print(&#34;Could not initialize OpenGL context&#34;)
@@ -76,6 +76,8 @@ def create_window(window_name, width, height, visible=True):
     glfw.window_hint(glfw.OPENGL_FORWARD_COMPAT, gl.GL_TRUE)
     if not visible:
         glfw.window_hint(glfw.VISIBLE, glfw.FALSE)
+    if maximized:
+        glfw.window_hint(glfw.MAXIMIZED, glfw.TRUE)
 
     # Create a windowed mode window and its OpenGL context
     window = glfw.create_window(
@@ -115,7 +117,10 @@ def create_window_dock(glfw_window, menu_bar=False):
     imgui.end()
 
 
-def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
+def main(
+        widget, name=&#34;Concur&#34;, width=640, height=480,
+        fps=60, save_screencast=None, screencast_fps=60,
+        menu_bar=False, maximized=False):
     &#34;&#34;&#34; Create a GLFW window, spin up the main loop, and display a given widget inside.
 
     To create a maximized window, pass width and height larger than the screen.
@@ -130,6 +135,7 @@ def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_scre
             be resized while the application is running when using this option.
         screencast_fps: Save the screencast video with a given FPS.
         menu_bar: Reserve space for `concur.widgets.main_menu_bar` at the top of the window.
+        maximized: Create a maximized window.
     &#34;&#34;&#34;
     if imgui.get_current_context() is None:
         imgui.create_context()
@@ -137,7 +143,7 @@ def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_scre
     # Set config flags
     imgui.get_io().config_flags |= imgui.CONFIG_DOCKING_ENABLE # | imgui.CONFIG_VIEWPORTS_ENABLE
 
-    window = create_window(name, width, height)
+    window = create_window(name, width, height, maximized=maximized)
     impl = PatchedGlfwRenderer(window)
     impl.refresh_font_texture() # Refresh the font texture in case user changed it
 
@@ -200,7 +206,7 @@ def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_scre
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="concur.integrations.glfw.main"><code class="name flex">
-<span>def <span class="ident">main</span></span>(<span>widget, name='Concur', width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False)</span>
+<span>def <span class="ident">main</span></span>(<span>widget, name='Concur', width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False, maximized=False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a GLFW window, spin up the main loop, and display a given widget inside.</p>
@@ -224,12 +230,17 @@ be resized while the application is running when using this option.</dd>
 <dd>Save the screencast video with a given FPS.</dd>
 <dt><strong><code>menu_bar</code></strong></dt>
 <dd>Reserve space for <code><a title="concur.widgets.main_menu_bar" href="../widgets.html#concur.widgets.main_menu_bar">main_menu_bar()</a></code> at the top of the window.</dd>
+<dt><strong><code>maximized</code></strong></dt>
+<dd>Create a maximized window.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def main(widget, name=&#34;Concur&#34;, width=640, height=480, fps=60, save_screencast=None, screencast_fps=60, menu_bar=False):
+<pre><code class="python">def main(
+        widget, name=&#34;Concur&#34;, width=640, height=480,
+        fps=60, save_screencast=None, screencast_fps=60,
+        menu_bar=False, maximized=False):
     &#34;&#34;&#34; Create a GLFW window, spin up the main loop, and display a given widget inside.
 
     To create a maximized window, pass width and height larger than the screen.
@@ -244,6 +255,7 @@ be resized while the application is running when using this option.</dd>
             be resized while the application is running when using this option.
         screencast_fps: Save the screencast video with a given FPS.
         menu_bar: Reserve space for `concur.widgets.main_menu_bar` at the top of the window.
+        maximized: Create a maximized window.
     &#34;&#34;&#34;
     if imgui.get_current_context() is None:
         imgui.create_context()
@@ -251,7 +263,7 @@ be resized while the application is running when using this option.</dd>
     # Set config flags
     imgui.get_io().config_flags |= imgui.CONFIG_DOCKING_ENABLE # | imgui.CONFIG_VIEWPORTS_ENABLE
 
-    window = create_window(name, width, height)
+    window = create_window(name, width, height, maximized=maximized)
     impl = PatchedGlfwRenderer(window)
     impl.refresh_font_texture() # Refresh the font texture in case user changed it
 
