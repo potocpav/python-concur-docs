@@ -121,7 +121,7 @@ def _frame(content_gen, show_grid, tf, event_gen):
     ])
 
 
-def frame(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, show_grid=True):
+def frame(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None, show_grid=True):
     &#34;&#34;&#34;The frame widget.
 
     `state` is an instance of `Frame`. See the
@@ -131,7 +131,7 @@ def frame(name, state, width=None, height=None, content_gen=None, drag_tag=None,
     Content is specified using `content_gen`, analogously to how it&#39;s done in `concur.extra_widgets.image.image`.
     &#34;&#34;&#34;
     def content_gen_with_opt_events(tf, event_gen):
-        if drag_tag or down_tag:
+        if drag_tag or down_tag or hover_tag:
             kwargs = dict(tf=tf, event_gen=event_gen)
         else:
             kwargs = dict(tf=tf)
@@ -142,7 +142,7 @@ def frame(name, state, width=None, height=None, content_gen=None, drag_tag=None,
         pan_zoom(
             name, state, width, height,
             content_gen=partial(_frame, content_gen_with_opt_events, show_grid),
-            drag_tag=drag_tag, down_tag=down_tag
+            drag_tag=drag_tag, down_tag=down_tag, hover_tag=hover_tag
         )
     )</code></pre>
 </details>
@@ -155,7 +155,7 @@ def frame(name, state, width=None, height=None, content_gen=None, drag_tag=None,
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="concur.extra_widgets.frame.frame"><code class="name flex">
-<span>def <span class="ident">frame</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, show_grid=True)</span>
+<span>def <span class="ident">frame</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None, show_grid=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The frame widget.</p>
@@ -167,7 +167,7 @@ for an usage example.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def frame(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, show_grid=True):
+<pre><code class="python">def frame(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None, show_grid=True):
     &#34;&#34;&#34;The frame widget.
 
     `state` is an instance of `Frame`. See the
@@ -177,7 +177,7 @@ for an usage example.</p>
     Content is specified using `content_gen`, analogously to how it&#39;s done in `concur.extra_widgets.image.image`.
     &#34;&#34;&#34;
     def content_gen_with_opt_events(tf, event_gen):
-        if drag_tag or down_tag:
+        if drag_tag or down_tag or hover_tag:
             kwargs = dict(tf=tf, event_gen=event_gen)
         else:
             kwargs = dict(tf=tf)
@@ -188,7 +188,7 @@ for an usage example.</p>
         pan_zoom(
             name, state, width, height,
             content_gen=partial(_frame, content_gen_with_opt_events, show_grid),
-            drag_tag=drag_tag, down_tag=down_tag
+            drag_tag=drag_tag, down_tag=down_tag, hover_tag=hover_tag
         )
     )</code></pre>
 </details>

@@ -40,7 +40,7 @@ from concur.extra_widgets.pan_zoom import PanZoom, pan_zoom
 from concur.core import orr, optional
 
 
-def image(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, tag=None):
+def image(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None):
     &#34;&#34;&#34; The image widget.
 
     See the [image example](https://github.com/potocpav/python-concur/blob/master/examples/image.py)
@@ -65,7 +65,7 @@ def image(name, state, width=None, height=None, content_gen=None, drag_tag=None,
             should accept one or two keyword arguments:
 
             * **event_gen** (optional): Widget generator which yields events specified by the `drag_tag`,
-              and `down_tag` arguments. The `event_gen` argument is only used if any of those
+              `down_tag`, and `hover_tag` arguments. The `event_gen` argument is only used if any of those
               tags is not `None`. For example usage, see the
               [image_events example](https://github.com/potocpav/python-concur/blob/master/examples/extra/image_events.py).
             * **tf**: Instance of `concur.extra_widgets.pan_zoom.TF`. It can be used to transform between
@@ -78,12 +78,14 @@ def image(name, state, width=None, height=None, content_gen=None, drag_tag=None,
             coordinate differences from the last frame.
         down_tag: Mouse down event tag. The event is `tag, (x, y)`, where `x, y` is the image-space
             mouse position. The `down_tag` fires once at the start of every mouse drag sequence.
+        hover_tag: Mouse hover event tag. The event is `tag, (x, y)`, where `x, y` is the image-space
+            mouse position.
 
     Returns:
         An image widget, which yields its state update events triggered by pan &amp; zoom, and any events created inside the overlay specified by `content_gen`.
     &#34;&#34;&#34;
     def content_gen_with_image(tf, event_gen=None):
-        if drag_tag or down_tag:
+        if drag_tag or down_tag or hover_tag:
             kwargs = dict(tf=tf, event_gen=event_gen)
         else:
             kwargs = dict(tf=tf)
@@ -95,7 +97,7 @@ def image(name, state, width=None, height=None, content_gen=None, drag_tag=None,
     _, (st, child_event) = yield from pan_zoom(
         name, state.pan_zoom, width, height,
         content_gen=content_gen_with_image,
-        drag_tag=drag_tag, down_tag=down_tag)
+        drag_tag=drag_tag, down_tag=down_tag, hover_tag=hover_tag)
     if st is not None:
         new_state = copy.deepcopy(state)
         new_state.pan_zoom = st
@@ -177,7 +179,7 @@ class Image(object):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="concur.extra_widgets.image.image"><code class="name flex">
-<span>def <span class="ident">image</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, tag=None)</span>
+<span>def <span class="ident">image</span></span>(<span>name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The image widget.</p>
@@ -207,7 +209,7 @@ _, im = yield from c.image(&quot;Image&quot;, im, content_gen=c.partial(overlay,
 should accept one or two keyword arguments:</p>
 <ul>
 <li><strong>event_gen</strong> (optional): Widget generator which yields events specified by the <code>drag_tag</code>,
-and <code>down_tag</code> arguments. The <code>event_gen</code> argument is only used if any of those
+<code>down_tag</code>, and <code>hover_tag</code> arguments. The <code>event_gen</code> argument is only used if any of those
 tags is not <code>None</code>. For example usage, see the
 <a href="https://github.com/potocpav/python-concur/blob/master/examples/extra/image_events.py">image_events example</a>.</li>
 <li><strong>tf</strong>: Instance of <code><a title="concur.extra_widgets.pan_zoom.TF" href="pan_zoom.html#concur.extra_widgets.pan_zoom.TF">TF</a></code>. It can be used to transform between
@@ -223,6 +225,9 @@ coordinate differences from the last frame.</dd>
 <dt><strong><code>down_tag</code></strong></dt>
 <dd>Mouse down event tag. The event is <code>tag, (x, y)</code>, where <code>x, y</code> is the image-space
 mouse position. The <code>down_tag</code> fires once at the start of every mouse drag sequence.</dd>
+<dt><strong><code>hover_tag</code></strong></dt>
+<dd>Mouse hover event tag. The event is <code>tag, (x, y)</code>, where <code>x, y</code> is the image-space
+mouse position.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>An image widget, which yields its state update events triggered by pan &amp; zoom, and any events created inside the overlay specified by <code>content_gen</code>.</p></div>
@@ -230,7 +235,7 @@ mouse position. The <code>down_tag</code> fires once at the start of every mouse
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def image(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, tag=None):
+<pre><code class="python">def image(name, state, width=None, height=None, content_gen=None, drag_tag=None, down_tag=None, hover_tag=None):
     &#34;&#34;&#34; The image widget.
 
     See the [image example](https://github.com/potocpav/python-concur/blob/master/examples/image.py)
@@ -255,7 +260,7 @@ mouse position. The <code>down_tag</code> fires once at the start of every mouse
             should accept one or two keyword arguments:
 
             * **event_gen** (optional): Widget generator which yields events specified by the `drag_tag`,
-              and `down_tag` arguments. The `event_gen` argument is only used if any of those
+              `down_tag`, and `hover_tag` arguments. The `event_gen` argument is only used if any of those
               tags is not `None`. For example usage, see the
               [image_events example](https://github.com/potocpav/python-concur/blob/master/examples/extra/image_events.py).
             * **tf**: Instance of `concur.extra_widgets.pan_zoom.TF`. It can be used to transform between
@@ -268,12 +273,14 @@ mouse position. The <code>down_tag</code> fires once at the start of every mouse
             coordinate differences from the last frame.
         down_tag: Mouse down event tag. The event is `tag, (x, y)`, where `x, y` is the image-space
             mouse position. The `down_tag` fires once at the start of every mouse drag sequence.
+        hover_tag: Mouse hover event tag. The event is `tag, (x, y)`, where `x, y` is the image-space
+            mouse position.
 
     Returns:
         An image widget, which yields its state update events triggered by pan &amp; zoom, and any events created inside the overlay specified by `content_gen`.
     &#34;&#34;&#34;
     def content_gen_with_image(tf, event_gen=None):
-        if drag_tag or down_tag:
+        if drag_tag or down_tag or hover_tag:
             kwargs = dict(tf=tf, event_gen=event_gen)
         else:
             kwargs = dict(tf=tf)
@@ -285,7 +292,7 @@ mouse position. The <code>down_tag</code> fires once at the start of every mouse
     _, (st, child_event) = yield from pan_zoom(
         name, state.pan_zoom, width, height,
         content_gen=content_gen_with_image,
-        drag_tag=drag_tag, down_tag=down_tag)
+        drag_tag=drag_tag, down_tag=down_tag, hover_tag=hover_tag)
     if st is not None:
         new_state = copy.deepcopy(state)
         new_state.pan_zoom = st
