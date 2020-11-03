@@ -17,3 +17,7 @@ Push the widgets with lower priority down the widget lists, or swap the congesti
 **Asynchronous computations**
 
 In [other ](https://github.com/ajnsit/concur-js)[versions ](https://github.com/purescript-concur/purescript-concur-react)[of Concur](https://github.com/ajnsit/concur), all widgets are triggered asynchronously. This may not be practical in Python, due to the incompatibility in design of ImGui and async generators. Synchronous generators are used instead, which means that all widget code is run in the main thread. Asynchronous code must be explicitly run in a background thread, which is easily achieved by passing a future into the `concur.core.Block` function. See the [timers example](https://github.com/potocpav/python-concur/blob/master/examples/timers.py) for details.
+
+**Window flicker on docking**
+
+If a window starts to flicker when it is docked into a tabbed dock, it is caused by nested `window` calls ([#33](https://github.com/potocpav/python-concur/issues/33)). Windows should not be nested. Use `orr([window(...), window(...)])` instead.
